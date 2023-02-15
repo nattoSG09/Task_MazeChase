@@ -11,7 +11,7 @@ Player::Player(GameObject* parent)
 //‰Šú‰»
 void Player::Initialize()
 {
-	hModel_ = Model::Load("Player.fbx");
+	hModel_ = Model::Load("F_Enemy(move).fbx");
 	assert(hModel_ >= 0);
 
 	transform_.position_.x = 7.0f;
@@ -160,6 +160,8 @@ void Player::Update()
 //•`‰æ
 void Player::Draw()
 {
+	Model::SetTransform(hModel_, transform_);
+	Model::Draw(hModel_);
 }
 
 //ŠJ•ú
