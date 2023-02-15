@@ -2,7 +2,7 @@
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player")
+	: GameObject(parent, "Player"), hModel_(-1), pStage_(nullptr)
 {
 }
 
