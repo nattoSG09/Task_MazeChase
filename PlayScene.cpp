@@ -31,7 +31,6 @@ void PlayScene::UpdateReady()
 void PlayScene::UpdatePlay()
 {
 }
-
 //更新・終了
 void PlayScene::UpdateFinish()
 {
