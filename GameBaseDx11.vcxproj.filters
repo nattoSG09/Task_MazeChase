@@ -101,6 +101,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Gaze.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -178,6 +179,7 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Gaze.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
