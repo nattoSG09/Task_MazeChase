@@ -1,6 +1,7 @@
 
 #include "PlayScene.h"
 #include "Engine/Input.h"
+#include "Engine/Camera.h"
 #include "Engine/SceneManager.h"
 
 //コンストラクタ
@@ -12,6 +13,10 @@ PlayScene::PlayScene(GameObject* parent)
 //初期化
 void PlayScene::Initialize()
 {
+	Instantiate<Stage>(this);
+	Instantiate<Player>(this);
+	Camera::SetPosition(XMFLOAT3(7.5, 10, -5));
+	Camera::SetTarget(XMFLOAT3(7.5, 2, 3));
 	Time_ = Instantiate<Timer>(this);
 	Time_->DrawPostion(30, 30);
 	Time_->SetLimit(30);	//このゲームの制限時間（秒）

@@ -1,6 +1,8 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Timer.h"
+#include "Stage.h"
+#include "Player.h"
 //テストシーンを管理するクラス
 class PlayScene : public GameObject
 {
