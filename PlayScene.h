@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-
+#include "Timer.h"
 //テストシーンを管理するクラス
 class PlayScene : public GameObject
 {
@@ -11,6 +11,8 @@ public:
 		STATE_FINISH,
 	};
 	int state_;
+private:
+	Timer* Time_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

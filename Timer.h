@@ -10,13 +10,11 @@ public:
 		TIMER,
 		STOPWATCH,
 	};
-
 	int State_;//ステート状態を格納する変数
 
 private:
 
 	int Frame_;//残り時間を数える変数
-	
 	bool Active_;//trueの時にカウントダウン/アップする
 	Text* pText;
 	int DrawX_, DrawY_;//表示位置
