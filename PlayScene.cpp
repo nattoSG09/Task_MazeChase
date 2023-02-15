@@ -16,7 +16,9 @@ void PlayScene::Update()
 {
 	switch (state_)
 	{
-	case 
+	case STATE_READY:	UpdateReady(); break;
+	case STATE_PLAY:	UpdatePlay(); break;
+	case STATE_FINISH:	UpdateFinish(); break;
 	}
 }
 
