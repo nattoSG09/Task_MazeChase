@@ -11,7 +11,7 @@ Stage::Stage(GameObject* parent)
 {
 
 	CsvReader csv;		//Web資料、csv読み込みの項目に書いてる
-	csv.Load("map.csv");
+	csv.Load(".csv");
 	width_ = csv.GetWidth();
 	height_ = csv.GetHeight();
 
@@ -40,7 +40,7 @@ Stage::~Stage() {}
 void Stage::Initialize()
 {
 
-	const char* fileName[] = { "Floor.fbx","Wall.fbx" };	//モデル名を入れる配列
+	const char* fileName[] = { "","" };	//モデル名を入れる配列
 
 	for (int e = 0; e < TYPE_MAX; e++)
 	{

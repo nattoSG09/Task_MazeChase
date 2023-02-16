@@ -22,7 +22,7 @@ Stage::Stage(GameObject* parent)
 {
 
 	CsvReader csv;		//Web‘—¿Acsv“Ç‚İ‚İ‚Ì€–Ú‚É‘‚¢‚Ä‚é
-	csv.Load("map.csv");
+	csv.Load(".csv");
 	width_ = csv.GetWidth();
 	height_ = csv.GetHeight();
 
