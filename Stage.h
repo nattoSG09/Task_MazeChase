@@ -1,21 +1,23 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-enum
-{
-	TYPE_FLOOR,
-	TYPE_WALL,
-	TYPE_MAX
-};
+
 
 class Stage :
 	public GameObject
 {
+private:
+	enum
+	{
+		TYPE_FLOOR,
+		TYPE_WALL,
+		TYPE_MAX
+	};
+
 	//配列で複数扱うほうが良い！
 	int hModel_[TYPE_MAX];	//[]内をenumに書いたMAXにすることで、配列数をいじることもない
 	int** table_;		//フロアの座標
 	int width_, height_;			//フロアのx,z座標
-
 
 public:
 	//コンストラクタ
@@ -45,3 +47,4 @@ public:
 	//戻り値：通れない＝true / 通れない＝false
 	bool IsWall(int x, int z);
 };
+

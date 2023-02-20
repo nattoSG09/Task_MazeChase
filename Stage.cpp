@@ -4,6 +4,43 @@
 
 
 //コンストラクタ
+Stage::Stage(GameObject* parent)
+{
+}
+
+//デストラクタ
+Stage::~Stage()
+{
+}
+
+//初期化
+void Stage::Initialize()
+{
+}
+
+//更新
+void Stage::Update()
+{
+}
+
+//描画
+void Stage::Draw()
+{
+}
+
+//開放
+void Stage::Release()
+{
+}
+
+bool Stage::IsWall(int x, int z)
+{
+	return(table_[x][z] == TYPE_WALL);
+}
+
+
+/*
+//コンストラクタ
 	//配列にするとコンストラクタで初期化の仕方が変わる
 	//やってることは int a[2]={1,1} と同じ
 Stage::Stage(GameObject* parent)
@@ -90,3 +127,5 @@ bool Stage::IsWall(int x, int z)
 {
 	return(table_[x][z] == TYPE_WALL);
 }
+*/
+

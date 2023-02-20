@@ -13,7 +13,38 @@
 // 
 //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝=＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
+//コンストラクタ
+StageMap::StageMap(GameObject* parent)
+	: GameObject(parent, "StageMap")
+{
+}
 
+//デストラクタ
+StageMap::~StageMap()
+{
+}
+
+//初期化
+void StageMap::Initialize()
+{
+}
+
+//更新
+void StageMap::Update()
+{
+}
+
+//描画
+void StageMap::Draw()
+{
+}
+
+//開放
+void StageMap::Release()
+{
+}
+
+/*
 //コンストラクタ
 	//配列にするとコンストラクタで初期化の仕方が変わる
 	//やってることは int a[2]={1,1} と同じ
@@ -58,3 +89,5 @@ void StageMap::Initialize()
 	}
 
 }
+*/
+

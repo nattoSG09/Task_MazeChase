@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-static const int FPS = 60;
+const int FPS = 60;
 
 // コンストラクタ
 Timer::Timer(GameObject * parent)

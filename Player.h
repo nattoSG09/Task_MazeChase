@@ -2,7 +2,6 @@
 #include "Engine/GameObject.h"
 #include "Stage.h"
 
-//テストシーンを管理するクラス
 class Player : 
 	public GameObject
 {
