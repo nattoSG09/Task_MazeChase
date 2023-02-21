@@ -10,12 +10,9 @@ StageObject::StageObject(GameObject* parent)
 //初期化
 void StageObject::Initialize()
 {
-	//ファイルネームを入れる配列
 	const char* fileName[] = { "Floor.fbx","Wall.fbx" };
 
-	for (int i = 0; i < OBJ_MAX; i++)
-	{
-		//モデルデータのロード
+	for (int i = 0; i < OBJ_MAX; i++){
 		hModel_[i] = Model::Load(fileName[i]);
 		assert(hModel_[i] >= 0);
 	}

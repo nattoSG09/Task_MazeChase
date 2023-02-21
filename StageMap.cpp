@@ -18,15 +18,10 @@
 StageMap::StageMap(GameObject* parent)
 	: GameObject(parent, "StageMap")
 {
-	//───────────────────────────────────────
-	//  CSVデータの初期化
-	//───────────────────────────────────────
-		//CSVデータをロードする
-		//for (int i = 0; i < CSVMAX; i++){
 	CsvMap_.Load("Map.csv");
-	//テーブルの配列の大きさを把握
-	Width = CsvMap_.GetWidth();//CSVの横幅を取得
-	Height = CsvMap_.GetHeight();//CSVの縦幅を取得
+	
+	Width = CsvMap_.GetWidth();
+	Height = CsvMap_.GetHeight();
 
 	table_ = new int* [Width];
 	for (int x = 0; x < Width; x++) {
@@ -69,7 +64,6 @@ void StageMap::Draw()
 //開放
 void StageMap::Release()
 {
-	//newで作ったものは消す！
 	for (int x = 0; x < Width; x++)
 	{
 		delete[] table_[x];

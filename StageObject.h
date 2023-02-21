@@ -10,8 +10,8 @@ enum {
 
 class StageObject : public GameObject
 {
-	int hModel_[OBJ_MAX];	//モデル番号
-	int obj_;				//オブジェクト番号
+	int hModel_[OBJ_MAX];	
+	int obj_;				
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
