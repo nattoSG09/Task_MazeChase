@@ -1,30 +1,27 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/CsvReader.h"
 
-class StageMap :public GameObject
+class StageMap : public GameObject
 {
-private:
-	enum {
-		TYPE_PLAYER,
-		TYPE_ENEMY,
-		TYPE_ITEM,
-		TYPE_MAX
-	};
-
-	int hModel_[TYPE_MAX];	//モデル番号
-	int** table_;			//フロアの座標
-	int width_, height_;	//フロアのx,z座標
-
+	CsvReader CsvMap_;	//CSVデータを格納
+	int Width;			//CSVから読み取った横幅を格納
+	int Height;			//CSVから読み取った縦幅を格納
+	int** table_;		//ステージ情報を格納
 public:
+	//コンストラクタ
+	//引数：parent  親オブジェクト（SceneManager）
 	StageMap(GameObject* parent);
 
-	~StageMap();
-
+	//初期化
 	void Initialize() override;
 
+	//更新
 	void Update() override;
 
+	//描画
 	void Draw() override;
 
-	void Release()override;
+	//開放
+	void Release() override;
 };
