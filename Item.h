@@ -4,6 +4,9 @@
 //テストシーンを管理するクラス
 class Item : public GameObject
 {
+private:
+	int hModel_;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -20,5 +23,9 @@ public:
 
 	//開放
 	void Release() override;
+
+	//何かに当たった
+	//引数：pTarget 当たった相手
+	void OnCollision(GameObject* pTarget) override;
 };
 
