@@ -39,12 +39,12 @@ void Item::Release()
 
 
 //当たった判定
-void Item::OnCollision(GameObject* pTarget)
-{
-	//プレイヤーと当たった時
-	//if (pTarget->GetObjectName() == "Player")
-	//{
-		//コインを消す
-	//	KillMe();
-	//}
-}
+//void Item::OnCollision(GameObject* pTarget)
+//{
+//	//プレイヤーと当たった時
+//	if (pTarget->GetObjectName() == "Player")
+//	{
+//		//コインを消す
+//		KillMe();
+//	}
+//}
