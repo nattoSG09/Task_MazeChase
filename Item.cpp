@@ -12,11 +12,11 @@ Item::Item(GameObject* parent)
 void Item::Initialize()
 {
 	//モデルデータのロード
-	hModel_ = Model::Load("");
-	assert(hModel_ >= 0);
+	//hModel_ = Model::Load("");
+	//assert(hModel_ >= 0);
 
-	SphereCollider* Icollision = new SphereCollider(XMFLOAT3(0.0f, 0.0f, 0.0f), 1.0f);
-	AddCollider(Icollision);
+	//SphereCollider* Icollision = new SphereCollider(XMFLOAT3(0.0f, 0.0f, 0.0f), 1.0f);
+	//AddCollider(Icollision);
 }
 
 //更新
@@ -28,8 +28,8 @@ void Item::Update()
 void Item::Draw()
 {
 	//アイテムの描画
-	Model::SetTransform(hModel_, transform_);
-	Model::Draw(hModel_);
+	//Model::SetTransform(hModel_, transform_);
+	//Model::Draw(hModel_);
 }
 
 //開放
@@ -42,9 +42,9 @@ void Item::Release()
 void Item::OnCollision(GameObject* pTarget)
 {
 	//プレイヤーと当たった時
-	if (pTarget->GetObjectName() == "Player")
-	{
+	//if (pTarget->GetObjectName() == "Player")
+	//{
 		//コインを消す
-		KillMe();
-	}
+	//	KillMe();
+	//}
 }
