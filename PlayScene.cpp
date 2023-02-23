@@ -15,8 +15,8 @@ PlayScene::PlayScene(GameObject* parent)
 void PlayScene::Initialize()
 {
 	Instantiate<StageMap>(this);
-	//Instantiate<Player>(this);
-	Camera::SetPosition(XMFLOAT3(7.5, 10, -5));
+	Instantiate<Player>(this);
+	Camera::SetPosition(XMFLOAT3(7.5, 10, -10));
 	Camera::SetTarget(XMFLOAT3(7.5, 2, 3));
 	Time_ = Instantiate<Timer>(this);
 	Time_->DrawPostion(30, 30);

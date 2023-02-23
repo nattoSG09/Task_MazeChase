@@ -6,11 +6,17 @@ class Player :
 	public GameObject
 {
 private:
-	int hModel_;            //モデル番号
-	float Speed_ = 0.1f;    //Pacmanの速度を管理  ※数値はモデルの半径以下にすること！(0.3)
-	Stage* pStage_;         //ステージクラスの情報を入れる変数
-	XMFLOAT3 prevPosition_; //直前の位置情報を格納する変数
+	int hModel_;	//モデル番号
+	int CamType_;	//カメラ番号
 
+	Transform	PlayerTrans_;	//playerのtransformを格納する
+
+	XMFLOAT3	CamPosition_;	//カメラの位置を格納する
+	XMFLOAT3	CamTarget_;		//カメラの焦点を格納する
+
+	XMVECTOR	vPosition_;		//playerのpositionをvector型として格納する
+	XMVECTOR	vMoveZ_;		//空方向（Ｚ軸）
+	XMVECTOR	vMoveX_;		//空方向（Ｘ軸）
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
