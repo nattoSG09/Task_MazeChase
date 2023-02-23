@@ -23,10 +23,8 @@ StageMap::StageMap(GameObject* parent)
 	Width = CsvMap_.GetWidth();
 	Height = CsvMap_.GetHeight();
 
-	table_ = new int* [Width];
-	for (int x = 0; x < Width; x++) {
-		table_[x] = new int[Height];
-	}
+	//”z—ñ‚ðWidth~Height‚Å‰Šú‰»
+	table_.resize(Width, vector<int>(Height, 0));
 
 	for (int x = 0; x < Width; x++)
 		for (int z = 0; z < Height; z++)
@@ -64,11 +62,7 @@ void StageMap::Draw()
 //ŠJ•ú
 void StageMap::Release()
 {
-	for (int x = 0; x < Width; x++)
-	{
-		delete[] table_[x];
-	}
-	delete[] table_;
+	
 }
 
 /*
