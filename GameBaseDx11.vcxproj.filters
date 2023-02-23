@@ -24,6 +24,12 @@
       <UniqueIdentifier>{47a6a3f5-8cfd-436b-8d58-beccd108f3f3}</UniqueIdentifier>
       <Extensions>hlsl</Extensions>
     </Filter>
+    <Filter Include="リソース ファイル\Map">
+      <UniqueIdentifier>{01b3006e-5b10-4509-a218-d74f96011eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Scene">
+      <UniqueIdentifier>{84a02575-81e6-4276-ae59-f12840f87d25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BoxCollider.cpp">
@@ -80,7 +86,6 @@
     <ClCompile Include="Engine\Transform.cpp">
       <Filter>01Engine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Engine\Audio.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
@@ -96,17 +101,32 @@
     <ClCompile Include="Engine\VFX.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScene.cpp" />
-    <ClCompile Include="GameClear.cpp" />
-    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Gaze.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="StageMap.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="StageObject.cpp" />
+    <ClCompile Include="GameOver.cpp">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClear.cpp">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StageMap.cpp">
+      <Filter>リソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="StageObject.cpp">
+      <Filter>リソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>リソース ファイル\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -163,7 +183,6 @@
     <ClInclude Include="Engine\Transform.h">
       <Filter>01Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Engine\Audio.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
@@ -179,17 +198,32 @@
     <ClInclude Include="Engine\VFX.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScene.h" />
-    <ClInclude Include="GameClear.h" />
-    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Gaze.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="StageMap.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="StageObject.h" />
+    <ClInclude Include="GameOver.h">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClear.h">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StageObject.h">
+      <Filter>リソース ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="StageMap.h">
+      <Filter>リソース ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>リソース ファイル\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
