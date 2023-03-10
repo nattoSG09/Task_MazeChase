@@ -127,6 +127,7 @@
     <ClCompile Include="Item.cpp">
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
+    <ClCompile Include="MiniMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -224,6 +225,7 @@
     <ClInclude Include="Item.h">
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
+    <ClInclude Include="MiniMap.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
