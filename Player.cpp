@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Engine/Model.h"
 #include "Engine/Input.h"
+#include "Engine/Camera.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -67,7 +68,24 @@ void Player::Update()
 		vPosition_ += vMoveX_;
 		XMStoreFloat3(&PlayerTrans_.position_, vPosition_);
 	}
+
+//───────────────────────────────────────
+//  カメラの移動処理
+//───────────────────────────────────────
+
+	//カメラを変更する
+	if (Input::IsKeyDown(DIK_F4)) { CamChange(); }
+
+	switch (CamType_)
+	{
+	case CAM_FIXED:	CamSet_FIXED();	break;
+	case CAM_FPS:	CamSet_FPS();	break;
+	}
+
+	Camera::SetPosition(CamPosition_);
+	Camera::SetTarget(CamTarget_);
 }
+
 //描画
 void Player::Draw()
 {
@@ -78,6 +96,33 @@ void Player::Draw()
 void Player::Release()
 {
 }
+
+//視点を変更する関数
+void Player::CamChange()
+{
+	if (CamType_ < (CAM_MAX - 1))
+		CamType_++;
+	else
+		CamType_ = 0;
+}
+
+//視点を設定する関数：一人称
+void Player::CamSet_FPS()
+{
+	//カメラの位置をplayerの位置にセット
+	XMVECTOR FPup = { 0.0f,1.0f,0.0f };
+	XMStoreFloat3(&CamPosition_, vPosition_ + FPup);
+	//カメラの焦点をplayerの目先にセット
+	XMStoreFloat3(&CamTarget_, vPosition_ + vMoveZ_ + FPup);
+}
+
+//視点を設定する関数：固定位置からの追従
+void Player::CamSet_FIXED()
+{
+	CamTarget_ = { PlayerTrans_.position_ };
+	CamPosition_ = { 10,10,-10 };
+}
+
 
 
 /*

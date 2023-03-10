@@ -2,6 +2,12 @@
 #include "Engine/GameObject.h"
 #include "Stage.h"
 
+enum {
+	CAM_FIXED,
+	CAM_FPS,
+	CAM_MAX,
+};
+
 class Player : 
 	public GameObject
 {
@@ -33,4 +39,13 @@ public:
 
 	//開放
 	void Release() override;
+
+	//視点を変更する関数
+	void CamChange();
+
+	//視点を設定する関数：一人称
+	void CamSet_FPS();
+
+	//視点を設定する関数：固定位置からの追従
+	void CamSet_FIXED();
 };
