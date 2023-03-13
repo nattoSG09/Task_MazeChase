@@ -1,6 +1,8 @@
 
 #include "PlayScene.h"
 #include "StageMap.h"
+#include "MiniMap.h"
+#include"MiniMapObject.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 #include "Engine/SceneManager.h"
@@ -16,6 +18,7 @@ void PlayScene::Initialize()
 {
 	Instantiate<StageMap>(this);
 	Instantiate<Player>(this);
+	Instantiate<MiniMapObject>(this);
 	Camera::SetPosition(XMFLOAT3(7.5, 10, -10));
 	Camera::SetTarget(XMFLOAT3(7.5, 2, 3));
 	Time_ = Instantiate<Timer>(this);

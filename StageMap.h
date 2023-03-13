@@ -43,4 +43,6 @@ public:
 	//引数：x,z	調べる位置
 	//戻り値：通れない＝true / 通れない＝false
 	bool IsWall(int x, int z);
+
+	vector<vector<int>> GetStageData() { return table_; }
 };

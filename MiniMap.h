@@ -10,7 +10,10 @@ class MiniMap : public GameObject
 	int MiniWidth_;
 	int MiniHeight_;
 
-	vector<vector<int>> MiniMapTable_;
+	int hModel_;
+	int obj_;
+
+
 
 public:
 	//コンストラクタ

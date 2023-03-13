@@ -1,21 +1,26 @@
 #pragma once
 #include <vector>
 using std::vector;
-
+#include"StageMap.h"
 #include "Engine/GameObject.h"
 #include "Engine/CsvReader.h"
 
 enum {
 	Mini_FLOOR,
 	Mini_WALL,
-	Mini_Player,
+	Mini_PLAYER,
 	Mini_MAX,
 };
 
 class MiniMapObject : public GameObject
 {
-	int hModel_[Mini_MAX];
+	int hPict_[Mini_MAX];
 	int obj_;
+
+	int Width_Max, Height_Max;
+	int Width_, Height_;
+
+	StageMap* pStage_ = (StageMap*)FindObject("StageMap");
 
 	vector<vector<int>> table_;//ステージ情報を格納する二次元配列
 public:
