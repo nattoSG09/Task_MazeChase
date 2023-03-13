@@ -8,7 +8,16 @@ using std::vector;
 
 class StageMap : public GameObject
 {
+private:
+	enum
+	{
+		TYPE_FLOOR,
+		TYPE_WALL,
+		TYPE_MAX
+	};
+
 	CsvReader CsvMap_;	
+	int hModel_[TYPE_MAX];
 	int Width;			
 	int Height;			
 
@@ -29,4 +38,9 @@ public:
 
 	//開放
 	void Release() override;
+
+	// 指定した位置が通れるか通れないかを調べる
+	//引数：x,z	調べる位置
+	//戻り値：通れない＝true / 通れない＝false
+	bool IsWall(int x, int z);
 };

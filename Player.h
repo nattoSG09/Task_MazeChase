@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Stage.h"
+#include "StageMap.h"
 
 enum {
 	CAM_FIXED,
@@ -14,6 +14,8 @@ class Player :
 private:
 	int hModel_;	//ƒ‚ƒfƒ‹”Ô†
 	int CamType_;	//ƒJƒƒ‰”Ô†
+	StageMap *pStageMap_;
+	XMFLOAT3 prevPosition_; //’¼‘O‚ÌˆÊ’uî•ñ‚ğŠi”[‚·‚é•Ï”
 
 	Transform	PlayerTrans_;	//player‚Ìtransform‚ğŠi”[‚·‚é
 

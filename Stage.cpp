@@ -33,10 +33,7 @@ void Stage::Release()
 {
 }
 
-bool Stage::IsWall(int x, int z)
-{
-	return(table_[x][z] == TYPE_WALL);
-}
+
 
 
 /*

@@ -2,6 +2,7 @@
 #include "Engine/Model.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
+#include "Engine/Debug.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -19,6 +20,9 @@ void Player::Initialize()
 
 	//アニメーション動作処理
 	Model::SetAnimFrame(hModel_, 0, 60, 1);
+
+
+	pStageMap_ = (StageMap*)FindObject("StageMap");
 }
 //更新
 void Player::Update()
@@ -84,6 +88,29 @@ void Player::Update()
 
 	Camera::SetPosition(CamPosition_);
 	Camera::SetTarget(CamTarget_);
+
+
+/*==================壁との判定====================*/
+int checkX1, checkX2;
+int checkZ1, checkZ2;
+
+	//座標は小数点が入るからそれをintに直しとく
+	//右-----------------------------------------
+	{
+
+		checkX1 = (int)(transform_.position_.x + 1.0f);	
+		checkX2 = (int)(transform_.position_.x + 1.0f);	
+		checkZ1 = (int)(transform_.position_.z + 0.1f);
+		checkZ2 = (int)(transform_.position_.z - 0.1f);	
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true ||
+			pStageMap_->IsWall(checkX2, checkZ2) == true) {
+			Debug::Log("めり込んだ！",true);		//壁判定のデバッグ
+			//当たる前に戻す
+			//transform_.position_.x = (float)((int)prevPosition_.x) + (1.0f - 0.3f);	// 0.7
+
+		}
+	}
+	//-------------------------------------------
 }
 
 //描画

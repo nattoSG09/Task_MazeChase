@@ -65,6 +65,11 @@ void StageMap::Release()
 	
 }
 
+bool StageMap::IsWall(int x, int z)
+{
+	return(table_[x][z] == OBJ_WALL);
+}
+
 /*
 //コンストラクタ
 	//配列にするとコンストラクタで初期化の仕方が変わる
