@@ -14,13 +14,17 @@ enum {
 
 class MiniMapObject : public GameObject
 {
+	CsvReader MiniMapCSV;
 	int hPict_[Mini_MAX];
 	int obj_;
+	int type_;
 
 	int Width_Max, Height_Max;
 	int Width_, Height_;
 
 	StageMap* pStage_ = (StageMap*)FindObject("StageMap");
+
+	Transform MapTrans;
 
 	vector<vector<int>> table_;//ステージ情報を格納する二次元配列
 public:
