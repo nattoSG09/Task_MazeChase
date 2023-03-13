@@ -100,8 +100,8 @@ int checkZ1, checkZ2;
 
 		checkX1 = (int)(transform_.position_.x + 1.0f);	
 		checkX2 = (int)(transform_.position_.x + 1.0f);	
-		checkZ1 = (int)(transform_.position_.z + 0.1f);
-		checkZ2 = (int)(transform_.position_.z - 0.1f);	
+		checkZ1 = (int)(transform_.position_.z + 0.3f);
+		checkZ2 = (int)(transform_.position_.z - 0.3f);	
 		if (pStageMap_->IsWall(checkX1, checkZ1) == true ||
 			pStageMap_->IsWall(checkX2, checkZ2) == true) {
 			Debug::Log("めり込んだ！",true);		//壁判定のデバッグ
