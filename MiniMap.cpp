@@ -1,5 +1,10 @@
 #include "MiniMap.h"
+#include "MiniMapObject.h"
+#include "StageMap.h"
 #include "Engine/Image.h"
+#include "Engine/GameObject.h"
+#include "Engine/CsvReader.h"
+
 /*--------------MiniMapクラスの説明--------------
 ・画面端にミニマップを配置する あまりに未完
 ほかのところさわってないから何かしらエラーはいたら適当に無効化していいよ
@@ -7,20 +12,21 @@
 
 //コンストラクタ
 MiniMap::MiniMap(GameObject* parent)
-	: GameObject(parent, "MiniMap"),hMapFloor_(-1),hMapPlayer_(-1),hMapWall_(-1)
+	: GameObject(parent, "MiniMap")
 {
+	StageMap* s = (StageMap*)FindObject("StageMap");
+
+	MiniMapTable_ = s->GetStageData();
+
+	//配列をMiniWidth_×Heightで初期化
+	MiniMapTable_.resize(MiniWidth_, vector<int>(MiniHeight_, 0));
+
 }
 
 //初期化
 void MiniMap::Initialize()
 {
-	//画像データのロード
-	hMapFloor_ = Image::Load("MapFloor.png");
-	assert(hMapFloor_ >= 0);
-	hMapPlayer_ = Image::Load("MapWall.png");
-	assert(hMapPlayer_ >= 0);
-	hMapWall_ = Image::Load("MapPlayer.png");
-	assert(hMapWall_ >= 0);
+
 }
 
 //更新
@@ -31,12 +37,22 @@ void MiniMap::Update()
 //描画
 void MiniMap::Draw()
 {
-	Image::SetTransform(hMapFloor_, transform_);
-	Image::Draw(hMapFloor_);
-	Image::SetTransform(hMapPlayer_, transform_);
-	Image::Draw(hMapPlayer_);
-	Image::SetTransform(hMapWall_, transform_);
-	Image::Draw(hMapWall_);
+	for (int x = 0; x < MiniWidth_; x++)
+		for (int z = 0; z < MiniHeight_; z++)
+		{
+			if (MiniMapTable_[x][z] == 0)
+			{
+				MiniMapObject* FLOOR = (MiniMapObject*)FindObject("MiniMapObject");
+				FLOOR->ObjectSet(Mini_FLOOR);
+				FLOOR->SetPosition(XMFLOAT3(x * 2, 0, z * 2));
+			}
+			else if (MiniMapTable_[x][z] == 1)
+			{
+				MiniMapObject* WALL = (MiniMapObject*)FindObject("MiniMapObject");
+				WALL->ObjectSet(Mini_WALL);
+				WALL->SetPosition(XMFLOAT3(x * 2, 0, z * 2));
+			}
+		}
 }
 
 //開放

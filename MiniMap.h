@@ -1,14 +1,17 @@
 #pragma once
+#include <vector>
+using std::vector;
+
 #include "Engine/GameObject.h"
+#include "Engine/CsvReader.h"
 
-
-//テストシーンを管理するクラス
 class MiniMap : public GameObject
 {
-private:
-	int hMapFloor_;    //画像番号
-	int hMapWall_;
-	int hMapPlayer_;
+	int MiniWidth_;
+	int MiniHeight_;
+
+	vector<vector<int>> MiniMapTable_;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -26,4 +29,3 @@ public:
 	//開放
 	void Release() override;
 };
-
