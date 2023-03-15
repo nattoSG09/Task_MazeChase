@@ -5,7 +5,7 @@
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),pStage_(nullptr)
+	: GameObject(parent, "Enemy"),hModel_(-1), Speed_(0.0f), prevPosition_(0,0,0)
 {
 }
 

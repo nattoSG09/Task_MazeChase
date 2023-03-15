@@ -3,7 +3,7 @@
 
 //コンストラクタ
 StageObject::StageObject(GameObject* parent)
-	: GameObject(parent, "StageObject"), obj_(0)
+	: GameObject(parent, "StageObject"), obj_(0),hModel_{-1,-1}
 {
 }
 

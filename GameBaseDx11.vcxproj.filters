@@ -104,7 +104,6 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Gaze.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameOver.cpp">
       <Filter>リソース ファイル\Scene</Filter>
@@ -127,7 +126,6 @@
     <ClCompile Include="Item.cpp">
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="MiniMapObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -203,7 +201,6 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Gaze.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameOver.h">
       <Filter>リソース ファイル\Scene</Filter>
@@ -226,7 +223,6 @@
     <ClInclude Include="Item.h">
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="MiniMapObject.h" />
   </ItemGroup>
   <ItemGroup>

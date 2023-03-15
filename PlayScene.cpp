@@ -1,7 +1,6 @@
 
 #include "PlayScene.h"
 #include "StageMap.h"
-#include "MiniMap.h"
 #include"MiniMapObject.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -9,7 +8,7 @@
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
-	: GameObject(parent, "PlayScene")
+	: GameObject(parent, "PlayScene"),Time_(nullptr),state_(0)
 {
 }
 
@@ -21,7 +20,7 @@ void PlayScene::Initialize()
 	Instantiate<MiniMapObject>(this);
 	Camera::SetPosition(XMFLOAT3(7.5, 10, -10));
 	Camera::SetTarget(XMFLOAT3(7.5, 2, 3));
-	ShowCursor(true);
+	ShowCursor(false);//true -> 表示    false -> 非表示
 	Time_ = Instantiate<Timer>(this);
 	Time_->DrawPostion(30, 30);
 	Time_->SetLimit(30);	//このゲームの制限時間（秒）

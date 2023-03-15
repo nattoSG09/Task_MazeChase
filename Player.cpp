@@ -7,7 +7,8 @@
 //コンストラクタ
 
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"),PlayerTrans_(transform_)
+	: GameObject(parent, "Player"),PlayerTrans_(transform_),hModel_(0),CamType_(0),pStageMap_(nullptr)
+	, prevPosition_(0, 0, 0), CamPosition_(0, 0, 0), CamTarget_(0, 0, 0), vPosition_{0,0,0,0}, vMoveZ_{ 0,0,0,0 }, vMoveX_{ 0,0,0,0 }
 {
 }
 
@@ -30,7 +31,7 @@ void Player::Initialize()
 //更新
 void Player::Update()
 {
-	//───────────────────────────────────────
+//───────────────────────────────────────
 //  キャラクターの移動処理
 //───────────────────────────────────────
 
@@ -140,7 +141,7 @@ void Player::CamChange()
 void Player::CamSet_FPS()
 {
 	//カメラの位置をplayerの位置にセット
-	XMVECTOR FPup = { 0.0f,1.0f,0.0f };
+	XMVECTOR FPup = { 0.0f,0.5f,0.0f };
 	XMStoreFloat3(&CamPosition_, vPosition_ + FPup);
 	//カメラの焦点をplayerの目先にセット
 	XMStoreFloat3(&CamTarget_, vPosition_ + vMoveZ_ + FPup);

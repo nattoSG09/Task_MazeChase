@@ -11,14 +11,14 @@
 //コンストラクタ
 MiniMapObject::MiniMapObject(GameObject* parent)
 	: GameObject(parent, "MiniMapObject"), hPict_{ -1,-1,-1 }, obj_(0),pStage_(nullptr)
-	,Width_(0),Height_(0),Width_Max(0),Height_Max(0),type_(0)
+	,Width_(0),Height_(0),Width_Max(0),Height_Max(0),type_(0),Ppos(0,0,0)
 {
 }
 
 //初期化
 void MiniMapObject::Initialize()
 {
-	MiniMapCSV.Load("Map.csv");
+	MiniMapCSV.Load("M_SW_Map1.csv");
 
 	Width_Max = MiniMapCSV.GetWidth();
 	Height_Max = MiniMapCSV.GetHeight();

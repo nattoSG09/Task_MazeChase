@@ -153,11 +153,9 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Gaze.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="MiniMapObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageMap.cpp" />
     <ClCompile Include="StageObject.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -192,11 +190,9 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Gaze.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="MiniMapObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="StageMap.h" />
     <ClInclude Include="StageObject.h" />
     <ClInclude Include="TestScene.h" />

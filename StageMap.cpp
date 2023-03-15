@@ -1,5 +1,4 @@
 #include "StageMap.h"
-#include "Stage.h"
 #include "Player.h"
 #include "Item.h"
 #include "Enemy.h"
@@ -16,9 +15,9 @@
 
 //コンストラクタ
 StageMap::StageMap(GameObject* parent)
-	: GameObject(parent, "StageMap")
+	: GameObject(parent, "StageMap"),hModel_{-1,-1}
 {
-	CsvMap_.Load("Map.csv");
+	CsvMap_.Load("M_SW_Map1.csv");
 	
 	Width = CsvMap_.GetWidth();
 	Height = CsvMap_.GetHeight();
