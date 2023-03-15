@@ -19,13 +19,15 @@ class MiniMapObject : public GameObject
 	int obj_;
 	int type_;
 
-	int Width_Max, Height_Max;
-	int Width_, Height_;
+	XMFLOAT3 Ppos;
+
+	float Width_Max, Height_Max;
+	float Width_, Height_;
 
 	StageMap* pStage_ = (StageMap*)FindObject("StageMap");
 
 	Transform MapTrans;
-
+	Transform PlaTrans;
 	vector<vector<int>> table_;//ステージ情報を格納する二次元配列
 public:
 	//コンストラクタ

@@ -50,4 +50,6 @@ public:
 
 	//‹“_‚ğİ’è‚·‚éŠÖ”FŒÅ’èˆÊ’u‚©‚ç‚Ì’Ç]
 	void CamSet_FIXED();
+
+	XMFLOAT3 GetPPos() { return PlayerTrans_.position_; }
 };

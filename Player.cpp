@@ -5,9 +5,12 @@
 #include "Engine/Debug.h"
 
 //コンストラクタ
+
 Player::Player(GameObject* parent)
+	: GameObject(parent, "Player"),PlayerTrans_(transform_)
 {
 }
+
 //初期化
 void Player::Initialize()
 {
@@ -16,7 +19,7 @@ void Player::Initialize()
 	assert(hModel_ >= 0);
 
 	//初期位置の設定
-	PlayerTrans_.position_ = { 10.0f,0.0f,10.0f };
+	PlayerTrans_.position_ = { 3,1,3 };//マップの左下端
 
 	//アニメーション動作処理
 	Model::SetAnimFrame(hModel_, 0, 60, 1);
