@@ -29,17 +29,17 @@ void MiniMapObject::Initialize()
 		for (int y = 0; y < Height_Max; y++)
 			table_[x][y] = MiniMapCSV.GetValue(x, ((Height_Max - 1) - y));
 
-	const char* fileName[] = { "MapFloor3.png","MapWall3.png","MapPlayerRedFrame.png" };
+	const char* fileName[] = { "MapFloor2.png","MapWall2.png","MapPlayerRedFrame.png" };
 	for (int i = 0; i < Mini_MAX; i++)
 	{
 		hPict_[i] = Image::Load(fileName[i]);
 		assert(hPict_[i] >= 0);
 	}
-	MapTrans.scale_ = { 0.01f,0.01f,0.01f };
+	MapTrans.scale_ = { 0.015f,0.015f,0.015f };
 
 
-	PlaTrans.scale_ = { 0.01f,0.01f,0.01f };
-	PlaTrans.position_ = { -0.96f,0.385f,0.0f };
+	PlaTrans.scale_ = { 0.0125f,0.0125f,0.0125f };
+	PlaTrans.position_ = { -0.96f,0.38f,0.0f };
 	
 	
 }
@@ -60,8 +60,8 @@ void MiniMapObject::Update()
 	//PlaTrans.position_.x = ((Ppos.x - 2.04)* -1)*0.01 ;
 	//PlaTrans.position_.y = ((Ppos.y - 2.615)*1)*0.01   ;
 
-	PlaTrans.position_.x = ((Ppos.x - 2.04f)*0.01f) - 0.97f;
-	PlaTrans.position_.y = ((Ppos.y - 2.615f)*0.02f) + 0.378f;
+	PlaTrans.position_.x = ((Ppos.x - 2.04f)*0.0125f) - 0.97f;
+	PlaTrans.position_.y = ((Ppos.y - 2.2)*0.0235f) + 0.378f;
 
 	if (Input::IsKey(DIK_LEFT)) {
 		PlaTrans.position_.x -= 0.1f;
@@ -86,10 +86,10 @@ void MiniMapObject::Draw()
 		for (Height_ = 0; Height_ < Height_Max; Height_++)
 		{
 			/*MapTrans.position_.x = (Width_  * 0.02f)  - 0.98f;
-			MapTrans.position_.y = (Height_ * 0.035f) + 0.378f;*/
+			MapTrans.position_.y = (Height_ * 0.02f)  + 0.378f;*/
 
-			MapTrans.position_.x = (Width_ * 0.02f) - 0.98f;
-			MapTrans.position_.y = (Height_ * 0.04f) + 0.378f;
+			MapTrans.position_.x = (Width_ * 0.025) - 0.98f;
+			MapTrans.position_.y = (Height_ * 0.045f) + 0.358f;
 
 			type_ = table_[Width_][Height_];
 

@@ -149,8 +149,9 @@ void Player::CamSet_FPS()
 //‹“_‚ğİ’è‚·‚éŠÖ”FŒÅ’èˆÊ’u‚©‚ç‚Ì’Ç]
 void Player::CamSet_FIXED()
 {
-	CamTarget_ = { PlayerTrans_.position_ };
-	CamPosition_ = { 10,10,-10 };
+	//CamTarget_ = { PlayerTrans_.position_ };
+	CamTarget_ = { 15,5,15 };
+	CamPosition_ = { 15,50,14};
 }
 
 

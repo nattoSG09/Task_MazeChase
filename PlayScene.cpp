@@ -21,7 +21,7 @@ void PlayScene::Initialize()
 	Instantiate<MiniMapObject>(this);
 	Camera::SetPosition(XMFLOAT3(7.5, 10, -10));
 	Camera::SetTarget(XMFLOAT3(7.5, 2, 3));
-	ShowCursor(false);
+	ShowCursor(true);
 	Time_ = Instantiate<Timer>(this);
 	Time_->DrawPostion(30, 30);
 	Time_->SetLimit(30);	//‚±‚ÌƒQ[ƒ€‚Ì§ŒÀŠÔi•bj
