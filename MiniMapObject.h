@@ -14,20 +14,22 @@ enum {
 
 class MiniMapObject : public GameObject
 {
-	CsvReader MiniMapCSV;
-	int hPict_[Mini_MAX];
-	int obj_;
-	int type_;
+	CsvReader MiniMapCSV; //このクラスでCSVを受け取るための変数
+	int hPict_[Mini_MAX]; // Map画像素材 0=floor,1=wall,2=player
+	int obj_;//ほかの画像素材を表示する関数につかう変数
+	int type_;//Map画像の種類
 
-	XMFLOAT3 Ppos;
+	XMFLOAT3 Ppos;//Playerの位置
 
-	float Width_Max, Height_Max;
-	float Width_, Height_;
+	float Width_Max, Height_Max;//CSVデータの行列の要素数
+	float Width_, Height_; //forループ用のイテレータ(?)
 
 	StageMap* pStage_ = (StageMap*)FindObject("StageMap");
 
-	Transform MapTrans;
-	Transform PlaTrans;
+	Transform MapTrans;//Mapの位置などを操作するTransform型
+
+	Transform PlaTrans;//Playerの位置などを操作するTransform型
+
 	vector<vector<int>> table_;//ステージ情報を格納する二次元配列
 public:
 	//コンストラクタ

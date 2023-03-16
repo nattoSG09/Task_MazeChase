@@ -18,16 +18,26 @@ MiniMapObject::MiniMapObject(GameObject* parent)
 //初期化
 void MiniMapObject::Initialize()
 {
-	MiniMapCSV.Load("M_SW_Map1.csv");
+//──────────
+//  CSVデータを準備
+//──────────
 
-	Width_Max = MiniMapCSV.GetWidth();
+
+	MiniMapCSV.Load("M_SW_Map1.csv");//マップデータ読み込み
+
+	Width_Max = MiniMapCSV.GetWidth();//CSVの横、縦の要素数を取得
 	Height_Max = MiniMapCSV.GetHeight();
 
-	table_.resize(Width_Max, vector<int>(Height_Max, 0));
+	table_.resize(Width_Max, vector<int>(Height_Max, 0));//初期化
 
-	for (int x = 0; x < Width_Max; x++)
+	for (int x = 0; x < Width_Max; x++)//CSVデータを2次元配列table_に代入
 		for (int y = 0; y < Height_Max; y++)
 			table_[x][y] = MiniMapCSV.GetValue(x, ((Height_Max - 1) - y));
+//───────────────────────────────────────
+
+//──────────────
+//  Map画像素材をhPict_に代入
+//──────────────
 
 	const char* fileName[] = { "MapFloor2.png","MapWall2.png","MapPlayerRedFrame.png" };
 	for (int i = 0; i < Mini_MAX; i++)
@@ -35,11 +45,13 @@ void MiniMapObject::Initialize()
 		hPict_[i] = Image::Load(fileName[i]);
 		assert(hPict_[i] >= 0);
 	}
+//───────────────────────────────────────
+
 	MapTrans.scale_ = { 0.015f,0.015f,0.015f };
 
 
 	PlaTrans.scale_ = { 0.0125f,0.0125f,0.0125f };
-	PlaTrans.position_ = { -0.96f,0.38f,0.0f };
+	PlaTrans.position_ = { -0.96f,0.18f,0.0f };
 	
 	
 }
@@ -61,35 +73,28 @@ void MiniMapObject::Update()
 	//PlaTrans.position_.y = ((Ppos.y - 2.615)*1)*0.01   ;
 
 	PlaTrans.position_.x = ((Ppos.x - 2.04f)*0.0125f) - 0.97f;
-	PlaTrans.position_.y = ((Ppos.y - 2.2)*0.0235f) + 0.378f;
-
-	if (Input::IsKey(DIK_LEFT)) {
-		PlaTrans.position_.x -= 0.1f;
-	}
-	if (Input::IsKey(DIK_RIGHT)) {
-		PlaTrans.position_.x += 0.1f;
-	}
-	if (Input::IsKey(DIK_UP)) {
-		PlaTrans.position_.y += 0.1f;
-	}
-	if (Input::IsKey(DIK_DOWN)) {
-		PlaTrans.position_.y -= 0.1f;
-	}
+	PlaTrans.position_.y = ((Ppos.y - 2.2)*0.0235f) + 0.18f;
 	
+	//((Playerの位置-(3-初期値))*ちょうどいい値)±platransの初期値(多少誤差ある)
 }
 
 //描画
 void MiniMapObject::Draw()
 {
-	for (Width_ = 0; Width_ < Width_Max; Width_++)
+//──────────────
+//  Map画像素材を表示
+//──────────────
+
+	for (Width_ = 0; Width_ < Width_Max; Width_++)//横
 	{
-		for (Height_ = 0; Height_ < Height_Max; Height_++)
+		for (Height_ = 0; Height_ < Height_Max; Height_++)//縦
 		{
 			/*MapTrans.position_.x = (Width_  * 0.02f)  - 0.98f;
 			MapTrans.position_.y = (Height_ * 0.02f)  + 0.378f;*/
 
 			MapTrans.position_.x = (Width_ * 0.025) - 0.98f;
-			MapTrans.position_.y = (Height_ * 0.045f) + 0.358f;
+			MapTrans.position_.y = (Height_ * 0.046f) + 0.158f;
+			//いま何行目か*どれくらい間隔開けるか - 初期値
 
 			type_ = table_[Width_][Height_];
 
@@ -98,6 +103,9 @@ void MiniMapObject::Draw()
 		}
 
 	}
+//───────────────────────────────────────
+
+	//Playerを表示
 	Image::SetTransform(hPict_[2], PlaTrans);
 	Image::Draw(hPict_[2]);
 

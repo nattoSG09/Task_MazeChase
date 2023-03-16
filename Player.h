@@ -51,5 +51,9 @@ public:
 	//‹“_‚ğİ’è‚·‚éŠÖ”FŒÅ’èˆÊ’u‚©‚ç‚Ì’Ç]
 	void CamSet_FIXED();
 
+	/// <summary>
+	/// PlayerPosition‚ğæ“¾‚·‚éŠÖ”
+	/// </summary>
+	/// <returns>PlayerTrans_.position_</returns>
 	XMFLOAT3 GetPPos() { return PlayerTrans_.position_; }
 };
