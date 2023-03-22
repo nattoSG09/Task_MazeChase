@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Engine/Model.h"
+#include"Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 #include "Engine/Debug.h"
@@ -15,6 +16,9 @@ Player::Player(GameObject* parent)
 //初期化
 void Player::Initialize()
 {
+
+
+
 	//モデルデータのロード
 	hModel_ = Model::Load("F_Enemy(move).fbx");
 	assert(hModel_ >= 0);
@@ -31,6 +35,8 @@ void Player::Initialize()
 //更新
 void Player::Update()
 {
+	XMFLOAT3 fmove = XMFLOAT3(0, 0, 0);
+
 //───────────────────────────────────────
 //  キャラクターの移動処理
 //───────────────────────────────────────
@@ -43,9 +49,10 @@ void Player::Update()
 	//ベクトルを用意
 	vPosition_ = XMLoadFloat3(&PlayerTrans_.position_);
 
-	float Speed = 0.1f;
+	float Speed = 0.09f;
 	vMoveZ_ = { 0.0f,0.0f,Speed,0.0f };
 	vMoveX_ = { Speed,0.0f,0.0f,0.0f };
+
 
 	XMMATRIX RotateMatY = XMMatrixRotationY(XMConvertToRadians(PlayerTrans_.rotate_.y));
 
@@ -56,26 +63,32 @@ void Player::Update()
 	//「W」キー：前に進む
 	if (Input::IsKey(DIK_W)) {
 		vPosition_ += vMoveZ_;
-		XMStoreFloat3(&PlayerTrans_.position_, vPosition_);
+		XMVector3Normalize(vMoveZ_);//移動ベクトルを正規化
 	}
 
 	//「S」キー：後ろに進む
 	if (Input::IsKey(DIK_S)) {
 		vPosition_ -= vMoveZ_;
-		XMStoreFloat3(&PlayerTrans_.position_, vPosition_);
+		XMVector3Normalize(vMoveZ_);//移動ベクトルを正規化
 	}
 
 	//「A」キー：左に進む
 	if (Input::IsKey(DIK_A)) {
 		vPosition_ -= vMoveX_;
-		XMStoreFloat3(&PlayerTrans_.position_, vPosition_);
+		XMVector3Normalize(vMoveX_);//移動ベクトルを正規化
 	}
 
 	//「D」キー：右に進む
 	if (Input::IsKey(DIK_D)) {
 		vPosition_ += vMoveX_;
-		XMStoreFloat3(&PlayerTrans_.position_, vPosition_);
+		XMVector3Normalize(vMoveX_);//移動ベクトルを正規化
 	}
+
+	
+	XMVector3Normalize(vPosition_);//移動ベクトルを正規化
+	XMStoreFloat3(&PlayerTrans_.position_, vPosition_);
+
+
 
 //───────────────────────────────────────
 //  カメラの移動処理
@@ -111,17 +124,62 @@ int checkZ1, checkZ2;
 	//座標は小数点が入るからそれをintに直しとく
 	//右-----------------------------------------
 	{
-
-		checkX1 = (int)(transform_.position_.x + 1.0f);	
-		checkX2 = (int)(transform_.position_.x + 1.0f);	
-		checkZ1 = (int)(transform_.position_.z + 0.3f);
-		checkZ2 = (int)(transform_.position_.z - 0.3f);	
+		checkX1 = (int)(PlayerTrans_.position_.x + 0.2f);
+		checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
+		checkX2 = (int)(PlayerTrans_.position_.x + 0.2f);
+		checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
 		if (pStageMap_->IsWall(checkX1, checkZ1) == true ||
 			pStageMap_->IsWall(checkX2, checkZ2) == true) {
-			Debug::Log("めり込んだ！",true);		//壁判定のデバッグ
+			//Debug::Log("めり込んだ！",true);		//壁判定のデバッグ
 			//当たる前に戻す
-			//transform_.position_.x = (float)((int)prevPosition_.x) + (1.0f - 0.3f);	// 0.7
+			PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + (1.0f - 0.2f);	
+		}
+	}
+	//-------------------------------------------
+	//座標は小数点が入るからそれをintに直しとく
+	//左-----------------------------------------
+	{
+		checkX1 = (int)(PlayerTrans_.position_.x - 0.2f);
+		checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
+		checkX2 = (int)(PlayerTrans_.position_.x - 0.2f);
+		checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true ||
+			pStageMap_->IsWall(checkX2, checkZ2) == true) {
+			//Debug::Log("めり込んだ！",true);		//壁判定のデバッグ
+			//当たる前に戻す
+			PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + 0.2f;	
+		}
+	}
+	//-------------------------------------------
+	//座標は小数点が入るからそれをintに直しとく
+	//上-----------------------------------------
+	{
+		checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
+		checkZ1 = (int)(PlayerTrans_.position_.z + 0.2f);
 
+		checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
+		checkZ2 = (int)(PlayerTrans_.position_.z + 0.2f);
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true ||
+			pStageMap_->IsWall(checkX2, checkZ2) == true) {
+			//Debug::Log("めり込んだ！",true);		//壁判定のデバッグ
+			//当たる前に戻す
+			PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + (1.0f - 0.2f);
+		}
+	}
+	//-------------------------------------------
+	//座標は小数点が入るからそれをintに直しとく
+	//下-----------------------------------------
+	{
+		checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
+		checkZ1 = (int)(PlayerTrans_.position_.z - 0.2f);
+
+		checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
+		checkZ2 = (int)(PlayerTrans_.position_.z - 0.2f);
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true ||
+			pStageMap_->IsWall(checkX2, checkZ2) == true) {
+			//Debug::Log("めり込んだ！",true);		//壁判定のデバッグ
+			//当たる前に戻す
+			PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + 0.2f;	
 		}
 	}
 	//-------------------------------------------

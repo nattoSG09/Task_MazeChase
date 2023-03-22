@@ -25,6 +25,8 @@ private:
 	XMVECTOR	vPosition_;		//playerのpositionをvector型として格納する
 	XMVECTOR	vMoveZ_;		//空方向（Ｚ軸）
 	XMVECTOR	vMoveX_;		//空方向（Ｘ軸）
+
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
