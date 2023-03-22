@@ -66,7 +66,7 @@ void StageMap::Release()
 
 bool StageMap::IsWall(int x, int z)
 {
-	return(table_[x][z] == OBJ_WALL);
+	return(table_[x/2][z/2] == OBJ_WALL);
 }
 
 

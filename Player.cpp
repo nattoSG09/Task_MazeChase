@@ -98,6 +98,16 @@ void Player::Update()
 int checkX1, checkX2;
 int checkZ1, checkZ2;
 
+
+	//デバック用
+	//Playerが壁と接触しているかを確認する
+	if (pStageMap_->IsWall(PlayerTrans_.position_.x, PlayerTrans_.position_.z)) {
+		Debug::Log("〇", true);
+	}
+	else {
+		Debug::Log("△", true);
+	}
+
 	//座標は小数点が入るからそれをintに直しとく
 	//右-----------------------------------------
 	{
