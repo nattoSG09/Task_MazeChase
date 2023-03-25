@@ -103,7 +103,6 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameOver.cpp">
       <Filter>リソース ファイル\Scene</Filter>
     </ClCompile>
@@ -125,6 +124,7 @@
     <ClCompile Include="MiniMapObject.cpp">
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">

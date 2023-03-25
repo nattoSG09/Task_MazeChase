@@ -13,18 +13,54 @@ void Enemy::Initialize()
 	hModel_ = Model::Load("F_Enemy(move).fbx");
 	assert(hModel_ >= 0);
 
+	//stage情報の取得
+	pStageMap_ = (StageMap*)FindObject("StageMap");
+
 	//初期位置の設定
 	{
-		EnemyTrans_.position_ = { 10.0f,0.0f,13.0f };
+		//ランダムスポーンできない
+		#if 0
+		{
+			float spawnX, spawnZ;
+			bool ok = false;
+			while (ok)
+			{
+				spawnX = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
+				spawnZ = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
+
+				if (pStageMap_->IsWall(spawnX, spawnZ))
+				{
+					EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
+					ok = true;
+				}
+			}
+		}
+		#endif
+
+		EnemyTrans_.position_ = { 10.0f,0.0f,10.0f };
 		EnemyTrans_.scale_ = { 0.8f,0.8f,0.8f };
 		EnemyTrans_.rotate_.y = 0;
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
 	}
+
+	
 }
 
 //更新
 void Enemy::Update()
 {
+	//課題
+	{
+	//ランダムスポーン処理
+	//※(壁に埋まらずに出現するようにする処理)
+
+	//Enemyが壁を認識して、壁にぶつかったら壁をよけて通る処理
+
+	//playerがEnemyの視界に入ったら追従
+
+	//Coriderがなんか付かない
+	}
+	
 	//Enemyの追従処理
 	{
 		//playerの位置を取得する
@@ -73,8 +109,94 @@ void Enemy::Update()
 			EnemyTrans_.rotate_.y = XMConvertToDegrees(angle);
 		}
 	}
-}
 
+	//デバック用
+	#if 0
+	{
+		//Playerが壁と接触しているかを確認する
+		if (pStageMap_->IsWall(EnemyTrans_.position_.x, EnemyTrans_.position_.z)) {
+			Debug::Log("〇", true);
+		}
+		else {
+			Debug::Log("△", true);
+		}
+	}
+	#endif
+
+	//あたり判定の各頂点を構成
+	int checkX1, checkX2;
+	int checkZ1, checkZ2;
+
+	//あたり判定の処理
+	{
+		//座標は小数点が入るからそれをintに直しとく
+	//右-----------------------------------------
+		{
+			//頂点１
+			checkX1 = (int)(EnemyTrans_.position_.x + 0.2f);
+			checkZ1 = (int)(EnemyTrans_.position_.z + 0.1f);
+			//頂点２
+			checkX2 = (int)(EnemyTrans_.position_.x + 0.2f);
+			checkZ2 = (int)(EnemyTrans_.position_.z - 0.1f);
+
+			//衝突しているかどうか
+			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+			{
+				EnemyTrans_.position_.x = (float)((int)EnemyTrans_.position_.x) + (1.0f - 0.2f);
+			}
+		}
+		//-------------------------------------------
+		//座標は小数点が入るからそれをintに直しとく
+		//左-----------------------------------------
+		{
+			//頂点１
+			checkX1 = (int)(EnemyTrans_.position_.x - 0.2f);
+			checkZ1 = (int)(EnemyTrans_.position_.z + 0.1f);
+			//頂点２
+			checkX2 = (int)(EnemyTrans_.position_.x - 0.2f);
+			checkZ2 = (int)(EnemyTrans_.position_.z - 0.1f);
+
+			//衝突しているかどうか
+			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+			{
+				EnemyTrans_.position_.x = (float)((int)EnemyTrans_.position_.x) + 0.2f;
+			}
+		}
+		//-------------------------------------------
+		//座標は小数点が入るからそれをintに直しとく
+		//上-----------------------------------------
+		{
+			//頂点１
+			checkX1 = (int)(EnemyTrans_.position_.x + 0.1f);
+			checkZ1 = (int)(EnemyTrans_.position_.z + 0.2f);
+			//頂点２
+			checkX2 = (int)(EnemyTrans_.position_.x - 0.1f);
+			checkZ2 = (int)(EnemyTrans_.position_.z + 0.2f);
+
+			//衝突しているかどうか
+			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+			{
+				EnemyTrans_.position_.z = (float)((int)EnemyTrans_.position_.z) + (1.0f - 0.2f);
+			}
+		}
+		//-------------------------------------------
+		//座標は小数点が入るからそれをintに直しとく
+		//下-----------------------------------------
+		{
+			//頂点１
+			checkX1 = (int)(EnemyTrans_.position_.x + 0.1f);
+			checkZ1 = (int)(EnemyTrans_.position_.z - 0.2f);
+			//頂点２
+			checkX2 = (int)(EnemyTrans_.position_.x - 0.1f);
+			checkZ2 = (int)(EnemyTrans_.position_.z - 0.2f);
+			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+			{
+				EnemyTrans_.position_.z = (float)((int)EnemyTrans_.position_.z) + 0.2f;
+			}
+		}
+		//-------------------------------------------
+	}
+}
 //描画
 void Enemy::Draw()
 {

@@ -3,6 +3,7 @@
 #include "Engine/Input.h"
 #include "Engine/Model.h"
 
+#include "StageMap.h"
 #include "Player.h"
 
 //テストシーンを管理するクラス
@@ -12,7 +13,7 @@ private:
 	int hModel_;
 	Transform EnemyTrans_; //直前の位置情報を格納する変数
 	XMFLOAT3 TargetPosition_;
-
+	StageMap* pStageMap_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
