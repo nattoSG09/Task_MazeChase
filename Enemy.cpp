@@ -42,8 +42,6 @@ void Enemy::Initialize()
 		EnemyTrans_.rotate_.y = 0;
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
 	}
-
-	
 }
 
 //XV
