@@ -1,9 +1,11 @@
 #pragma once
 #include <vector>
 using std::vector;
-#include"StageMap.h"
+
 #include "Engine/GameObject.h"
-#include "Engine/CsvReader.h"
+#include "Engine/Image.h"
+#include"StageMap.h"
+#include "Player.h"
 
 enum {
 	Mini_FLOOR,

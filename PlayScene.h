@@ -1,8 +1,15 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Timer.h"
+#include "Engine/SceneManager.h"
+#include "Engine/Input.h"
+#include "Engine/Camera.h"
+#include "MiniMapObject.h"
+#include "StageMap.h"
 #include "Player.h"
-//テストシーンを管理するクラス
+#include "Enemy.h"
+#include "Timer.h"
+
+
 class PlayScene : public GameObject
 {
 public:

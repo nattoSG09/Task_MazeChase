@@ -1,5 +1,11 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Image.h"
+#include "Engine/Input.h"
+#include "Engine/Debug.h"
+#include "Engine/Model.h"
+#include "Engine/Camera.h"
+
 #include "StageMap.h"
 
 enum {

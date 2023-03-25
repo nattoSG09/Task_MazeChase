@@ -1,5 +1,5 @@
 #include "StageObject.h"
-#include "Engine/Model.h"
+
 
 //コンストラクタ
 StageObject::StageObject(GameObject* parent)

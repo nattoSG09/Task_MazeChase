@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-
+#include "Engine/Model.h"
 
 enum {
 	OBJ_FLOOR,

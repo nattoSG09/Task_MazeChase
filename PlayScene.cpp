@@ -1,11 +1,6 @@
 
 #include "PlayScene.h"
-#include "StageMap.h"
-#include"MiniMapObject.h"
-#include "Enemy.h"
-#include "Engine/Input.h"
-#include "Engine/Camera.h"
-#include "Engine/SceneManager.h"
+
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)

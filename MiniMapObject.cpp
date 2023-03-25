@@ -1,8 +1,6 @@
 #include "MiniMapObject.h"
-#include "Player.h"
-#include "Engine/Image.h"
-#include "Engine/CsvReader.h"
-#include "Engine/Input.h"
+
+
 /*--------------MiniMapObjectクラスの説明--------------
 ・画面端にミニマップを配置する あまりに未完
 ほかのところさわってないから何かしらエラーはいたら適当に無効化していいよ

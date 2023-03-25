@@ -1,9 +1,5 @@
 #include "Player.h"
-#include "Engine/Model.h"
-#include"Engine/Image.h"
-#include "Engine/Input.h"
-#include "Engine/Camera.h"
-#include "Engine/Debug.h"
+
 
 //コンストラクタ
 

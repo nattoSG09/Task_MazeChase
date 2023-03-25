@@ -1,7 +1,5 @@
 #include "Enemy.h"
-#include "Player.h"
-#include "Engine/Model.h"
-#include "Engine/Input.h"
+
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)

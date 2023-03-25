@@ -1,6 +1,9 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Input.h"
+#include "Engine/Model.h"
 
+#include "Player.h"
 
 //テストシーンを管理するクラス
 class Enemy : public GameObject

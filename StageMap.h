@@ -4,6 +4,9 @@ using std::vector;
 
 #include "Engine/GameObject.h"
 #include "Engine/CsvReader.h"
+#include "Engine/Model.h"
+
+#include "StageObject.h"
 
 
 class StageMap : public GameObject
