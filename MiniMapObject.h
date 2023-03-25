@@ -24,13 +24,11 @@ class MiniMapObject : public GameObject
 	float Width_Max, Height_Max;//CSVデータの行列の要素数
 	float Width_, Height_; //forループ用のイテレータ(?)
 
-	StageMap* pStage_ = (StageMap*)FindObject("StageMap");
-
 	Transform MapTrans;//Mapの位置などを操作するTransform型
 
 	Transform PlaTrans;//Playerの位置などを操作するTransform型
 
-	vector<vector<int>> table_;//ステージ情報を格納する二次元配列
+	vector<vector<int>> ptable_;//ステージ情報を格納する二次元配列
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

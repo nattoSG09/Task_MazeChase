@@ -44,5 +44,12 @@ public:
 	//–ß‚è’lF’Ê‚ê‚È‚¢true / ’Ê‚ê‚È‚¢false
 	bool IsWall(int x, int z);
 
-	vector<vector<int>> GetStageData() { return table_; }
+	//table.size & data‚ğ‘¼Š‚É“n‚·ŠÖ”
+	vector<vector<int>>& GetTable_() { return(this->table_); }
+
+	//table.Width‚ğ“n‚·ŠÖ”
+	int GetWidth() { return (this->Width); }
+
+	//table.Height‚ğ“n‚·ŠÖ”
+	int GetHeight() { return (this->Height); }
 };

@@ -10,14 +10,22 @@ StageObject::StageObject(GameObject* parent)
 //初期化
 void StageObject::Initialize()
 {
-	const char* fileName[] = { "F_Floor.fbx","F_Wall.fbx" };
+	//モデルデータのロード
+	{
+		const char* fileName[] = { "F_Floor.fbx","F_Wall.fbx" };
 
-	for (int i = 0; i < OBJ_MAX; i++){
-		hModel_[i] = Model::Load(fileName[i]);
-		assert(hModel_[i] >= 0);
+		for (int i = 0; i < OBJ_MAX; i++) {
+			hModel_[i] = Model::Load(fileName[i]);
+			assert(hModel_[i] >= 0);
+		}
 	}
-	//transform_.scale_ = { 2,2,2 };
-	transform_.rotate_.y = 180;
+	
+	//objectの設定
+	{
+		//transform_.scale_ = { 2,2,2 };
+		transform_.rotate_.y = 180;
+	}
+	
 }
 
 //更新

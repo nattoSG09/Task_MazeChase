@@ -102,7 +102,6 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Gaze.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameOver.cpp">
@@ -123,10 +122,9 @@
     <ClCompile Include="StageObject.cpp">
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
+    <ClCompile Include="MiniMapObject.cpp">
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MiniMapObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -199,7 +197,6 @@
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="Gaze.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameOver.h">
@@ -220,10 +217,9 @@
     <ClInclude Include="StageMap.h">
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
+    <ClInclude Include="MiniMapObject.h">
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MiniMapObject.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

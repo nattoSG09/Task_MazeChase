@@ -17,35 +17,42 @@
 StageMap::StageMap(GameObject* parent)
 	: GameObject(parent, "StageMap"),hModel_{-1,-1}
 {
-	CsvMap_.Load("M_Map1.csv");
+	//CSVデータのロード
+	{
+		CsvMap_.Load("M_Map1.csv");
+
+		Width = CsvMap_.GetWidth();
+		Height = CsvMap_.GetHeight();
+
+		//配列をWidth×Heightで初期化
+		table_.resize(Width, vector<int>(Height, 0));
+
+		for (int x = 0; x < Width; x++)
+			for (int z = 0; z < Height; z++)
+				table_[x][z] = CsvMap_.GetValue(x, ((Height - 1) - z));
+	}
 	
-	Width = CsvMap_.GetWidth();
-	Height = CsvMap_.GetHeight();
-
-	//配列をWidth×Heightで初期化
-	table_.resize(Width, vector<int>(Height, 0));
-
-	for (int x = 0; x < Width; x++)
-		for (int z = 0; z < Height; z++)
-			table_[x][z] = CsvMap_.GetValue(x, ((Height - 1) - z));
 }
 
 //初期化
 void StageMap::Initialize()
 {
-	for (int x = 0; x < Width; x++)
-		for (int z = 0; z < Height; z++) {
-			if (table_[x][z] == 0) {
-				StageObject* FLOOR = Instantiate<StageObject>(GetParent());
-				FLOOR->ObjectSet(OBJ_FLOOR);
-				FLOOR->SetPosition(XMFLOAT3(x * 2, 0, z * 2));
+	//objectの配置
+	{
+		for (int x = 0; x < Width; x++)
+			for (int z = 0; z < Height; z++) {
+				if (table_[x][z] == 0) {
+					StageObject* FLOOR = Instantiate<StageObject>(GetParent());
+					FLOOR->ObjectSet(OBJ_FLOOR);
+					FLOOR->SetPosition(XMFLOAT3(x * 2, 0, z * 2));
+				}
+				else if (table_[x][z] == 1) {
+					StageObject* WALL = Instantiate<StageObject>(GetParent());
+					WALL->ObjectSet(OBJ_WALL);
+					WALL->SetPosition(XMFLOAT3(x * 2, 0, z * 2));
+				}
 			}
-			else if (table_[x][z] == 1) {
-				StageObject* WALL = Instantiate<StageObject>(GetParent());
-				WALL->ObjectSet(OBJ_WALL);
-				WALL->SetPosition(XMFLOAT3(x * 2, 0, z * 2));
-			}
-		}
+	}
 }
 
 //更新
