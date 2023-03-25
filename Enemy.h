@@ -7,9 +7,8 @@ class Enemy : public GameObject
 {
 private:
 	int hModel_;
-	float Speed_;	//Enemyの速度を管理
-	XMFLOAT3 prevPosition_; //直前の位置情報を格納する変数
-
+	Transform EnemyTrans_; //直前の位置情報を格納する変数
+	XMFLOAT3 TargetPosition_;
 
 public:
 	//コンストラクタ

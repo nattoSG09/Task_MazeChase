@@ -2,6 +2,7 @@
 #include "PlayScene.h"
 #include "StageMap.h"
 #include"MiniMapObject.h"
+#include "Enemy.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 #include "Engine/SceneManager.h"
@@ -15,15 +16,27 @@ PlayScene::PlayScene(GameObject* parent)
 //初期化
 void PlayScene::Initialize()
 {
+	//Stage setting
 	Instantiate<StageMap>(this);
+
+	//Player setting
 	Instantiate<Player>(this);
+
+	//Enemy setting
+	Instantiate<Enemy>(this);
+
+	//MiniMap setting
 	Instantiate<MiniMapObject>(this);
-	Camera::SetPosition(XMFLOAT3(7.5, 10, -10));
-	Camera::SetTarget(XMFLOAT3(7.5, 2, 3));
+
+	//Cursor setting
 	ShowCursor(true);//true -> 表示    false -> 非表示
-	Time_ = Instantiate<Timer>(this);
-	Time_->DrawPostion(30, 30);
-	Time_->SetLimit(30);	//このゲームの制限時間（秒）
+
+	//Timer setting
+	{
+		Time_ = Instantiate<Timer>(this);
+		Time_->DrawPostion(30, 30);
+		Time_->SetLimit(30);	//このゲームの制限時間（秒）
+	}
 }
 
 //更新
