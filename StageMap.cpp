@@ -17,7 +17,7 @@
 StageMap::StageMap(GameObject* parent)
 	: GameObject(parent, "StageMap"),hModel_{-1,-1}
 {
-	CsvMap_.Load("M_SW_Map1.csv");
+	CsvMap_.Load("M_Map1.csv");
 	
 	Width = CsvMap_.GetWidth();
 	Height = CsvMap_.GetHeight();

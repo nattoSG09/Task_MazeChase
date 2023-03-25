@@ -23,7 +23,7 @@ void MiniMapObject::Initialize()
 //──────────
 
 
-	MiniMapCSV.Load("M_SW_Map1.csv");//マップデータ読み込み
+	MiniMapCSV.Load("M_Map1.csv");//マップデータ読み込み
 
 	Width_Max = MiniMapCSV.GetWidth();//CSVの横、縦の要素数を取得
 	Height_Max = MiniMapCSV.GetHeight();
@@ -39,7 +39,7 @@ void MiniMapObject::Initialize()
 //  Map画像素材をhPict_に代入
 //──────────────
 
-	const char* fileName[] = { "MapFloor2.png","MapWall2.png","MapPlayerRedFrame.png" };
+	const char* fileName[] = { "P_MapFloor.png","P_MapWall.png","P_MapPlayer.png" };
 	for (int i = 0; i < Mini_MAX; i++)
 	{
 		hPict_[i] = Image::Load(fileName[i]);

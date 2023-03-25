@@ -20,11 +20,11 @@ void Player::Initialize()
 
 
 	//モデルデータのロード
-	hModel_ = Model::Load("F_Enemy(move).fbx");
+	hModel_ = Model::Load("F_Player(move).fbx");
 	assert(hModel_ >= 0);
 
 	//初期位置の設定
-	PlayerTrans_.position_ = { 3,1,3 };//マップの左下端
+	PlayerTrans_.position_ = { 3.0f,0.0f,3.0f };//マップの左下端
 
 	//アニメーション動作処理
 	Model::SetAnimFrame(hModel_, 0, 60, 1);
@@ -209,7 +209,7 @@ void Player::CamChange()
 void Player::CamSet_FPS()
 {
 	//カメラの位置をplayerの位置にセット
-	XMVECTOR FPup = { 0.0f,0.5f,0.0f };
+	XMVECTOR FPup = { 0.0f,1.2f,0.0f };
 	XMStoreFloat3(&CamPosition_, vPosition_ + FPup);
 	//カメラの焦点をplayerの目先にセット
 	XMStoreFloat3(&CamTarget_, vPosition_ + vMoveZ_ + FPup);

@@ -10,13 +10,14 @@ StageObject::StageObject(GameObject* parent)
 //èâä˙âª
 void StageObject::Initialize()
 {
-	const char* fileName[] = { "Floor.fbx","Wall.fbx" };
+	const char* fileName[] = { "F_Floor.fbx","F_Wall.fbx" };
 
 	for (int i = 0; i < OBJ_MAX; i++){
 		hModel_[i] = Model::Load(fileName[i]);
 		assert(hModel_[i] >= 0);
 	}
-	transform_.scale_ = { 2,2,2 };
+	//transform_.scale_ = { 2,2,2 };
+	transform_.rotate_.y = 180;
 }
 
 //çXêV
