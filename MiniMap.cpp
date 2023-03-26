@@ -1,9 +1,11 @@
 #include "MiniMap.h"
 
+const float MapSTDPosX = -0.98f;
+const float MapSTDPosY = 0.158f;
 
 /*--------------MiniMapObjectクラスの説明--------------
-・画面端にミニマップを配置する あまりに未完
-ほかのところさわってないから何かしらエラーはいたら適当に無効化していいよ
+・画面端にミニマップを配置する
+・16*16のサイズまでのCSVデータを
 ---------------------------------------------*/
 
 //コンストラクタ
@@ -62,6 +64,11 @@ void MiniMap::Initialize()
 //更新
 void MiniMap::Update()
 {
+}
+
+//描画
+void MiniMap::Draw()
+{
 	//player情報の取得
 	{
 		Player* p = (Player*)FindObject("Player");
@@ -69,36 +76,16 @@ void MiniMap::Update()
 		Ppos.y = p->GetPPos().z;
 	}
 
-	//PlaTrans.position_.x = (Ppos.x - 2.04*3.82) / 18;
-	//PlaTrans.position_.y = (Ppos.y - 2.615 / 2.45  ) / 18;
-	//Ppos.x - def *rev / MovSense 
-	//PlaTrans.position_.x = ((Ppos.x - 2.04)* -1)*0.01 ;
-	//PlaTrans.position_.y = ((Ppos.y - 2.615)*1)*0.01   ;
-
-	PlaTrans.position_.x = ((Ppos.x - 2.04f)*0.0125f) - 0.97f;
-	PlaTrans.position_.y = ((Ppos.y - 2.2)*0.0235f) + 0.18f;
-	
-	//((Playerの位置-(3-初期値))*ちょうどいい値)±platransの初期値(多少誤差ある)
-}
-
-//描画
-void MiniMap::Draw()
-{
-
 	//ミニマップを表示
 	{
 		for (Width_ = 0; Width_ < Width_Max; Width_++)//横
 		{
 			for (Height_ = 0; Height_ < Height_Max; Height_++)//縦
 			{
-				/*MapTrans.position_.x = (Width_  * 0.02f)  - 0.98f;
-				MapTrans.position_.y = (Height_ * 0.02f)  + 0.378f;*/
 
-				MapTrans.position_.x = (Width_ * 0.025) - 0.98f;
-				MapTrans.position_.y = (Height_ * 0.046f) + 0.158f;
+				MapTrans.position_.x = (Width_ * 0.025f) + MapSTDPosX;
+				MapTrans.position_.y = (Height_ * 0.046f) + MapSTDPosY;
 
-				//MapTrans.position_.x = (Width_ * 0.025) - 0.98f;
-				//MapTrans.position_.y = (Height_ * 0.046f) + 0.158f;
 				//いま何行目か*どれくらい間隔開けるか - 初期値
 
 				type_ = ptable_[Width_][Height_];
@@ -107,6 +94,11 @@ void MiniMap::Draw()
 				Image::Draw(hPict_[type_]);
 			}
 		}
+
+	PlaTrans.position_.x = ((Ppos.x - 2.04f)*0.0125f) - 0.97f;
+	PlaTrans.position_.y = ((Ppos.y - 2.2)*0.0235f) + 0.18f;
+	
+	//((Playerの位置-(3-初期値))*ちょうどいい値)±platransの初期値(多少誤差ある)
 	}
 	
 	//Playerを表示

@@ -46,7 +46,7 @@ void Enemy::Initialize()
 
 		//EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
 		EnemyTrans_.scale_ = { 0.8f,0.8f,0.8f };
-		EnemyTrans_.rotate_.y = 0;
+		EnemyTrans_.rotate_.y = rand();
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
 	}
 }
