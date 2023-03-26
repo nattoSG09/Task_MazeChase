@@ -20,28 +20,31 @@ void Enemy::Initialize()
 	//初期位置の設定
 	{
 		//ランダムスポーンできない
-		#if 0
+		#if 1
 		{
-			float spawnX, spawnZ;
-			bool ok = false;
+			float spawnX=0.0f, spawnZ=0.0f;
+			bool ok = true;
 			
-			spawnX = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
-			spawnZ = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
-			EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
+			spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+			spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 
-
-			/*while (ok)
+			while (ok)
 			{
-
 				if (pStageMap_->IsWall(spawnX, spawnZ))
 				{
-					ok = true;
+					spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+					spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 				}
-			}*/
+				else
+				{
+					break;
+				}
+			}
+			EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
 		}
 		#endif
 
-		EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
+		//EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
 		EnemyTrans_.scale_ = { 0.8f,0.8f,0.8f };
 		EnemyTrans_.rotate_.y = 0;
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
@@ -66,7 +69,7 @@ void Enemy::Update()
 	//Enemyの動作処理
 	{
 		//Player感知処理
-		#if 0
+		#if 1
 		{
 			// 敵キャラクターの向きを表すベクトルを取得する
 
