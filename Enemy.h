@@ -17,7 +17,7 @@ private:
 	StageMap* pStageMap_;
 
 	bool flag_Find;
-
+	int CoolTime_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

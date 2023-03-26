@@ -95,7 +95,7 @@ void Player::Update()
 		Camera::SetTarget(CamTarget_);
 	}
 
-	//デバック用：あたり判定
+	//デバック用：あたり判定確認
 	#if 0
 	{
 		//Playerが壁と接触しているかを確認する

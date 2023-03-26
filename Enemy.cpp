@@ -1,5 +1,6 @@
 #include "Enemy.h"
 
+const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
@@ -77,13 +78,13 @@ void Enemy::Update()
 			Player* pPlayer = (Player*)FindObject("Player");
 			int hPlayer = pPlayer->GetModelHandle();
 
+			//レイキャストデータを用意する
 			RayCastData visibleRange;
 			XMFLOAT3 VsPos = { EnemyTrans_.position_.x,EnemyTrans_.position_.y + 1, EnemyTrans_.position_.z, };
 			visibleRange.start = VsPos;   
 			visibleRange.dir = EnemyDir;
 
 			//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
-
 			if (flag_Find == false)
 			{
 				Model::RayCast(hPlayer, &visibleRange);
@@ -95,10 +96,18 @@ void Enemy::Update()
 				else {
 					Debug::Log("x", true);
 				}
+			
 			}
 
-			//一定距離離れるor一定時間経過でflag_Findを"false"にする
-
+			//一定時間経過でflag_Findを"false"にする(※条件は「一定距離離れる」に変更の可能性あり)
+			/*if (flag_Find == true)
+			{
+				CoolTime_ = 3 * FPS;
+				CoolTime_--;
+				if (CoolTime_ < 0) {
+					flag_Find = false;
+				}
+			}*/
 		}
 
 		//デバッグ用：flag_Find
@@ -125,7 +134,7 @@ void Enemy::Update()
 		}
 	}
 
-	//デバック用：あたり判定
+	//デバック用：あたり判定確認
 	#if 0
 	{
 		//Playerが壁と接触しているかを確認する
