@@ -14,6 +14,9 @@ private:
 	Transform EnemyTrans_; //直前の位置情報を格納する変数
 	XMFLOAT3 TargetPosition_;
 	StageMap* pStageMap_;
+
+	bool flag_Find;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -30,5 +33,14 @@ public:
 
 	//開放
 	void Release() override;
+
+	//Enemyの動作：追従
+	void FollowingMove();
+
+	//Enemyの動作：徘徊
+	void WanderingMove();
+
+	//壁とのあたり判定処理
+	void boundaryCheck();
 };
 

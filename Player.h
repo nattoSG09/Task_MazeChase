@@ -64,4 +64,7 @@ public:
 	/// </summary>
 	/// <returns>PlayerTrans_.position_</returns>
 	XMFLOAT3 GetPPos() { return PlayerTrans_.position_; }
+
+	//•Ç‚Æ‚Ì‚ ‚½‚è”»’èˆ—
+	void boundaryCheck();
 };

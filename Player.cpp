@@ -107,80 +107,8 @@ void Player::Update()
 	}
 	#endif
 
-	//あたり判定の各頂点を構成
-	int checkX1, checkX2;
-	int checkZ1, checkZ2;
-
 	//あたり判定の処理
-	{
-		//座標は小数点が入るからそれをintに直しとく
-	//右-----------------------------------------
-		{
-			//頂点１
-			checkX1 = (int)(PlayerTrans_.position_.x + 0.2f);
-			checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
-			//頂点２
-			checkX2 = (int)(PlayerTrans_.position_.x + 0.2f);
-			checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
-
-			//衝突しているかどうか
-			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
-			{
-				PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + (1.0f - 0.2f);
-			}
-		}
-		//-------------------------------------------
-		//座標は小数点が入るからそれをintに直しとく
-		//左-----------------------------------------
-		{
-			//頂点１
-			checkX1 = (int)(PlayerTrans_.position_.x - 0.2f);
-			checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
-			//頂点２
-			checkX2 = (int)(PlayerTrans_.position_.x - 0.2f);
-			checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
-
-			//衝突しているかどうか
-			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
-			{
-				PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + 0.2f;
-			}
-		}
-		//-------------------------------------------
-		//座標は小数点が入るからそれをintに直しとく
-		//上-----------------------------------------
-		{
-			//頂点１
-			checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
-			checkZ1 = (int)(PlayerTrans_.position_.z + 0.2f);
-			//頂点２
-			checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
-			checkZ2 = (int)(PlayerTrans_.position_.z + 0.2f);
-
-			//衝突しているかどうか
-			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
-			{
-				PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + (1.0f - 0.2f);
-			}
-		}
-		//-------------------------------------------
-		//座標は小数点が入るからそれをintに直しとく
-		//下-----------------------------------------
-		{
-			//頂点１
-			checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
-			checkZ1 = (int)(PlayerTrans_.position_.z - 0.2f);
-			//頂点２
-			checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
-			checkZ2 = (int)(PlayerTrans_.position_.z - 0.2f);
-			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
-			{
-				PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + 0.2f;
-			}
-		}
-		//-------------------------------------------
-	}
-	
+	boundaryCheck();
 }
 
 //描画
@@ -219,4 +147,78 @@ void Player::CamSet_FIXED()
 	//CamTarget_ = { PlayerTrans_.position_ };
 	CamTarget_ = { 15,5,15 };
 	CamPosition_ = { 15,50,14};
+}
+
+//壁とのあたり判定処理
+void Player::boundaryCheck()
+{
+	//あたり判定の各頂点を構成
+	int checkX1, checkX2;
+	int checkZ1, checkZ2;
+	//座標は小数点が入るからそれをintに直しとく
+//右-----------------------------------------
+	{
+		//頂点１
+		checkX1 = (int)(PlayerTrans_.position_.x + 0.2f);
+		checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
+		//頂点２
+		checkX2 = (int)(PlayerTrans_.position_.x + 0.2f);
+		checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
+
+		//衝突しているかどうか
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+		{
+			PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + (1.0f - 0.2f);
+		}
+	}
+	//-------------------------------------------
+	//座標は小数点が入るからそれをintに直しとく
+	//左-----------------------------------------
+	{
+		//頂点１
+		checkX1 = (int)(PlayerTrans_.position_.x - 0.2f);
+		checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
+		//頂点２
+		checkX2 = (int)(PlayerTrans_.position_.x - 0.2f);
+		checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
+
+		//衝突しているかどうか
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+		{
+			PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + 0.2f;
+		}
+	}
+	//-------------------------------------------
+	//座標は小数点が入るからそれをintに直しとく
+	//上-----------------------------------------
+	{
+		//頂点１
+		checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
+		checkZ1 = (int)(PlayerTrans_.position_.z + 0.2f);
+		//頂点２
+		checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
+		checkZ2 = (int)(PlayerTrans_.position_.z + 0.2f);
+
+		//衝突しているかどうか
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+		{
+			PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + (1.0f - 0.2f);
+		}
+	}
+	//-------------------------------------------
+	//座標は小数点が入るからそれをintに直しとく
+	//下-----------------------------------------
+	{
+		//頂点１
+		checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
+		checkZ1 = (int)(PlayerTrans_.position_.z - 0.2f);
+		//頂点２
+		checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
+		checkZ2 = (int)(PlayerTrans_.position_.z - 0.2f);
+		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
+		{
+			PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + 0.2f;
+		}
+	}
+	//-------------------------------------------
 }

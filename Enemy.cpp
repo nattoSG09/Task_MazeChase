@@ -23,21 +23,24 @@ void Enemy::Initialize()
 		{
 			float spawnX, spawnZ;
 			bool ok = false;
-			while (ok)
+			
+			spawnX = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
+			spawnZ = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
+			EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
+
+
+			/*while (ok)
 			{
-				spawnX = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
-				spawnZ = (float)(rand() % 16 + 0) * 2 + 1;//rand() %範囲+最小値;
 
 				if (pStageMap_->IsWall(spawnX, spawnZ))
 				{
-					EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
 					ok = true;
 				}
-			}
+			}*/
 		}
 		#endif
 
-		EnemyTrans_.position_ = { 10.0f,0.0f,10.0f };
+		EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
 		EnemyTrans_.scale_ = { 0.8f,0.8f,0.8f };
 		EnemyTrans_.rotate_.y = 0;
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
@@ -58,9 +61,68 @@ void Enemy::Update()
 
 	//Coriderがなんか付かない
 	}
-	
-	//Enemyの追従処理
+
+	//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
+	//Playerに当たったらflag_Findを"true"にする
+	//一定距離離れるor一定時間経過でflag_Findを"false"にする
+
+	//デバッグ用：flag_Find
+	#if 1
 	{
+		if (Input::IsKeyDown(DIK_U)) {
+			flag_Find = false;
+		}
+
+		if (Input::IsKeyDown(DIK_I)) {
+			flag_Find = true;
+		}
+	}
+	#endif
+
+	//条件：Playerを発見したか否か
+	if (flag_Find){
+
+		//Enemyの追従処理
+		FollowingMove();
+	}
+	else{
+		//Enemyの徘徊処理
+		WanderingMove();
+	}
+
+	//デバック用：あたり判定
+	#if 0
+	{
+		//Playerが壁と接触しているかを確認する
+		if (pStageMap_->IsWall(EnemyTrans_.position_.x, EnemyTrans_.position_.z)) {
+			Debug::Log("〇", true);
+		}
+		else {
+			Debug::Log("△", true);
+		}
+	}
+	#endif
+
+	
+
+	//あたり判定の処理
+	boundaryCheck();
+}
+//描画
+void Enemy::Draw()
+{
+	Model::SetTransform(hModel_, EnemyTrans_);
+	Model::Draw(hModel_);
+}
+
+//開放
+void Enemy::Release()
+{
+}
+
+//Enemyの動作：追従
+void Enemy::FollowingMove()
+{
 		//playerの位置を取得する
 		Player* p = (Player*)FindObject("Player");
 		TargetPosition_ = p->GetPPos();
@@ -106,27 +168,31 @@ void Enemy::Update()
 
 			EnemyTrans_.rotate_.y = XMConvertToDegrees(angle);
 		}
-	}
+}
 
-	//デバック用
-	#if 0
-	{
-		//Playerが壁と接触しているかを確認する
-		if (pStageMap_->IsWall(EnemyTrans_.position_.x, EnemyTrans_.position_.z)) {
-			Debug::Log("〇", true);
-		}
-		else {
-			Debug::Log("△", true);
-		}
-	}
-	#endif
+//Enemyの動作：徘徊
+void Enemy::WanderingMove()
+{
+		//向いている方向を取得
 
+		//向いている方向にレイキャストを放つ
+
+		//条件：レイキャストが壁に当たるか否か
+
+		//分岐：当たった
+		//左右後方３方向にレイキャストを放つ
+		//レイキャストが当たらなかった場所に移動(複数箇所の場合、ランダムに移動)
+
+		//分岐：当たらない
+		//向いている方向に移動
+}
+
+//壁とのあたり判定処理
+void Enemy::boundaryCheck()
+{
 	//あたり判定の各頂点を構成
 	int checkX1, checkX2;
 	int checkZ1, checkZ2;
-
-	//あたり判定の処理
-	{
 		//座標は小数点が入るからそれをintに直しとく
 	//右-----------------------------------------
 		{
@@ -193,16 +259,4 @@ void Enemy::Update()
 			}
 		}
 		//-------------------------------------------
-	}
-}
-//描画
-void Enemy::Draw()
-{
-	Model::SetTransform(hModel_, EnemyTrans_);
-	Model::Draw(hModel_);
-}
-
-//開放
-void Enemy::Release()
-{
 }
