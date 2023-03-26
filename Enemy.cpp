@@ -78,17 +78,29 @@ void Enemy::Update()
 			Player* pPlayer = (Player*)FindObject("Player");
 			int hPlayer = pPlayer->GetModelHandle();
 
+			StageObject* pObject = (StageObject*)FindObject("StageObject");
+			int hWall = pObject->GetModelHandle(OBJ_WALL);
+
 			//レイキャストデータを用意する
-			RayCastData visibleRange;
+			
+			//レイキャスト.スタートを用意
 			XMFLOAT3 VsPos = { EnemyTrans_.position_.x,EnemyTrans_.position_.y + 1, EnemyTrans_.position_.z, };
-			visibleRange.start = VsPos;   
-			visibleRange.dir = EnemyDir;
+			
+			//レイキャストデータ(player)
+			RayCastData vrPlayer;
+			vrPlayer.start = VsPos;   
+			vrPlayer.dir = EnemyDir;
+
+			//レイキャストデータ(wall)
+			RayCastData vrWall;
+			vrWall.start = VsPos;
+			vrWall.dir = EnemyDir;
 
 			//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
 			if (flag_Find == false)
 			{
-				Model::RayCast(hPlayer, &visibleRange);
-				if (visibleRange.hit) {
+				Model::RayCast(hPlayer, &vrPlayer);
+				if (vrPlayer.hit) {
 					//Playerに当たったらflag_Findを"true"にする
 					flag_Find = true;
 					Debug::Log("o", true);
