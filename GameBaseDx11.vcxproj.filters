@@ -121,7 +121,7 @@
     <ClCompile Include="StageObject.cpp">
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MiniMapObject.cpp">
+    <ClCompile Include="MiniMap.cpp">
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
@@ -217,7 +217,7 @@
     <ClInclude Include="StageMap.h">
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MiniMapObject.h">
+    <ClInclude Include="MiniMap.h">
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
   </ItemGroup>

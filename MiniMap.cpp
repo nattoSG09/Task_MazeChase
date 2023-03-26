@@ -1,4 +1,4 @@
-#include "MiniMapObject.h"
+#include "MiniMap.h"
 
 
 /*--------------MiniMapObjectクラスの説明--------------
@@ -7,14 +7,14 @@
 ---------------------------------------------*/
 
 //コンストラクタ
-MiniMapObject::MiniMapObject(GameObject* parent)
-	: GameObject(parent, "MiniMapObject"), hPict_{ -1,-1,-1 }, obj_(0)
+MiniMap::MiniMap(GameObject* parent)
+	: GameObject(parent, "MiniMap"), hPict_{ -1,-1,-1 }, obj_(0)
 	,Width_(0),Height_(0),Width_Max(0),Height_Max(0),type_(0),Ppos(0,0,0)
 {
 }
 
 //初期化
-void MiniMapObject::Initialize()
+void MiniMap::Initialize()
 {
 
 	//table情報の取得
@@ -60,7 +60,7 @@ void MiniMapObject::Initialize()
 }
 
 //更新
-void MiniMapObject::Update()
+void MiniMap::Update()
 {
 	//player情報の取得
 	{
@@ -82,7 +82,7 @@ void MiniMapObject::Update()
 }
 
 //描画
-void MiniMapObject::Draw()
+void MiniMap::Draw()
 {
 
 	//ミニマップを表示
@@ -96,6 +96,9 @@ void MiniMapObject::Draw()
 
 				MapTrans.position_.x = (Width_ * 0.025) - 0.98f;
 				MapTrans.position_.y = (Height_ * 0.046f) + 0.158f;
+
+				//MapTrans.position_.x = (Width_ * 0.025) - 0.98f;
+				//MapTrans.position_.y = (Height_ * 0.046f) + 0.158f;
 				//いま何行目か*どれくらい間隔開けるか - 初期値
 
 				type_ = ptable_[Width_][Height_];
@@ -112,6 +115,6 @@ void MiniMapObject::Draw()
 }
 
 //開放
-void MiniMapObject::Release()
+void MiniMap::Release()
 {
 }

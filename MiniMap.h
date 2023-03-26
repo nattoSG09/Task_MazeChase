@@ -14,7 +14,7 @@ enum {
 	Mini_MAX,
 };
 
-class MiniMapObject : public GameObject
+class MiniMap : public GameObject
 {
 	CsvReader MiniMapCSV; //このクラスでCSVを受け取るための変数
 	int hPict_[Mini_MAX]; // Map画像素材 0=floor,1=wall,2=player
@@ -34,7 +34,7 @@ class MiniMapObject : public GameObject
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	MiniMapObject(GameObject* parent);
+	MiniMap(GameObject* parent);
 
 	//初期化
 	void Initialize() override;

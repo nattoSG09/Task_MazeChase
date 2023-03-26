@@ -21,7 +21,7 @@ void PlayScene::Initialize()
 	Instantiate<Enemy>(this);
 
 	//MiniMap setting
-	Instantiate<MiniMapObject>(this);
+	Instantiate<MiniMap>(this);
 
 	//Cursor setting
 	ShowCursor(true);//true -> •\Ž¦    false -> ”ñ•\Ž¦

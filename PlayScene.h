@@ -3,7 +3,7 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
-#include "MiniMapObject.h"
+#include "MiniMap.h"
 #include "StageMap.h"
 #include "Player.h"
 #include "Enemy.h"
