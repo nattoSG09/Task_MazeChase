@@ -62,32 +62,67 @@ void Enemy::Update()
 	//Coriderがなんか付かない
 	}
 
-	//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
-	//Playerに当たったらflag_Findを"true"にする
-	//一定距離離れるor一定時間経過でflag_Findを"false"にする
-
-	//デバッグ用：flag_Find
-	#if 1
+	//Enemyの動作処理
 	{
-		if (Input::IsKeyDown(DIK_U)) {
-			flag_Find = false;
+		//Player感知処理
+		{
+			// 敵キャラクターの向きを表すベクトルを取得する
+
+			XMFLOAT3 EnemyDir;
+			XMVECTOR vMove = { 0.0f,0.0f,0.1f,0.0f };
+			XMMATRIX EnemyTransMatrix = XMMatrixRotationY(XMConvertToRadians(EnemyTrans_.rotate_.y));
+
+			XMStoreFloat3(&EnemyDir, XMVector3TransformCoord(vMove, EnemyTransMatrix));
+
+			Player* pPlayer = (Player*)FindObject("Player");
+			int hPlayer = pPlayer->GetModelHandle();
+
+			RayCastData visibleRange;
+			XMFLOAT3 VsPos = { EnemyTrans_.position_.x,EnemyTrans_.position_.y + 1, EnemyTrans_.position_.z, };
+			visibleRange.start = VsPos;   
+			visibleRange.dir = EnemyDir;
+
+			//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
+
+			if (flag_Find == false)
+			{
+				Model::RayCast(hPlayer, &visibleRange);
+				if (visibleRange.hit) {
+					//Playerに当たったらflag_Findを"true"にする
+					flag_Find = true;
+					Debug::Log("o", true);
+				}
+				else {
+					Debug::Log("x", true);
+				}
+			}
+
+			//一定距離離れるor一定時間経過でflag_Findを"false"にする
+
 		}
 
-		if (Input::IsKeyDown(DIK_I)) {
-			flag_Find = true;
+		//デバッグ用：flag_Find
+		#if 1
+		{
+			if (Input::IsKeyDown(DIK_U)) {
+				flag_Find = false;
+			}
+
+			if (Input::IsKeyDown(DIK_I)) {
+				flag_Find = true;
+			}
 		}
-	}
-	#endif
+		#endif
 
-	//条件：Playerを発見したか否か
-	if (flag_Find){
-
-		//Enemyの追従処理
-		FollowingMove();
-	}
-	else{
-		//Enemyの徘徊処理
-		WanderingMove();
+		//条件：Playerを発見したか否か
+		if (flag_Find) {
+			//Enemyの追従処理
+			FollowingMove();
+		}
+		else {
+			//Enemyの徘徊処理
+			WanderingMove();
+		}
 	}
 
 	//デバック用：あたり判定
@@ -103,11 +138,10 @@ void Enemy::Update()
 	}
 	#endif
 
-	
-
 	//あたり判定の処理
 	boundaryCheck();
 }
+
 //描画
 void Enemy::Draw()
 {

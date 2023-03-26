@@ -4,6 +4,7 @@
 #include "Engine/Model.h"
 
 #include "StageMap.h"
+#include "StageObject.h"
 #include "Player.h"
 
 //テストシーンを管理するクラス

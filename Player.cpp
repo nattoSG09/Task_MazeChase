@@ -29,6 +29,7 @@ void Player::Initialize()
 //更新
 void Player::Update()
 {
+
 	//playerの動作処理
 	{
 		//マウスによる方向取得
@@ -94,7 +95,7 @@ void Player::Update()
 		Camera::SetTarget(CamTarget_);
 	}
 
-	//デバック用
+	//デバック用：あたり判定
 	#if 0
 	{
 		//Playerが壁と接触しているかを確認する
@@ -117,6 +118,7 @@ void Player::Draw()
 	Model::SetTransform(hModel_, PlayerTrans_);
 	Model::Draw(hModel_);
 }
+
 //開放
 void Player::Release()
 {
@@ -221,4 +223,10 @@ void Player::boundaryCheck()
 		}
 	}
 	//-------------------------------------------
+}
+
+////任意のゲームオブジェクトに「何メートル先でぶつかるか」を求める関数
+int Player::GetModelHandle()
+{
+	return (hModel_);
 }

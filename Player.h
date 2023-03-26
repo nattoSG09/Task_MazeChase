@@ -65,6 +65,9 @@ public:
 	/// <returns>PlayerTrans_.position_</returns>
 	XMFLOAT3 GetPPos() { return PlayerTrans_.position_; }
 
+	//任意のゲームオブジェクトに「何メートル先でぶつかるか」を求める関数
+	int GetModelHandle();
+
 	//壁とのあたり判定処理
 	void boundaryCheck();
 };
