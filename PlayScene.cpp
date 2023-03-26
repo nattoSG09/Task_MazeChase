@@ -20,18 +20,27 @@ void PlayScene::Initialize()
 	//Enemy setting
 	Instantiate<Enemy>(this);
 
-	//MiniMap setting
-	Instantiate<MiniMap>(this);
-
 	//Cursor setting
 	ShowCursor(true);//true -> 表示    false -> 非表示
 
+	//MiniMap setting
+	#if 1
+	{
+		MiniMap_ = Instantiate<MiniMap>(this);
+		MiniMap_->DrawPosition(0, 0);
+		MiniMap_->DrawSize(1);
+		MiniMap_->ChengeOpacity(255);
+	}
+	#endif
+
 	//Timer setting
+	#if 1
 	{
 		Time_ = Instantiate<Timer>(this);
 		Time_->DrawPostion(30, 30);
 		Time_->SetLimit(30);	//このゲームの制限時間（秒）
 	}
+	#endif
 }
 
 //更新

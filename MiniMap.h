@@ -31,6 +31,11 @@ class MiniMap : public GameObject
 	Transform PlaTrans;//Playerの位置などを操作するTransform型
 
 	vector<vector<int>> ptable_;//ステージ情報を格納する二次元配列
+
+	float DrawX_, DrawY_;
+	float Size_;
+	int Opasity_;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -50,5 +55,14 @@ public:
 
 	//配置するobjectを変更する関数
 	void ObjectSet(int _obj) { obj_ = _obj; }
+
+	//画面上での表示場所を決める関数
+	void DrawPosition(int _posX,int _posY);
+
+	//画面上での表示サイズを決める関数
+	void DrawSize(int _size);
+
+	//不透明度を変更する関数
+	void ChengeOpacity(int _Opa);
 };
 

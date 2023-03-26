@@ -118,3 +118,22 @@ void MiniMap::Draw()
 void MiniMap::Release()
 {
 }
+
+//画面上での表示場所を決める関数
+void MiniMap::DrawPosition(int _posX, int _posY)
+{
+	this->DrawX_ = _posX;
+	this->DrawY_ = _posY;
+}
+
+//画面上での表示サイズを決める関数
+void MiniMap::DrawSize(int _size)
+{
+	this->Size_ = _size;
+}
+
+//不透明度を変更する関数
+void MiniMap::ChengeOpacity(int _Opa)
+{
+	this->Opasity_ = _Opa;
+}

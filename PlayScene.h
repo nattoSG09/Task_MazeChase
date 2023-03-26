@@ -21,6 +21,7 @@ public:
 	int state_;
 private:
 	Timer* Time_;
+	MiniMap* MiniMap_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
