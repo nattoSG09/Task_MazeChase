@@ -84,7 +84,7 @@ void MiniMap::Draw()
 			{
 
 				MapTrans.position_.x = (Width_ * 0.025f) + MapSTDPosX;
-				MapTrans.position_.y = (Height_ * 0.046f) + MapSTDPosY;
+				MapTrans.position_.y = (Height_ * 0.048f) + MapSTDPosY;
 
 				//いま何行目か*どれくらい間隔開けるか - 初期値
 
@@ -95,10 +95,10 @@ void MiniMap::Draw()
 			}
 		}
 
-	PlaTrans.position_.x = ((Ppos.x - 2.04f)*0.0125f) - 0.97f;
-	PlaTrans.position_.y = ((Ppos.y - 2.2)*0.0235f) + 0.18f;
+	PlaTrans.position_.x = ((Ppos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
+	PlaTrans.position_.y = ((Ppos.y - (3 - 0.2 )) * 0.024f ) + 0.2f;
 	
-	//((Playerの位置-(3-初期値))*ちょうどいい値)±platransの初期値(多少誤差ある)
+	//((Playerの位置-(3-位置))*加速度)±位置
 	}
 	
 	//Playerを表示
