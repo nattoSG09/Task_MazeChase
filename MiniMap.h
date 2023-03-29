@@ -60,7 +60,7 @@ public:
 	void DrawPosition(int _posX,int _posY);
 
 	//画面上での表示サイズを決める関数
-	void DrawSize(int _size);
+	void DrawSize(float _size);
 
 	//不透明度を変更する関数
 	void ChengeOpacity(int _Opa);

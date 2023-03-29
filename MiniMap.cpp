@@ -119,7 +119,7 @@ void MiniMap::DrawPosition(int _posX, int _posY)
 }
 
 //画面上での表示サイズを決める関数
-void MiniMap::DrawSize(int _size)
+void MiniMap::DrawSize(float _size)
 {
 	this->Size_ = _size;
 }

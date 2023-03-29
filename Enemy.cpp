@@ -17,36 +17,44 @@ void Enemy::Initialize()
 	//stage情報の取得
 	pStageMap_ = (StageMap*)FindObject("StageMap");
 
-	//初期位置の設定
+	//Enemy初期設定
 	{
-		//ランダムスポーン
-		#if 1
+		//スポーン位置の設定
 		{
-			float spawnX=0.0f, spawnZ=0.0f;
-			bool ok = true;
-			
-			spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-			spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 
-			while (ok)
+			//固定スポーン
+			//EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
+
+			//ランダムスポーン
+			#if 1
 			{
-				if (pStageMap_->IsWall(spawnX, spawnZ))
-				{
-					spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-					spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-				}
-				else
-				{
-					break;
-				}
-			}
-			EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
-		}
-		#endif
+				float spawnX = 0.0f, spawnZ = 0.0f;
+				bool ok = true;
 
-		//EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
+
+				//spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+				//spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+
+				while (ok)
+				{
+					if (pStageMap_->IsWall(spawnX, spawnZ)) {
+						spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+						spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+					}
+					else {
+						break;
+					}
+				}
+				EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
+			}
+			#endif
+
+		}
+
+		//モデルスケールの設定
 		EnemyTrans_.scale_ = { 0.8f,0.8f,0.8f };
-		EnemyTrans_.rotate_.y = rand();
+
+		//アニメーションの設定
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
 	}
 }
@@ -82,9 +90,6 @@ void Enemy::Update()
 			Player* pPlayer = (Player*)FindObject("Player");
 			int hPlayer = pPlayer->GetModelHandle();
 
-			StageObject* pObject = (StageObject*)FindObject("StageObject");
-			int hWall = pObject->GetModelHandle(OBJ_WALL);
-
 			//レイキャストデータを用意する
 			
 			//レイキャスト.スタートを用意
@@ -94,16 +99,11 @@ void Enemy::Update()
 			RayCastData vrPlayer;
 			vrPlayer.start = VsPos;   
 			vrPlayer.dir = EnemyDir;
-
-			//レイキャストデータ(wall)
-			RayCastData vrWall;
-			vrWall.start = VsPos;
-			vrWall.dir = EnemyDir;
+			Model::RayCast(hPlayer, &vrPlayer);
 
 			//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
 			if (flag_Find == false)
 			{
-				Model::RayCast(hPlayer, &vrPlayer);
 				if (vrPlayer.hit) {
 					//Playerに当たったらflag_Findを"true"にする
 					flag_Find = true;
@@ -112,7 +112,6 @@ void Enemy::Update()
 				else {
 					Debug::Log("x", true);
 				}
-			
 			}
 
 			//一定時間経過でflag_Findを"false"にする(※条件は「一定距離離れる」に変更の可能性あり)
@@ -322,3 +321,30 @@ void Enemy::boundaryCheck()
 		}
 		//-------------------------------------------
 }
+
+//メモ：菅原
+//※StageObjectクラス内のhModel_[]という変数配列から適切なモデル番号を取得できない
+/*
+	レイキャストデータ(wall)
+		RayCastData vrWall;
+		vrWall.start = VsPos;
+		vrWall.dir = EnemyDir;
+		Model::RayCast(hWall, &vrWall);
+
+		Debug::Log("W->");
+		Debug::Log(vrWall.dist,true);
+		Debug::Log("P->");
+		Debug::Log(vrPlayer.dist,true);
+
+		//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
+	if (flag_Find == false){
+		if (vrPlayer.hit && vrPlayer.dist < vrWall.dist) {
+			//Playerに当たったらflag_Findを"true"にする
+			flag_Find = true;
+			Debug::Log("o", true);
+		}
+		else {
+			Debug::Log("x", true);
+		}
+	}
+*/

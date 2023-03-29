@@ -28,7 +28,7 @@ void PlayScene::Initialize()
 	{
 		MiniMap_ = Instantiate<MiniMap>(this);
 		MiniMap_->DrawPosition(0, 0);
-		MiniMap_->DrawSize(1);
+		MiniMap_->DrawSize(0.0125f);
 		MiniMap_->ChengeOpacity(255);
 	}
 	#endif
@@ -41,11 +41,15 @@ void PlayScene::Initialize()
 		Time_->SetLimit(30);	//このゲームの制限時間（秒）
 	}
 	#endif
+
+	//Transition setting
+	//Transition_ = Instantiate<Transition>(this);
 }
 
 //更新
 void PlayScene::Update()
 {
+
 	switch (state_)
 	{
 	case STATE_READY:	UpdateReady(); break;

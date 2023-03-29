@@ -125,6 +125,7 @@
       <Filter>リソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -220,6 +221,7 @@
     <ClInclude Include="MiniMap.h">
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Transition.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">
