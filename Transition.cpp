@@ -1,4 +1,3 @@
-/*
 #include "Transition.h"
 
 //コンストラクタ
@@ -15,16 +14,17 @@ void Transition::Initialize()
 	assert(hPict_ >= 0);
 
 	//※　Opacity(不透明度)は０から２５５の数値で管理されている。
+	Opacity_ = 255;
 }
 
 //更新
 void Transition::Update()
 {
-	switch (Move_)
+	/*switch (Move_)
 	{
 	case FADE_IN:	FadeIN();	 break;
 	case FADE_OUT:	FadeOUT();	 break;
-	}
+	}*/
 }
 
 //描画
@@ -43,29 +43,14 @@ void Transition::Release()
 //フェードインする関数
 void Transition::FadeIN()
 {
-	if (Active_) {
-		if (Opacity_ > 255) {
-			Opacity_++;
-		}
-		else {
-			Active_ = false;
-		}
-	}
 }
 
 //フェードアウトする関数
 void Transition::FadeOUT()
 {
-	if (Active_) {
-
-	}
 }
 
 //画面遷移を開始する関数
 void Transition::TransStart(int _move)
 {
-	this->Move_ = _move;
-	Active_ = true;
 }
-
-*/

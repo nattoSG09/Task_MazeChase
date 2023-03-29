@@ -1,4 +1,3 @@
-/*
 
 #pragma once
 #include "Engine/GameObject.h"
@@ -49,5 +48,3 @@ public:
 	//‰æ–Ê‘JˆÚ‚ğŠJn‚·‚éŠÖ”
 	void TransStart(int _move);
 };
-
-*/

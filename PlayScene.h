@@ -3,7 +3,7 @@
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
-//#include "Transition.h"
+#include "Transition.h"
 #include "MiniMap.h"
 #include "StageMap.h"
 #include "Player.h"
@@ -23,7 +23,7 @@ public:
 private:
 	Timer* Time_;
 	MiniMap* MiniMap_;
-	//Transition* Transition_;
+	Transition* Transition_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

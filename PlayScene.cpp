@@ -43,7 +43,7 @@ void PlayScene::Initialize()
 	#endif
 
 	//Transition setting
-	//Transition_ = Instantiate<Transition>(this);
+	Transition_ = Instantiate<Transition>(this);
 }
 
 //XV
