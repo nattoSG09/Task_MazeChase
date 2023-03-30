@@ -44,7 +44,7 @@ public:
 
 	// 指定した位置が通れるか通れないかを調べる
 	//引数：x,z	調べる位置
-	//戻り値：通れない＝true / 通れない＝false
+	//戻り値：壁＝true / 壁じゃない＝false
 	bool IsWall(int x, int z);
 
 	//table.size & dataを他所に渡す関数
@@ -55,4 +55,6 @@ public:
 
 	//table.Heightを渡す関数
 	int GetHeight() { return (this->Height); }
+
+	bool HasWallBetween(XMFLOAT3 playerPos, XMFLOAT3 enemyPos);
 };

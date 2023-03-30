@@ -23,10 +23,10 @@ void Enemy::Initialize()
 		{
 
 			//固定スポーン
-			//EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
+			EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
 
 			//ランダムスポーン
-			#if 1
+			#if 0
 			{
 				float spawnX = 0.0f, spawnZ = 0.0f;
 				bool ok = true;
@@ -90,6 +90,7 @@ void Enemy::Update()
 			Player* pPlayer = (Player*)FindObject("Player");
 			int hPlayer = pPlayer->GetModelHandle();
 
+			StageMap* pWall = (StageMap*)FindObject("StageMap");
 			//レイキャストデータを用意する
 			
 			//レイキャスト.スタートを用意
@@ -101,16 +102,22 @@ void Enemy::Update()
 			vrPlayer.dir = EnemyDir;
 			Model::RayCast(hPlayer, &vrPlayer);
 
+			//デバック用：レイキャストデータ
+			#if 1
+			{
+				Debug::Log("P->");
+				Debug::Log(vrPlayer.dist, true);
+			}
+			#endif
+
 			//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
 			if (flag_Find == false)
 			{
-				if (vrPlayer.hit) {
-					//Playerに当たったらflag_Findを"true"にする
-					flag_Find = true;
-					Debug::Log("o", true);
+				if (vrPlayer.hit && !pWall->HasWallBetween(EnemyTrans_.position_,pPlayer->GetPPos())){
+					//trueになることでPlayerを追従する
+						flag_Find = true;
 				}
 				else {
-					Debug::Log("x", true);
 				}
 			}
 
@@ -234,18 +241,18 @@ void Enemy::FollowingMove()
 //Enemyの動作：徘徊
 void Enemy::WanderingMove()
 {
-		//向いている方向を取得
+	//向いている方向を取得
+	
+	//向いている方向にレイキャストを放つ
 
-		//向いている方向にレイキャストを放つ
+	//条件：レイキャストが壁に当たるか否か
+	
+	//分岐：当たった
+	//左右後方３方向にレイキャストを放つ
+	//レイキャストが当たらなかった場所に移動(複数箇所の場合、ランダムに移動)
 
-		//条件：レイキャストが壁に当たるか否か
-
-		//分岐：当たった
-		//左右後方３方向にレイキャストを放つ
-		//レイキャストが当たらなかった場所に移動(複数箇所の場合、ランダムに移動)
-
-		//分岐：当たらない
-		//向いている方向に移動
+	//分岐：当たらない
+	//向いている方向に移動
 }
 
 //壁とのあたり判定処理

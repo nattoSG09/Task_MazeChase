@@ -43,13 +43,12 @@ void PlayScene::Initialize()
 	#endif
 
 	//Transition setting
-	Transition_ = Instantiate<Transition>(this);
+	//Transition_ = Instantiate<Transition>(this);
 }
 
 //çXêV
 void PlayScene::Update()
 {
-
 	switch (state_)
 	{
 	case STATE_READY:	UpdateReady(); break;
