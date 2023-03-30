@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include"Engine/BoxCollider.h"
 
 const int FPS = 60;
 
@@ -13,6 +14,9 @@ void Enemy::Initialize()
 {
 	hModel_ = Model::Load("F_Enemy(move).fbx");
 	assert(hModel_ >= 0);
+
+	BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0, 0), XMFLOAT3(1, 1, 1));
+	AddCollider(collision);
 
 	//stageî•ñ‚Ìæ“¾
 	pStageMap_ = (StageMap*)FindObject("StageMap");

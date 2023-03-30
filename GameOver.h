@@ -4,6 +4,8 @@
 //テストシーンを管理するクラス
 class GameOver : public GameObject
 {
+
+	int hPict_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

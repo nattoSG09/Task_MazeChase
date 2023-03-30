@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "Engine/SceneManager.h"
+#include"Engine/SphereCollider.h"
 
 
 //コンストラクタ
@@ -16,6 +18,7 @@ void Player::Initialize()
 	hModel_ = Model::Load("F_Player(move).fbx");
 	assert(hModel_ >= 0);
 
+
 	//player初期設定
 	{
 		PlayerTrans_.position_ = { 3.0f,0.0f,3.0f };//マップの左下端
@@ -25,11 +28,14 @@ void Player::Initialize()
 	
 	//stage情報の取得
 	pStageMap_ = (StageMap*)FindObject("StageMap");
+
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.2f);
+	AddCollider(collision);
 }
 //更新
 void Player::Update()
 {
-
+	
 	//playerの動作処理
 	{
 		//マウスによる方向取得
@@ -229,4 +235,14 @@ void Player::boundaryCheck()
 int Player::GetModelHandle()
 {
 	return (hModel_);
+}
+
+void Player::OnCollision(GameObject* pTarget)
+{
+	if (pTarget->GetObjectName() == "Enemy") {
+
+		/*SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);*/
+
+	}
 }

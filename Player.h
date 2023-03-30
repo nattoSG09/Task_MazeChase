@@ -70,4 +70,6 @@ public:
 
 	//•Ç‚Æ‚Ì‚ ‚½‚è”»’èˆ—
 	void boundaryCheck();
+
+	void OnCollision(GameObject* pTarget) override;
 };
