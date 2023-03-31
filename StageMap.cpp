@@ -74,41 +74,35 @@ bool StageMap::IsWall(int x, int z)
 	return(table_[x/2][z/2] == OBJ_WALL);
 }
 
-
-bool StageMap::HasWallBetween(XMFLOAT3 playerPos, XMFLOAT3 enemyPos)
+//プレゼンハムのアルゴリズム関数
+bool StageMap::HasWallBetween(XMFLOAT3 _positionA, XMFLOAT3 _positionB)
 {
-	//プレイヤーの位置と敵の位置を2点間の距離で求める
-	float distance = sqrt(pow(enemyPos.x - playerPos.x, 2) + pow(enemyPos.z - playerPos.z, 2));
+	//プレイヤーの位置と敵の位置の間の距離を求める
+	float distance = sqrt(pow(_positionB.x - _positionA.x, 2) + pow(_positionB.z - _positionA.z, 2));
 
-	//2点間を等分する点を求める
-	float dx = (enemyPos.x - playerPos.x) / distance;
-	float dz = (enemyPos.z - playerPos.z) / distance;
-	float x = playerPos.x;
-	float z = playerPos.z;
+	//2点間を等分する点を作る
+	float dx = (_positionB.x - _positionA.x) / distance;
+	float dz = (_positionB.z - _positionA.z) / distance;
+	float x = _positionA.x;
+	float z = _positionA.z;
 
 	//2点間を区切る数だけループ
 	const int numPoints = (int)distance;
-	std::vector<bool> results(numPoints, false); // 結果を格納する配列を初期化
+
+	// 結果をチェック
+	bool hasWall = false;
 
 	for (int i = 0; i < numPoints; i++)
 	{
 		//プレイヤーと敵の間に壁があるかどうかを判定
-		results[i] = IsWall((int)x, (int)z);
-
-		//次の点へ進む
-		x += dx * 2;
-		z += dz * 2;
-	}
-
-	// 結果をチェック
-	bool hasWall = false;
-	for (int i = 0; i < numPoints; i++)
-	{
-		if (results[i])
+		if (IsWall((int)(x), (int)(z)))
 		{
 			hasWall = true;
-			break;
 		}
+
+		//次の点へ進む
+		x += dx;
+		z += dz;
 	}
 
 	//壁がない場合はfalseを返す

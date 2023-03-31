@@ -15,7 +15,7 @@ void Enemy::Initialize()
 	hModel_ = Model::Load("F_Enemy(move).fbx");
 	assert(hModel_ >= 0);
 
-	BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0, 0), XMFLOAT3(1, 1, 1));
+	BoxCollider* collision = new BoxCollider(EnemyTrans_.position_, XMFLOAT3(1, 1, 1));
 	AddCollider(collision);
 
 	//stage情報の取得
@@ -27,10 +27,10 @@ void Enemy::Initialize()
 		{
 
 			//固定スポーン
-			EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
+			//EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
 
 			//ランダムスポーン
-			#if 0
+			#if 1
 			{
 				float spawnX = 0.0f, spawnZ = 0.0f;
 				bool ok = true;
@@ -94,8 +94,9 @@ void Enemy::Update()
 			Player* pPlayer = (Player*)FindObject("Player");
 			int hPlayer = pPlayer->GetModelHandle();
 
-			StageMap* pWall = (StageMap*)FindObject("StageMap");
-			//レイキャストデータを用意する
+			StageMap* pStageMap = (StageMap*)FindObject("StageMap");
+			
+			XMFLOAT3 PlayerPosition_ = pPlayer->GetPPos();
 			
 			//レイキャスト.スタートを用意
 			XMFLOAT3 VsPos = { EnemyTrans_.position_.x,EnemyTrans_.position_.y + 1, EnemyTrans_.position_.z, };
@@ -117,7 +118,7 @@ void Enemy::Update()
 			//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
 			if (flag_Find == false)
 			{
-				if (vrPlayer.hit && !pWall->HasWallBetween(EnemyTrans_.position_,pPlayer->GetPPos())){
+				if (vrPlayer.hit && !pStageMap->HasWallBetween(EnemyTrans_.position_, PlayerPosition_)){
 					//trueになることでPlayerを追従する
 						flag_Find = true;
 				}

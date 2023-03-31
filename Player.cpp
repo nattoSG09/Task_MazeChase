@@ -29,8 +29,9 @@ void Player::Initialize()
 	//stageî•ñ‚Ìæ“¾
 	pStageMap_ = (StageMap*)FindObject("StageMap");
 
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0, 0), 1.2f);
+	SphereCollider* collision = new SphereCollider(PlayerTrans_.position_, 1.2f);
 	AddCollider(collision);
+
 }
 //XV
 void Player::Update()

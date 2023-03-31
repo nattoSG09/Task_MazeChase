@@ -56,5 +56,6 @@ public:
 	//table.Heightを渡す関数
 	int GetHeight() { return (this->Height); }
 
-	bool HasWallBetween(XMFLOAT3 playerPos, XMFLOAT3 enemyPos);
+	//プレゼンハムのアルゴリズム関数
+	bool HasWallBetween(XMFLOAT3 _positionA, XMFLOAT3 _positionB);
 };
