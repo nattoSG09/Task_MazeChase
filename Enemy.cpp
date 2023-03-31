@@ -61,6 +61,8 @@ void Enemy::Initialize()
 		//アニメーションの設定
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
 	}
+
+	CoolTime_ = 3 * FPS;
 }
 
 //更新
@@ -127,14 +129,16 @@ void Enemy::Update()
 			}
 
 			//一定時間経過でflag_Findを"false"にする(※条件は「一定距離離れる」に変更の可能性あり)
-			/*if (flag_Find == true)
+			if (flag_Find == true)
 			{
-				CoolTime_ = 3 * FPS;
 				CoolTime_--;
 				if (CoolTime_ < 0) {
 					flag_Find = false;
 				}
-			}*/
+			}
+			else {
+				CoolTime_ = 3 * FPS;
+			}
 			//処理としてはあってるけど、今のコードだとenemyが1回Player見つけると
 			//目線外せないから機能してないっぽい感じか？これ
 		}
