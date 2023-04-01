@@ -57,6 +57,7 @@ void Enemy::Initialize()
 
 		//モデルスケールの設定
 		EnemyTrans_.scale_ = { 0.8f,0.8f,0.8f };
+		//EnemyTrans_.rotate_.y = rand()/180;
 
 		//アニメーションの設定
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
@@ -137,7 +138,7 @@ void Enemy::Update()
 				}
 			}
 			else {
-				CoolTime_ = 3 * FPS;
+				CoolTime_ = 10 * FPS;
 			}
 			//処理としてはあってるけど、今のコードだとenemyが1回Player見つけると
 			//目線外せないから機能してないっぽい感じか？これ

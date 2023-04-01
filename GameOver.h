@@ -1,11 +1,14 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Transition.h"
 
 //テストシーンを管理するクラス
 class GameOver : public GameObject
 {
 
 	int hPict_;
+
+	Transition* transition_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

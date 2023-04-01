@@ -18,6 +18,7 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 
 	//Enemy setting
+	//for (int i = 0; i < 5; i++) {}
 	Instantiate<Enemy>(this);
 
 	//Cursor setting
@@ -38,12 +39,12 @@ void PlayScene::Initialize()
 	{
 		Time_ = Instantiate<Timer>(this);
 		Time_->DrawPostion(30, 30);
-		Time_->SetLimit(30);	//このゲームの制限時間（秒）
+		Time_->SetLimit(3);	//このゲームの制限時間（秒）
 	}
 	#endif
 
 	//Transition setting
-	//Transition_ = Instantiate<Transition>(this);
+	transition_ = Instantiate<Transition>(this);
 }
 
 //更新
@@ -60,6 +61,9 @@ void PlayScene::Update()
 //更新・準備
 void PlayScene::UpdateReady()
 {
+	// フェードインを実行
+	transition_->Start(FADE_IN);
+
 	//[Q]キーを押すと...
 	if (Input::IsKeyDown(DIK_Q)) {
 		state_ = STATE_PLAY;
@@ -79,8 +83,14 @@ void PlayScene::UpdatePlay()
 //更新・終了
 void PlayScene::UpdateFinish()
 {
-	SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
-	pSm->ChangeScene(SCENE_ID_GAMEOVER);
+
+	// フェードアウトを実行
+	transition_->Start(FADE_OUT);
+
+	if (transition_->isOpacity(255)) {
+		SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
+		pSm->ChangeScene(SCENE_ID_GAMEOVER);
+	}
 }
 
 //描画

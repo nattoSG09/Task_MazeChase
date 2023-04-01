@@ -23,7 +23,7 @@ public:
 private:
 	Timer* Time_;
 	MiniMap* MiniMap_;
-	Transition* Transition_;
+	Transition* transition_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

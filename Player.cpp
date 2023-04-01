@@ -47,7 +47,12 @@ void Player::Update()
 		//ベクトルを用意
 		vPosition_ = XMLoadFloat3(&PlayerTrans_.position_);
 
-		float Speed = 0.09f;
+		float Speed = 0.05f;
+
+		if (Input::IsKey(DIK_LSHIFT)) {
+			Speed = 0.09;
+		}
+
 		vMoveZ_ = { 0.0f,0.0f,Speed,0.0f };
 		vMoveX_ = { Speed,0.0f,0.0f,0.0f };
 
