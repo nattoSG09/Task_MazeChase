@@ -6,7 +6,7 @@
 //コンストラクタ
 
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"),PlayerTrans_(transform_),hModel_(0),CamType_(0),pStageMap_(nullptr)
+	: GameObject(parent, "Player"),hModel_(0),CamType_(0),pStageMap_(nullptr)
 	, prevPosition_(0, 0, 0), CamPosition_(0, 0, 0), CamTarget_(0, 0, 0), vPosition_{0,0,0,0}, vMoveZ_{ 0,0,0,0 }, vMoveX_{ 0,0,0,0 }
 {
 }
@@ -21,7 +21,7 @@ void Player::Initialize()
 
 	//player初期設定
 	{
-		PlayerTrans_.position_ = { 3.0f,0.0f,3.0f };//マップの左下端
+		transform_.position_ = { 3.0f,0.0f,3.0f };//マップの左下端
 	//アニメーション動作処理
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
 	}
@@ -29,7 +29,7 @@ void Player::Initialize()
 	//stage情報の取得
 	pStageMap_ = (StageMap*)FindObject("StageMap");
 
-	SphereCollider* collision = new SphereCollider(PlayerTrans_.position_, 1.2f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0,0,0), 1.2f);
 	AddCollider(collision);
 
 }
@@ -41,11 +41,11 @@ void Player::Update()
 	{
 		//マウスによる方向取得
 		XMFLOAT3 MouseMove_ = Input::GetMouseMove();
-		PlayerTrans_.rotate_.y += (MouseMove_.x / 10.0f);
+		transform_.rotate_.y += (MouseMove_.x / 10.0f);
 
 
 		//ベクトルを用意
-		vPosition_ = XMLoadFloat3(&PlayerTrans_.position_);
+		vPosition_ = XMLoadFloat3(&transform_.position_);
 
 		float Speed = 0.05f;
 
@@ -57,7 +57,7 @@ void Player::Update()
 		vMoveX_ = { Speed,0.0f,0.0f,0.0f };
 
 
-		XMMATRIX RotateMatY = XMMatrixRotationY(XMConvertToRadians(PlayerTrans_.rotate_.y));
+		XMMATRIX RotateMatY = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
 
 		// vMoveZ / vMoveX をRotateMatYで回転させる
 		vMoveZ_ = XMVector3TransformCoord(vMoveZ_, RotateMatY);
@@ -89,7 +89,7 @@ void Player::Update()
 
 
 		XMVector3Normalize(vPosition_);//移動ベクトルを正規化
-		XMStoreFloat3(&PlayerTrans_.position_, vPosition_);
+		XMStoreFloat3(&transform_.position_, vPosition_);
 	}
 	
 	//カメラの変更処理
@@ -111,7 +111,7 @@ void Player::Update()
 	#if 0
 	{
 		//Playerが壁と接触しているかを確認する
-		if (pStageMap_->IsWall(PlayerTrans_.position_.x, PlayerTrans_.position_.z)) {
+		if (pStageMap_->IsWall(transform_.position_.x, transform_.position_.z)) {
 			Debug::Log("〇", true);
 		}
 		else {
@@ -127,7 +127,7 @@ void Player::Update()
 //描画
 void Player::Draw()
 {
-	Model::SetTransform(hModel_, PlayerTrans_);
+	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 }
 
@@ -158,7 +158,7 @@ void Player::CamSet_FPS()
 //視点を設定する関数：固定位置からの追従
 void Player::CamSet_FIXED()
 {
-	//CamTarget_ = { PlayerTrans_.position_ };
+	//CamTarget_ = { transform_.position_ };
 	CamTarget_ = { 15,5,15 };
 	CamPosition_ = { 15,50,14};
 }
@@ -173,16 +173,16 @@ void Player::boundaryCheck()
 //右-----------------------------------------
 	{
 		//頂点１
-		checkX1 = (int)(PlayerTrans_.position_.x + 0.2f);
-		checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
+		checkX1 = (int)(transform_.position_.x + 0.2f);
+		checkZ1 = (int)(transform_.position_.z + 0.1f);
 		//頂点２
-		checkX2 = (int)(PlayerTrans_.position_.x + 0.2f);
-		checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
+		checkX2 = (int)(transform_.position_.x + 0.2f);
+		checkZ2 = (int)(transform_.position_.z - 0.1f);
 
 		//衝突しているかどうか
 		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 		{
-			PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + (1.0f - 0.2f);
+			transform_.position_.x = (float)((int)transform_.position_.x) + (1.0f - 0.2f);
 		}
 	}
 	//-------------------------------------------
@@ -190,16 +190,16 @@ void Player::boundaryCheck()
 	//左-----------------------------------------
 	{
 		//頂点１
-		checkX1 = (int)(PlayerTrans_.position_.x - 0.2f);
-		checkZ1 = (int)(PlayerTrans_.position_.z + 0.1f);
+		checkX1 = (int)(transform_.position_.x - 0.2f);
+		checkZ1 = (int)(transform_.position_.z + 0.1f);
 		//頂点２
-		checkX2 = (int)(PlayerTrans_.position_.x - 0.2f);
-		checkZ2 = (int)(PlayerTrans_.position_.z - 0.1f);
+		checkX2 = (int)(transform_.position_.x - 0.2f);
+		checkZ2 = (int)(transform_.position_.z - 0.1f);
 
 		//衝突しているかどうか
 		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 		{
-			PlayerTrans_.position_.x = (float)((int)PlayerTrans_.position_.x) + 0.2f;
+			transform_.position_.x = (float)((int)transform_.position_.x) + 0.2f;
 		}
 	}
 	//-------------------------------------------
@@ -207,16 +207,16 @@ void Player::boundaryCheck()
 	//上-----------------------------------------
 	{
 		//頂点１
-		checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
-		checkZ1 = (int)(PlayerTrans_.position_.z + 0.2f);
+		checkX1 = (int)(transform_.position_.x + 0.1f);
+		checkZ1 = (int)(transform_.position_.z + 0.2f);
 		//頂点２
-		checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
-		checkZ2 = (int)(PlayerTrans_.position_.z + 0.2f);
+		checkX2 = (int)(transform_.position_.x - 0.1f);
+		checkZ2 = (int)(transform_.position_.z + 0.2f);
 
 		//衝突しているかどうか
 		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 		{
-			PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + (1.0f - 0.2f);
+			transform_.position_.z = (float)((int)transform_.position_.z) + (1.0f - 0.2f);
 		}
 	}
 	//-------------------------------------------
@@ -224,14 +224,14 @@ void Player::boundaryCheck()
 	//下-----------------------------------------
 	{
 		//頂点１
-		checkX1 = (int)(PlayerTrans_.position_.x + 0.1f);
-		checkZ1 = (int)(PlayerTrans_.position_.z - 0.2f);
+		checkX1 = (int)(transform_.position_.x + 0.1f);
+		checkZ1 = (int)(transform_.position_.z - 0.2f);
 		//頂点２
-		checkX2 = (int)(PlayerTrans_.position_.x - 0.1f);
-		checkZ2 = (int)(PlayerTrans_.position_.z - 0.2f);
+		checkX2 = (int)(transform_.position_.x - 0.1f);
+		checkZ2 = (int)(transform_.position_.z - 0.2f);
 		if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 		{
-			PlayerTrans_.position_.z = (float)((int)PlayerTrans_.position_.z) + 0.2f;
+			transform_.position_.z = (float)((int)transform_.position_.z) + 0.2f;
 		}
 	}
 	//-------------------------------------------

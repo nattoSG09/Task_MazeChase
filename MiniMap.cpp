@@ -72,8 +72,8 @@ void MiniMap::Draw()
 	//player情報の取得
 	{
 		Player* p = (Player*)FindObject("Player");
-		Ppos.x = p->GetPPos().x;
-		Ppos.y = p->GetPPos().z;
+		Ppos.x = p->GetPosition().x;
+		Ppos.y = p->GetPosition().z;
 	}
 
 	//ミニマップを表示
