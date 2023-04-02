@@ -5,7 +5,7 @@ const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),EnemyTrans_(transform_)
+	: GameObject(parent, "Enemy"),hModel_(-1)
 {
 }
 
@@ -15,7 +15,7 @@ void Enemy::Initialize()
 	hModel_ = Model::Load("F_Enemy(move).fbx");
 	assert(hModel_ >= 0);
 
-	BoxCollider* collision = new BoxCollider(EnemyTrans_.position_, XMFLOAT3(1, 1, 1));
+	BoxCollider* collision = new BoxCollider(transform_.position_, XMFLOAT3(1, 1, 1));
 	AddCollider(collision);
 
 	//stage情報の取得
@@ -27,7 +27,7 @@ void Enemy::Initialize()
 		{
 
 			//固定スポーン
-			//EnemyTrans_.position_ = { 11.0f,0.0f,11.0f };
+			//transform_.position_ = { 11.0f,0.0f,11.0f };
 
 			//ランダムスポーン
 			#if 1
@@ -49,15 +49,15 @@ void Enemy::Initialize()
 						break;
 					}
 				}
-				EnemyTrans_.position_ = { spawnX , 0.0f , spawnZ };
+				transform_.position_ = { spawnX , 0.0f , spawnZ };
 			}
 			#endif
 
 		}
 
 		//モデルスケールの設定
-		EnemyTrans_.scale_ = { 0.8f,0.8f,0.8f };
-		//EnemyTrans_.rotate_.y = rand()/180;
+		transform_.scale_ = { 0.8f,0.8f,0.8f };
+		//transform_.rotate_.y = rand()/180;
 
 		//アニメーションの設定
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
@@ -90,7 +90,7 @@ void Enemy::Update()
 
 			XMFLOAT3 EnemyDir;
 			XMVECTOR vMove = { 0.0f,0.0f,0.1f,0.0f };
-			XMMATRIX EnemyTransMatrix = XMMatrixRotationY(XMConvertToRadians(EnemyTrans_.rotate_.y));
+			XMMATRIX EnemyTransMatrix = XMMatrixRotationY(XMConvertToRadians(transform_.rotate_.y));
 
 			XMStoreFloat3(&EnemyDir, XMVector3TransformCoord(vMove, EnemyTransMatrix));
 
@@ -99,10 +99,10 @@ void Enemy::Update()
 
 			StageMap* pStageMap = (StageMap*)FindObject("StageMap");
 			
-			XMFLOAT3 PlayerPosition_ = pPlayer->GetPPos();
+			XMFLOAT3 PlayerPosition_ = pPlayer->GetPosition();
 			
 			//レイキャスト.スタートを用意
-			XMFLOAT3 VsPos = { EnemyTrans_.position_.x,EnemyTrans_.position_.y + 1, EnemyTrans_.position_.z, };
+			XMFLOAT3 VsPos = { transform_.position_.x,transform_.position_.y + 1, transform_.position_.z, };
 			
 			//レイキャストデータ(player)
 			RayCastData vrPlayer;
@@ -121,7 +121,7 @@ void Enemy::Update()
 			//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
 			if (flag_Find == false)
 			{
-				if (vrPlayer.hit && !pStageMap->HasWallBetween(EnemyTrans_.position_, PlayerPosition_)){
+				if (vrPlayer.hit && !pStageMap->HasWallBetween(transform_.position_, PlayerPosition_)){
 					//trueになることでPlayerを追従する
 						flag_Find = true;
 				}
@@ -173,7 +173,7 @@ void Enemy::Update()
 	#if 0
 	{
 		//Playerが壁と接触しているかを確認する
-		if (pStageMap_->IsWall(EnemyTrans_.position_.x, EnemyTrans_.position_.z)) {
+		if (pStageMap_->IsWall(transform_.position_.x, transform_.position_.z)) {
 			Debug::Log("〇", true);
 		}
 		else {
@@ -189,7 +189,7 @@ void Enemy::Update()
 //描画
 void Enemy::Draw()
 {
-	Model::SetTransform(hModel_, EnemyTrans_);
+	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 }
 
@@ -203,13 +203,13 @@ void Enemy::FollowingMove()
 {
 		//playerの位置を取得する
 		Player* p = (Player*)FindObject("Player");
-		TargetPosition_ = p->GetPPos();
+		TargetPosition_ = p->GetPosition();
 
 		//Enemyとplayerの差を計算する
 		XMFLOAT3 deltaPosition = XMFLOAT3(
-			TargetPosition_.x - EnemyTrans_.position_.x,
-			TargetPosition_.y - EnemyTrans_.position_.y,
-			TargetPosition_.z - EnemyTrans_.position_.z
+			TargetPosition_.x - transform_.position_.x,
+			TargetPosition_.y - transform_.position_.y,
+			TargetPosition_.z - transform_.position_.z
 		);
 
 		//Enemyの進行方向を計算する
@@ -219,9 +219,9 @@ void Enemy::FollowingMove()
 		float Speed = 0.05;
 
 		//EnemyをTargetに向かって移動させる
-		EnemyTrans_.position_.x += (XMVectorGetX(EnemyDir) * Speed);
-		EnemyTrans_.position_.y += (XMVectorGetY(EnemyDir) * Speed);
-		EnemyTrans_.position_.z += (XMVectorGetZ(EnemyDir) * Speed);
+		transform_.position_.x += (XMVectorGetX(EnemyDir) * Speed);
+		transform_.position_.y += (XMVectorGetY(EnemyDir) * Speed);
+		transform_.position_.z += (XMVectorGetZ(EnemyDir) * Speed);
 
 		//ベクトルの長さを求める
 		XMVECTOR vLength = XMVector3Length(EnemyDir);
@@ -244,7 +244,7 @@ void Enemy::FollowingMove()
 				angle *= -1;
 			}
 
-			EnemyTrans_.rotate_.y = XMConvertToDegrees(angle);
+			transform_.rotate_.y = XMConvertToDegrees(angle);
 		}
 }
 
@@ -263,6 +263,7 @@ void Enemy::WanderingMove()
 
 	//分岐：当たらない
 	//向いている方向に移動
+
 }
 
 //壁とのあたり判定処理
@@ -275,16 +276,16 @@ void Enemy::boundaryCheck()
 	//右-----------------------------------------
 		{
 			//頂点１
-			checkX1 = (int)(EnemyTrans_.position_.x + 0.2f);
-			checkZ1 = (int)(EnemyTrans_.position_.z + 0.1f);
+			checkX1 = (int)(transform_.position_.x + 0.2f);
+			checkZ1 = (int)(transform_.position_.z + 0.1f);
 			//頂点２
-			checkX2 = (int)(EnemyTrans_.position_.x + 0.2f);
-			checkZ2 = (int)(EnemyTrans_.position_.z - 0.1f);
+			checkX2 = (int)(transform_.position_.x + 0.2f);
+			checkZ2 = (int)(transform_.position_.z - 0.1f);
 
 			//衝突しているかどうか
 			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 			{
-				EnemyTrans_.position_.x = (float)((int)EnemyTrans_.position_.x) + (1.0f - 0.2f);
+				transform_.position_.x = (float)((int)transform_.position_.x) + (1.0f - 0.2f);
 			}
 		}
 		//-------------------------------------------
@@ -292,16 +293,16 @@ void Enemy::boundaryCheck()
 		//左-----------------------------------------
 		{
 			//頂点１
-			checkX1 = (int)(EnemyTrans_.position_.x - 0.2f);
-			checkZ1 = (int)(EnemyTrans_.position_.z + 0.1f);
+			checkX1 = (int)(transform_.position_.x - 0.2f);
+			checkZ1 = (int)(transform_.position_.z + 0.1f);
 			//頂点２
-			checkX2 = (int)(EnemyTrans_.position_.x - 0.2f);
-			checkZ2 = (int)(EnemyTrans_.position_.z - 0.1f);
+			checkX2 = (int)(transform_.position_.x - 0.2f);
+			checkZ2 = (int)(transform_.position_.z - 0.1f);
 
 			//衝突しているかどうか
 			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 			{
-				EnemyTrans_.position_.x = (float)((int)EnemyTrans_.position_.x) + 0.2f;
+				transform_.position_.x = (float)((int)transform_.position_.x) + 0.2f;
 			}
 		}
 		//-------------------------------------------
@@ -309,16 +310,16 @@ void Enemy::boundaryCheck()
 		//上-----------------------------------------
 		{
 			//頂点１
-			checkX1 = (int)(EnemyTrans_.position_.x + 0.1f);
-			checkZ1 = (int)(EnemyTrans_.position_.z + 0.2f);
+			checkX1 = (int)(transform_.position_.x + 0.1f);
+			checkZ1 = (int)(transform_.position_.z + 0.2f);
 			//頂点２
-			checkX2 = (int)(EnemyTrans_.position_.x - 0.1f);
-			checkZ2 = (int)(EnemyTrans_.position_.z + 0.2f);
+			checkX2 = (int)(transform_.position_.x - 0.1f);
+			checkZ2 = (int)(transform_.position_.z + 0.2f);
 
 			//衝突しているかどうか
 			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 			{
-				EnemyTrans_.position_.z = (float)((int)EnemyTrans_.position_.z) + (1.0f - 0.2f);
+				transform_.position_.z = (float)((int)transform_.position_.z) + (1.0f - 0.2f);
 			}
 		}
 		//-------------------------------------------
@@ -326,14 +327,14 @@ void Enemy::boundaryCheck()
 		//下-----------------------------------------
 		{
 			//頂点１
-			checkX1 = (int)(EnemyTrans_.position_.x + 0.1f);
-			checkZ1 = (int)(EnemyTrans_.position_.z - 0.2f);
+			checkX1 = (int)(transform_.position_.x + 0.1f);
+			checkZ1 = (int)(transform_.position_.z - 0.2f);
 			//頂点２
-			checkX2 = (int)(EnemyTrans_.position_.x - 0.1f);
-			checkZ2 = (int)(EnemyTrans_.position_.z - 0.2f);
+			checkX2 = (int)(transform_.position_.x - 0.1f);
+			checkZ2 = (int)(transform_.position_.z - 0.2f);
 			if (pStageMap_->IsWall(checkX1, checkZ1) == true || pStageMap_->IsWall(checkX2, checkZ2) == true)
 			{
-				EnemyTrans_.position_.z = (float)((int)EnemyTrans_.position_.z) + 0.2f;
+				transform_.position_.z = (float)((int)transform_.position_.z) + 0.2f;
 			}
 		}
 		//-------------------------------------------

@@ -42,4 +42,5 @@ public:
     void Start(int move);
 
     bool isOpacity(int _num);
+
 };

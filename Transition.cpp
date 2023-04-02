@@ -44,7 +44,7 @@ void Transition::Release()
 {
 }
 
-// フェードインする関数
+// フェードインする関数 255->0にする
 void Transition::FadeIN()
 {
     if (Opacity_ > 0)
@@ -59,7 +59,7 @@ void Transition::FadeIN()
     }
 }
 
-// フェードアウトする関数
+// フェードアウトする関数 0->255にする
 void Transition::FadeOUT()
 {
     if (Opacity_ < 255)
