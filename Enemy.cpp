@@ -57,7 +57,7 @@ void Enemy::Initialize()
 
 		//モデルスケールの設定
 		transform_.scale_ = { 0.8f,0.8f,0.8f };
-		//transform_.rotate_.y = rand()/180;
+		transform_.rotate_.y = rand()/180;
 
 		//アニメーションの設定
 		Model::SetAnimFrame(hModel_, 0, 60, 1);

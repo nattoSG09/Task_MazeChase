@@ -18,8 +18,14 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 
 	//Enemy setting
-	//for (int i = 0; i < 5; i++) {}
-	Instantiate<Enemy>(this);
+	for (int i = 0; i < 5; i++) {
+		Instantiate<Enemy>(this);
+	}
+	
+	//Coin setting
+	for (int i = 0; i < 20; i++){
+		Instantiate<Coin>(this);
+	}
 
 	//Cursor setting
 	ShowCursor(true);//true -> 表示    false -> 非表示
@@ -39,7 +45,7 @@ void PlayScene::Initialize()
 	{
 		Time_ = Instantiate<Timer>(this);
 		Time_->DrawPostion(30, 30);
-		Time_->SetLimit(3);	//このゲームの制限時間（秒）
+		Time_->SetLimit(30);	//このゲームの制限時間（秒）
 	}
 	#endif
 
@@ -64,10 +70,8 @@ void PlayScene::UpdateReady()
 	// フェードインを実行
 	transition_->Start(FADE_IN);
 
-	//[Q]キーを押すと...
-	if (Input::IsKeyDown(DIK_Q)) {
-		state_ = STATE_PLAY;
-	}
+	state_ = STATE_PLAY;
+
 }
 
 //更新・プレイ中

@@ -32,6 +32,7 @@ private:
 	XMVECTOR	vMoveZ_;		//空方向（Ｚ軸）
 	XMVECTOR	vMoveX_;		//空方向（Ｘ軸）
 
+	int GetCoin_;
 
 public:
 	//コンストラクタ

@@ -129,6 +129,7 @@
     <ClCompile Include="GameStart.cpp">
       <Filter>リソース ファイル\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Coin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -228,6 +229,7 @@
     <ClInclude Include="GameStart.h">
       <Filter>リソース ファイル\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Coin.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

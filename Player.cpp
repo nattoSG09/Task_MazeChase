@@ -252,4 +252,9 @@ void Player::OnCollision(GameObject* pTarget)
 		pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
 
 	}
+
+	if (pTarget->GetObjectName() == "Coin") {
+		pTarget->KillMe();
+		GetCoin_++;
+	}
 }
