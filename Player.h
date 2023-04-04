@@ -5,6 +5,7 @@
 #include "Engine/Debug.h"
 #include "Engine/Model.h"
 #include "Engine/Camera.h"
+#include "Engine/Text.h"
 
 #include "StageMap.h"
 
@@ -18,6 +19,8 @@ class Player :
 	public GameObject
 {
 private:
+	
+
 	int hModel_;	//モデル番号
 	int CamType_;	//カメラ番号
 	StageMap *pStageMap_;
@@ -33,7 +36,7 @@ private:
 	XMVECTOR	vMoveX_;		//空方向（Ｘ軸）
 
 	int GetCoin_;
-
+	Text* pText;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

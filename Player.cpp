@@ -32,18 +32,20 @@ void Player::Initialize()
 	BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1, 0), XMFLOAT3(1, 2, 1));
 	AddCollider(collision);
 
+	pText = new Text;
+	pText->Initialize();
+
 }
 
 //更新
 void Player::Update()
 {
-	
+
 	//playerの動作処理
 	{
 		//マウスによる方向取得
 		XMFLOAT3 MouseMove_ = Input::GetMouseMove();
 		transform_.rotate_.y += (MouseMove_.x / 10.0f);
-
 
 		//ベクトルを用意
 		vPosition_ = XMLoadFloat3(&transform_.position_);
@@ -130,6 +132,9 @@ void Player::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+
+	pText->Draw(30, 330, "score:");
+	pText->Draw(130, 330, GetCoin_);
 }
 
 //開放

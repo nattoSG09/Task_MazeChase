@@ -1,5 +1,7 @@
 #include "GameOver.h"
 #include "Engine/Image.h"
+#include "Engine/Input.h"
+#include "Engine/SceneManager.h"
 
 //コンストラクタ
 GameOver::GameOver(GameObject* parent)
@@ -24,6 +26,11 @@ void GameOver::Update()
 {
 	//フェードインを実行
 	transition_->Start(FADE_IN);
+
+	if (Input::IsKeyDown(DIK_SPACE)) {
+		SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
+		pSm->ChangeScene(SCENE_ID_START);
+	}
 }
 
 //描画

@@ -1,4 +1,6 @@
 #include "GameClear.h"
+#include "Engine/Input.h"
+#include "Engine/SceneManager.h"
 
 //コンストラクタ
 GameClear::GameClear(GameObject* parent)
@@ -16,6 +18,10 @@ void GameClear::Initialize()
 //更新
 void GameClear::Update()
 {
+	if (Input::IsKeyDown(DIK_SPACE)) {
+		SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
+		pSm->ChangeScene(SCENE_ID_START);
+	}
 }
 
 //描画
