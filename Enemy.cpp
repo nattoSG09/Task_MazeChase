@@ -15,7 +15,7 @@ void Enemy::Initialize()
 	hModel_ = Model::Load("F_Enemy(move).fbx");
 	assert(hModel_ >= 0);
 
-	BoxCollider* collision = new BoxCollider(transform_.position_, XMFLOAT3(1, 1, 1));
+	BoxCollider* collision = new BoxCollider(XMFLOAT3(0,1,0), XMFLOAT3(1, 2, 1));
 	AddCollider(collision);
 
 	//stageî•ñ‚Ìæ“¾

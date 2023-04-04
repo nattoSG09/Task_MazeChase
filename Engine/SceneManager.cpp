@@ -4,6 +4,7 @@
 #include "../PlayScene.h"
 #include"../GameClear.h"
 #include "../GameOver.h"
+#include "../GameStart.h"
 #include "Model.h"
 #include "Image.h"
 #include "Audio.h"
@@ -19,9 +20,9 @@ SceneManager::SceneManager(GameObject * parent)
 void SceneManager::Initialize()
 {
 	//最初のシーンを準備
-	currentSceneID_ = SCENE_ID_PLAY;
+	currentSceneID_ = SCENE_ID_START;
 	nextSceneID_ = currentSceneID_;
-	Instantiate<PlayScene>(this);
+	Instantiate<GameStart>(this);
 }
 
 //更新
@@ -42,10 +43,10 @@ void SceneManager::Update()
 		switch (nextSceneID_)
 		{
 		case SCENE_ID_TEST: Instantiate<TestScene>(this); break;
+		case SCENE_ID_START: Instantiate<GameStart>(this); break;
 		case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
 		case SCENE_ID_CLEAR: Instantiate<GameClear>(this); break;
 		case SCENE_ID_GAMEOVER: Instantiate<GameOver>(this); break;
-
 		}
 		Audio::Initialize();
 		currentSceneID_ = nextSceneID_;

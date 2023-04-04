@@ -89,7 +89,7 @@ void PlayScene::UpdateFinish()
 
 	if (transition_->isOpacity(255)) {
 		SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
-		pSm->ChangeScene(SCENE_ID_GAMEOVER);
+		pSm->ChangeScene(SCENE_ID_CLEAR);
 	}
 }
 

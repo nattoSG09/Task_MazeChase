@@ -126,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Transition.cpp" />
+    <ClCompile Include="GameStart.cpp">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -222,6 +225,9 @@
       <Filter>リソース ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="Transition.h" />
+    <ClInclude Include="GameStart.h">
+      <Filter>リソース ファイル\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

@@ -1,16 +1,18 @@
 #pragma once
 #include "Engine/GameObject.h"
-#include "Engine/Image.h"
+#include "Transition.h"
 
 //テストシーンを管理するクラス
-class GameClear : public GameObject
+class GameStart : public GameObject
 {
-private:
+
 	int hPict_;
+
+	Transition* transition_;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	GameClear(GameObject* parent);
+	GameStart(GameObject* parent);
 
 	//初期化
 	void Initialize() override;

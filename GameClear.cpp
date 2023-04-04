@@ -9,6 +9,8 @@ GameClear::GameClear(GameObject* parent)
 //‰Šú‰»
 void GameClear::Initialize()
 {
+	hPict_ = Image::Load("P_GameClear.png");
+	assert(hPict_ >= 0);
 }
 
 //XV
@@ -19,6 +21,9 @@ void GameClear::Update()
 //•`‰æ
 void GameClear::Draw()
 {
+	transform_.scale_ = { 0.67f,0.67f,0.67f };
+	Image::SetTransform(hPict_, transform_);
+	Image::Draw(hPict_);
 }
 
 //ŠJ•ú

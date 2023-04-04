@@ -29,10 +29,11 @@ void Player::Initialize()
 	//stageî•ñ‚ÌŽæ“¾
 	pStageMap_ = (StageMap*)FindObject("StageMap");
 
-	SphereCollider* collision = new SphereCollider(XMFLOAT3(0,0,0), 1.2f);
+	BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1, 0), XMFLOAT3(1, 2, 1));
 	AddCollider(collision);
 
 }
+
 //XV
 void Player::Update()
 {
@@ -247,8 +248,8 @@ void Player::OnCollision(GameObject* pTarget)
 {
 	if (pTarget->GetObjectName() == "Enemy") {
 
-		/*SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);*/
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
 
 	}
 }
