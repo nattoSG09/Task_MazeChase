@@ -5,7 +5,7 @@ const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),flag_Arrival(0),EnemyDestination(transform_),TargetPosition_(0.0f, 0.0f, 0.0f),wTargetX(0.0f),wTargetZ(0.0f)
+	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),EnemyDestination(transform_),TargetPosition_(0.0f, 0.0f, 0.0f),wTargetX(0.0f),wTargetZ(0.0f),wMoveTime(0)
 {
 }
 
@@ -279,8 +279,9 @@ void Enemy::WanderingMove()
 	#if 1
 	{
 		
+		wMoveTime++;
 		bool ko = true;
-		if (transform_.position_.x == TargetPosition_.x && transform_.position_.z == TargetPosition_.z) {
+		if (wMoveTime >= 1) {
 			while (ko)
 			{
 				if (pStageMap_->IsWall(wTargetX, wTargetZ)) {

@@ -23,8 +23,8 @@ private:
 
 
 	bool flag_Find;
-	bool flag_Arrival;
 	int CoolTime_;
+	int wMoveTime;
 	float wTargetX , wTargetZ;
 public:
 	//コンストラクタ
