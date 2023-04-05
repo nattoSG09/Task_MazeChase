@@ -1,0 +1,4 @@
+namespace Global
+{
+	int Coin;
+}

@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Global.h"
 #include "Engine/SceneManager.h"
 #include"Engine/SphereCollider.h"
 
@@ -261,5 +262,6 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Coin") {
 		pTarget->KillMe();
 		GetCoin_++;
+		Global::Coin = GetCoin_;
 	}
 }

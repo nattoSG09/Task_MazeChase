@@ -45,7 +45,7 @@ void PlayScene::Initialize()
 	{
 		Time_ = Instantiate<Timer>(this);
 		Time_->DrawPostion(30, 30);
-		Time_->SetLimit(50);	//このゲームの制限時間（秒）
+		Time_->SetLimit(10);	//このゲームの制限時間（秒）
 	}
 	#endif
 
