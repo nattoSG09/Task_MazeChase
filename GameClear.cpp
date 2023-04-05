@@ -27,7 +27,7 @@ void GameClear::Update()
 //•`‰æ
 void GameClear::Draw()
 {
-	transform_.scale_ = { 0.67f,0.67f,0.67f };
+	//transform_.scale_ = { 0.67f,0.67f,0.67f };
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 }

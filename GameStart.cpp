@@ -33,9 +33,10 @@ void GameStart::Update()
 //•`‰æ
 void GameStart::Draw()
 {
-	transform_.scale_ = { 0.67f,0.67f ,0.67f };
+	//transform_.scale_ = { 0.67f,0.67f ,0.67f };
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
+	Image::SetAlpha(hPict_, 255);
 }
 
 //ŠJ•ú

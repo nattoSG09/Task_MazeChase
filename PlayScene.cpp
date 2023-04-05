@@ -23,7 +23,7 @@ void PlayScene::Initialize()
 	}
 	
 	//Coin setting
-	for (int i = 0; i < 20; i++){
+	for (int i = 0; i < 30; i++){
 		Instantiate<Coin>(this);
 	}
 
@@ -45,7 +45,7 @@ void PlayScene::Initialize()
 	{
 		Time_ = Instantiate<Timer>(this);
 		Time_->DrawPostion(30, 30);
-		Time_->SetLimit(50);	//このゲームの制限時間（秒）
+		Time_->SetLimit(3);	//このゲームの制限時間（秒）
 	}
 	#endif
 
