@@ -7,12 +7,15 @@
 #include "StageObject.h"
 #include "Player.h"
 
+enum EnemyPattern{
+};
+
+
 //テストシーンを管理するクラス
 class Enemy : public GameObject
 {
 private:
 	int hModel_;
-	float spawnX,spawnY,spawnZ;
 	Transform EnemyTrans_; //直前の位置情報を格納する変数
 	Transform EnemyDestination;	//敵徘徊時の目的地
 	XMFLOAT3 TargetPosition_;
@@ -22,6 +25,7 @@ private:
 	bool flag_Find;
 	bool flag_Arrival;
 	int CoolTime_;
+	float wTargetX , wTargetZ;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

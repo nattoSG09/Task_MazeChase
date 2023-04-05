@@ -5,7 +5,7 @@ const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),spawnX(0.0f), spawnY(0.0f), spawnZ(0.0f),flag_Find(0),flag_Arrival(0)
+	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),flag_Arrival(0),EnemyDestination(transform_),TargetPosition_(0.0f, 0.0f, 0.0f),wTargetX(0.0f),wTargetZ(0.0f)
 {
 }
 
@@ -21,6 +21,19 @@ void Enemy::Initialize()
 	//stage情報の取得
 	pStageMap_ = (StageMap*)FindObject("StageMap");
 
+	//EnemyTarget設定
+	bool okk=true;
+	while (okk)
+	{
+		if (pStageMap_->IsWall(wTargetX,wTargetZ)) {
+			wTargetX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+			wTargetZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+		}
+		else {
+			okk = false;
+		}
+	}
+
 	//Enemy初期設定
 	{
 		//スポーン位置の設定
@@ -32,6 +45,7 @@ void Enemy::Initialize()
 			//ランダムスポーン
 			#if 1
 			{
+				float spawnX = 0.0f , spawnZ = 0.0f;
 				bool ok = true;
 
 				while (ok)
@@ -44,8 +58,7 @@ void Enemy::Initialize()
 						ok = false;
 					}
 				}
-				transform_.position_ = { spawnX , spawnY , spawnZ };
-				EnemyDestination.position_ = { spawnX , spawnY , spawnZ };
+				transform_.position_ = { spawnX , 0.0f , spawnZ };
 			}
 			#endif
 
@@ -265,19 +278,21 @@ void Enemy::WanderingMove()
 	//敵の巡回先を設定
 	#if 1
 	{
+		
 		bool ko = true;
-
-		while (ko)
-		{
-			if (pStageMap_->IsWall(spawnX, spawnZ)) {
-				spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-				spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-			}
-			else {
-				ko = false;
+		if (transform_.position_.x == TargetPosition_.x && transform_.position_.z == TargetPosition_.z) {
+			while (ko)
+			{
+				if (pStageMap_->IsWall(wTargetX, wTargetZ)) {
+					wTargetX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+					wTargetZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+				}
+				else {
+					ko = false;
+				}
 			}
 		}
-		EnemyDestination.position_ = { spawnX , spawnY , spawnZ };
+		EnemyDestination.position_ = { wTargetX , 0.0f , wTargetZ };
 	}
 	#endif
 	
@@ -324,6 +339,7 @@ void Enemy::WanderingMove()
 
 		transform_.rotate_.y = XMConvertToDegrees(angle);
 	}
+	
 	
 }
 
