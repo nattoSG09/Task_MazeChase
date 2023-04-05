@@ -5,7 +5,7 @@ const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),EnemyDestination(transform_),TargetPosition_(0.0f, 0.0f, 0.0f),wTargetX(0.0f),wTargetZ(0.0f),wMoveTime(0)
+	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),EnemyDestination(transform_),TargetPosition_(0.0f, 0.0f, 0.0f),wTargetX(0.0f),wTargetZ(0.0f)
 {
 }
 
@@ -174,7 +174,6 @@ void Enemy::Update()
 			FollowingMove();
 		}
 		else {
-			
 			//Enemyの徘徊処理
 			WanderingMove();
 		}
@@ -279,9 +278,9 @@ void Enemy::WanderingMove()
 	#if 1
 	{
 		
-		wMoveTime++;
+	
 		bool ko = true;
-		if (wMoveTime >= 1) {
+		if (isCollidingWithWall() || (transform_.position_.x==TargetPosition_.x && transform_.position_.z == TargetPosition_.z)) {
 			while (ko)
 			{
 				if (pStageMap_->IsWall(wTargetX, wTargetZ)) {
@@ -416,6 +415,55 @@ void Enemy::boundaryCheck()
 			}
 		}
 		//-------------------------------------------
+}
+
+bool Enemy::isCollidingWithWall()
+{
+	int checkX1, checkX2;
+	int checkZ1, checkZ2;
+	bool isColliding = false;
+
+	// 右
+	checkX1 = (int)(transform_.position_.x + 0.2f);
+	checkZ1 = (int)(transform_.position_.z + 0.1f);
+	checkX2 = (int)(transform_.position_.x + 0.2f);
+	checkZ2 = (int)(transform_.position_.z - 0.1f);
+	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
+	{
+		isColliding = true;
+	}
+
+	// 左
+	checkX1 = (int)(transform_.position_.x - 0.2f);
+	checkZ1 = (int)(transform_.position_.z + 0.1f);
+	checkX2 = (int)(transform_.position_.x - 0.2f);
+	checkZ2 = (int)(transform_.position_.z - 0.1f);
+	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
+	{
+		isColliding = true;
+	}
+
+	// 上
+	checkX1 = (int)(transform_.position_.x + 0.1f);
+	checkZ1 = (int)(transform_.position_.z + 0.2f);
+	checkX2 = (int)(transform_.position_.x - 0.1f);
+	checkZ2 = (int)(transform_.position_.z + 0.2f);
+	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
+	{
+		isColliding = true;
+	}
+
+	// 下
+	checkX1 = (int)(transform_.position_.x + 0.1f);
+	checkZ1 = (int)(transform_.position_.z - 0.2f);
+	checkX2 = (int)(transform_.position_.x - 0.1f);
+	checkZ2 = (int)(transform_.position_.z - 0.2f);
+	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
+	{
+		isColliding = true;
+	}
+
+	return isColliding;
 }
 
 //メモ：菅原

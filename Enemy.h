@@ -24,7 +24,6 @@ private:
 
 	bool flag_Find;
 	int CoolTime_;
-	int wMoveTime;
 	float wTargetX , wTargetZ;
 public:
 	//コンストラクタ
@@ -51,5 +50,7 @@ public:
 
 	//壁とのあたり判定処理
 	void boundaryCheck();
+
+	bool isCollidingWithWall();
 };
 
