@@ -277,8 +277,7 @@ void Enemy::WanderingMove()
 	//“G‚Ì„‰ñæ‚ğİ’è
 	#if 1
 	{
-		
-	
+		//–Ú“I’n‚ÌÄİ’è
 		bool ko = true;
 		if (isCollidingWithWall() || (transform_.position_.x==TargetPosition_.x && transform_.position_.z == TargetPosition_.z)) {
 			while (ko)
