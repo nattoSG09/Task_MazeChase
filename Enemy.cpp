@@ -5,7 +5,7 @@ const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1)
+	: GameObject(parent, "Enemy"),hModel_(-1),spawnX(0.0f), spawnY(0.0f), spawnZ(0.0f)
 {
 }
 
@@ -32,12 +32,7 @@ void Enemy::Initialize()
 			//ランダムスポーン
 			#if 1
 			{
-				float spawnX = 0.0f, spawnZ = 0.0f;
 				bool ok = true;
-
-
-				//spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-				//spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 
 				while (ok)
 				{
@@ -46,10 +41,11 @@ void Enemy::Initialize()
 						spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 					}
 					else {
-						break;
+						ok = false;
 					}
 				}
-				transform_.position_ = { spawnX , 0.0f , spawnZ };
+				transform_.position_ = { spawnX , spawnY , spawnZ };
+				EnemyDestination.position_ = { spawnX , spawnY , spawnZ };
 			}
 			#endif
 
@@ -101,6 +97,7 @@ void Enemy::Update()
 			
 			XMFLOAT3 PlayerPosition_ = pPlayer->GetPosition();
 			
+
 			//レイキャスト.スタートを用意
 			XMFLOAT3 VsPos = { transform_.position_.x,transform_.position_.y + 1, transform_.position_.z, };
 			
@@ -164,6 +161,7 @@ void Enemy::Update()
 			FollowingMove();
 		}
 		else {
+
 			//Enemyの徘徊処理
 			WanderingMove();
 		}
@@ -216,7 +214,7 @@ void Enemy::FollowingMove()
 		XMVECTOR EnemyDir = XMVector3Normalize(XMLoadFloat3(&deltaPosition));
 
 		//Enemyの移動速度
-		float Speed = 0.05;
+		float Speed = 0.05f;
 
 		//EnemyをTargetに向かって移動させる
 		transform_.position_.x += (XMVectorGetX(EnemyDir) * Speed);
@@ -263,6 +261,69 @@ void Enemy::WanderingMove()
 
 	//分岐：当たらない
 	//向いている方向に移動
+
+	//敵の巡回先を設定
+	#if 1
+	{
+		bool ko = true;
+
+		while (ko)
+		{
+			if (pStageMap_->IsWall(spawnX, spawnZ)) {
+				spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+				spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+			}
+			else {
+				ko = false;
+			}
+		}
+		EnemyDestination.position_ = { spawnX , spawnY , spawnZ };
+	}
+	#endif
+	
+	TargetPosition_ = EnemyDestination.position_;
+
+	//Enemyとplayerの差を計算する
+	XMFLOAT3 deltaPosition = XMFLOAT3(
+		TargetPosition_.x - transform_.position_.x,
+		TargetPosition_.y - transform_.position_.y,
+		TargetPosition_.z - transform_.position_.z
+	);
+
+	//Enemyの進行方向を計算する
+	XMVECTOR EnemyDir = XMVector3Normalize(XMLoadFloat3(&deltaPosition));
+
+	//Enemyの移動速度
+	float Speed = 0.02f;
+
+	//EnemyをTargetに向かって移動させる
+	transform_.position_.x += (XMVectorGetX(EnemyDir) * Speed);
+	transform_.position_.y += (XMVectorGetY(EnemyDir) * Speed);
+	transform_.position_.z += (XMVectorGetZ(EnemyDir) * Speed);
+
+	//ベクトルの長さを求める
+	XMVECTOR vLength = XMVector3Length(EnemyDir);
+	float length = XMVectorGetX(vLength);
+
+	if (length != 0)//vMoveの長さが0じゃないとき(動いているとき)
+	{
+		XMVECTOR vFront = { 0,0,1,0 };//奥向きのベクトル
+
+		XMVECTOR vDot = XMVector3Dot(vFront, EnemyDir);
+		//↑の二つのベクトルの内積を求める
+		float dot = XMVectorGetX(vDot);
+		float angle = acos(dot);//アークコサインで計算すると"狭い角度"のほうの角度を求める
+
+		XMVECTOR vCross = XMVector3Cross(vFront, EnemyDir);
+		//↑二つのベクトルの外積を求める
+		//外積のYが０より小さかったら
+		if (XMVectorGetY(vCross) < 0) {
+			//angleに -1 をかける
+			angle *= -1;
+		}
+
+		transform_.rotate_.y = XMConvertToDegrees(angle);
+	}
 
 }
 

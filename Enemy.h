@@ -12,9 +12,12 @@ class Enemy : public GameObject
 {
 private:
 	int hModel_;
+	float spawnX,spawnY,spawnZ;
 	Transform EnemyTrans_; //’¼‘O‚ÌˆÊ’uî•ñ‚ğŠi”[‚·‚é•Ï”
+	Transform EnemyDestination;	//“Gœpœj‚Ì–Ú“I’n
 	XMFLOAT3 TargetPosition_;
 	StageMap* pStageMap_;
+
 
 	bool flag_Find;
 	int CoolTime_;
