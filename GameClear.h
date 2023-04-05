@@ -1,12 +1,15 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include "Engine/Image.h"
+#include "Engine/Text.h"
 
 //テストシーンを管理するクラス
 class GameClear : public GameObject
 {
 private:
 	int hPict_;
+	Text* pCoin;
+	Transform CoinTransform;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

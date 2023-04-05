@@ -111,7 +111,7 @@ void Enemy::Update()
 			Model::RayCast(hPlayer, &vrPlayer);
 
 			//デバック用：レイキャストデータ
-			#if 1
+			#if 0
 			{
 				Debug::Log("P->");
 				Debug::Log(vrPlayer.dist, true);
@@ -146,7 +146,7 @@ void Enemy::Update()
 		#endif
 
 		//デバッグ用：flag_Find
-		#if 1
+		#if 0
 		{
 			if (Input::IsKeyDown(DIK_U)) {
 				flag_Find = false;
