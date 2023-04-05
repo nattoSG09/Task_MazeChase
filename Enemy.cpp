@@ -5,7 +5,7 @@ const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),spawnX(0.0f), spawnY(0.0f), spawnZ(0.0f)
+	: GameObject(parent, "Enemy"),hModel_(-1),spawnX(0.0f), spawnY(0.0f), spawnZ(0.0f),flag_Find(0),flag_Arrival(0)
 {
 }
 
@@ -161,7 +161,7 @@ void Enemy::Update()
 			FollowingMove();
 		}
 		else {
-
+			
 			//Enemyの徘徊処理
 			WanderingMove();
 		}
@@ -324,7 +324,7 @@ void Enemy::WanderingMove()
 
 		transform_.rotate_.y = XMConvertToDegrees(angle);
 	}
-
+	
 }
 
 //壁とのあたり判定処理

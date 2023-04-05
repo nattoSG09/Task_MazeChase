@@ -20,6 +20,7 @@ private:
 
 
 	bool flag_Find;
+	bool flag_Arrival;
 	int CoolTime_;
 public:
 	//コンストラクタ
