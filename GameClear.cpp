@@ -12,7 +12,7 @@ GameClear::GameClear(GameObject* parent)
 //‰Šú‰»
 void GameClear::Initialize()
 {
-	hPict_ = Image::Load("P_GameClearTest.png");
+	hPict_ = Image::Load("P_GameClear.png");
 	assert(hPict_ >= 0);
 
 	pCoin = new Text;
@@ -33,7 +33,7 @@ void GameClear::Update()
 //•`‰æ
 void GameClear::Draw()
 {
-	transform_.scale_ = { 0.67f,0.67f,0.67f };
+	//transform_.scale_ = { 0.67f,0.67f,0.67f };
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 

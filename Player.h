@@ -6,7 +6,7 @@
 #include "Engine/Model.h"
 #include "Engine/Camera.h"
 #include "Engine/Text.h"
-
+#include "Transition.h"
 #include "StageMap.h"
 
 enum {
@@ -25,6 +25,7 @@ private:
 	int CamType_;	//ƒJƒƒ‰”Ô†
 	StageMap *pStageMap_;
 	XMFLOAT3 prevPosition_; //’¼‘O‚ÌˆÊ’uî•ñ‚ğŠi”[‚·‚é•Ï”
+	Transition* transition_;
 
 	Transform	PlayerTrans_;	//player‚Ìtransform‚ğŠi”[‚·‚é
 
