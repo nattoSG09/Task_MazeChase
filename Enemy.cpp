@@ -1,11 +1,11 @@
 #include "Enemy.h"
 #include"Engine/BoxCollider.h"
 
-const int FPS = 60;
+
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),TargetPosition_(0.0f, 0.0f, 0.0f)
+	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),F_TargetPosition_(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -92,6 +92,8 @@ void Enemy::Update()
 	//Coriderがなんか付かない = クリア！！
 	}
 
+	FixedTime++;
+
 	//Enemyの動作処理
 	{
 		//Player感知処理
@@ -174,10 +176,12 @@ void Enemy::Update()
 		if (flag_Find) {
 			//Enemyの追従処理
 			FollowingMove();
+			
 		}
 		else {
 			//Enemyの徘徊処理
 			WanderingMove();
+			
 		}
 	}
 
@@ -215,13 +219,13 @@ void Enemy::FollowingMove()
 {
 		//playerの位置を取得する
 		Player* p = (Player*)FindObject("Player");
-		TargetPosition_ = p->GetPosition();
+		F_TargetPosition_ = p->GetPosition();
 
 		//Enemyとplayerの差を計算する
 		XMFLOAT3 deltaPosition = XMFLOAT3(
-			TargetPosition_.x - transform_.position_.x,
-			TargetPosition_.y - transform_.position_.y,
-			TargetPosition_.z - transform_.position_.z
+			F_TargetPosition_.x - transform_.position_.x,
+			F_TargetPosition_.y - transform_.position_.y,
+			F_TargetPosition_.z - transform_.position_.z
 		);
 
 		//Enemyの進行方向を計算する
@@ -269,13 +273,14 @@ void Enemy::WanderingMove()
 	{
 		//目的地の再設定
 
-		float TargetX = 0.0f, TargetZ = 0.0f;
-
+		float TargetX = 0, TargetZ = 0;
 		bool ok = true;
-		if (Input::IsKeyDown(DIK_T)) {
+
+		if (Every_nMinitues(5)){
 			while (ok)
 			{
 				if (pStageMap_->IsWall(TargetX, TargetZ)) {
+					Debug::Log("壁だった！", true);
 					TargetX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 					TargetZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 				}
@@ -283,23 +288,25 @@ void Enemy::WanderingMove()
 					ok = false;
 				}
 			}
-			TargetPosition_ = { TargetX , 0 ,TargetZ };
+			W_TargetPosition_ = { TargetX , 0 ,TargetZ };
+			Debug::Log("目的地を再ターゲットしました。", true);
 		}
+		
 	}
 	#endif
 
 	//Enemyとplayerの差を計算する
 	XMFLOAT3 deltaPosition = XMFLOAT3(
-		TargetPosition_.x - transform_.position_.x,
-		TargetPosition_.y - transform_.position_.y,
-		TargetPosition_.z - transform_.position_.z
+		W_TargetPosition_.x - transform_.position_.x,
+		W_TargetPosition_.y - transform_.position_.y,
+		W_TargetPosition_.z - transform_.position_.z
 	);
 
 	//Enemyの進行方向を計算する
 	XMVECTOR EnemyDir = XMVector3Normalize(XMLoadFloat3(&deltaPosition));
 
 	//Enemyの移動速度
-	float Speed = 0.02f;
+	float Speed = 0.04f;
 
 	//EnemyをTargetに向かって移動させる
 	transform_.position_.x += (XMVectorGetX(EnemyDir) * Speed);
@@ -329,8 +336,7 @@ void Enemy::WanderingMove()
 
 		transform_.rotate_.y = XMConvertToDegrees(angle);
 	}
-	
-	
+
 }
 
 //壁とのあたり判定処理

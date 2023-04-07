@@ -18,14 +18,14 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 
 	//Enemy setting
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 10; i++) {
 		Instantiate<Enemy>(this);
 	}
 	
 	//Coin setting
-	/*for (int i = 0; i < 30; i++){
+	for (int i = 0; i < 30; i++){
 		Instantiate<Coin>(this);
-	}*/
+	}
 
 	//Cursor setting
 	ShowCursor(true);//true -> 表示    false -> 非表示
@@ -45,7 +45,7 @@ void PlayScene::Initialize()
 	{
 		Time_ = Instantiate<Timer>(this);
 		Time_->DrawPostion(30, 30);
-		Time_->SetLimit(5);	//このゲームの制限時間（秒）
+		Time_->SetLimit(50);	//このゲームの制限時間（秒）
 	}
 	#endif
 
