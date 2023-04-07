@@ -27,7 +27,6 @@ class MiniMap : public GameObject
 	float Width_, Height_; //forループ用のイテレータ(?)
 
 	Transform MapTrans;//Mapの位置などを操作するTransform型
-
 	Transform PlaTrans;//Playerの位置などを操作するTransform型
 
 	vector<vector<int>> ptable_;//ステージ情報を格納する二次元配列
@@ -55,6 +54,9 @@ public:
 
 	//配置するobjectを変更する関数
 	void ObjectSet(int _obj) { obj_ = _obj; }
+
+
+//現在使用していませんーーーーーー
 
 	//画面上での表示場所を決める関数
 	void DrawPosition(int _posX,int _posY);

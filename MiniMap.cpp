@@ -10,15 +10,14 @@ const float MapSTDPosY = 0.158f;
 
 //コンストラクタ
 MiniMap::MiniMap(GameObject* parent)
-	: GameObject(parent, "MiniMap"), hPict_{ -1,-1,-1 }, obj_(0)
-	,Width_(0),Height_(0),Width_Max(0),Height_Max(0),type_(0),Ppos(0,0,0)
+	: GameObject(parent, "MiniMap"), hPict_{}, obj_(0),Width_(0),Height_(0),Width_Max(0),Height_Max(0)
+	,type_(0),Ppos(0,0,0),DrawX_(0),DrawY_(0),Opasity_(0),Size_(0)
 {
 }
 
 //初期化
 void MiniMap::Initialize()
 {
-
 	//table情報の取得
 	{
 		StageMap* pStageMap = (StageMap*)FindObject("StageMap");
