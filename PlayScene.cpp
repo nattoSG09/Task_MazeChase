@@ -18,14 +18,14 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 
 	//Enemy setting
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 2; i++) {
 		Instantiate<Enemy>(this);
 	}
 	
 	//Coin setting
-	for (int i = 0; i < 30; i++){
+	/*for (int i = 0; i < 30; i++){
 		Instantiate<Coin>(this);
-	}
+	}*/
 
 	//Cursor setting
 	ShowCursor(true);//true -> 表示    false -> 非表示
@@ -77,7 +77,7 @@ void PlayScene::UpdateReady()
 //更新・プレイ中
 void PlayScene::UpdatePlay()
 {
-	Time_->TimeStart();
+	//Time_->TimeStart();
 
 	if (Time_->IsFinished()) {
 		state_ = STATE_FINISH;

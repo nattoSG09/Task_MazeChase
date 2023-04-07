@@ -17,14 +17,14 @@ class Enemy : public GameObject
 private:
 	int hModel_;
 	Transform EnemyTrans_; //直前の位置情報を格納する変数
-	Transform EnemyDestination;	//敵徘徊時の目的地
+	//Transform EnemyDestination;	//敵徘徊時の目的地
 	XMFLOAT3 TargetPosition_;
 	StageMap* pStageMap_;
 
 
 	bool flag_Find;
 	int CoolTime_;
-	float wTargetX , wTargetZ;
+	//float wTargetX , wTargetZ;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

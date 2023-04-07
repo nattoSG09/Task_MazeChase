@@ -5,7 +5,7 @@ const int FPS = 60;
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),EnemyDestination(transform_),TargetPosition_(0.0f, 0.0f, 0.0f),wTargetX(0.0f),wTargetZ(0.0f)
+	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),TargetPosition_(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -22,18 +22,20 @@ void Enemy::Initialize()
 	pStageMap_ = (StageMap*)FindObject("StageMap");
 
 	//EnemyTarget設定
-	bool okk=true;
-	while (okk)
 	{
-		if (pStageMap_->IsWall(wTargetX,wTargetZ)) {
-			wTargetX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-			wTargetZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-		}
-		else {
-			okk = false;
-		}
+		//bool okk=true;
+		//while (okk)
+		//{
+		//	if (pStageMap_->IsWall(wTargetX,wTargetZ)) {
+		//		wTargetX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+		//		wTargetZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+		//	}
+		//	else {
+		//		okk = false;
+		//	}
+		//}
 	}
-
+	
 	//Enemy初期設定
 	{
 		//スポーン位置の設定
@@ -81,13 +83,13 @@ void Enemy::Update()
 	//課題
 	{
 	//ランダムスポーン処理
-	//※(壁に埋まらずに出現するようにする処理) できた
+	//※(壁に埋まらずに出現するようにする処理) = クリア！！
 
-	//Enemyが壁を認識して、壁にぶつかったら壁をよけて通る処理
+	//Enemyが壁を認識して、壁にぶつかったら壁を避けて通る処理 = 難しい 
 
-	//playerがEnemyの視界に入ったら追従
+	//playerがEnemyの視界に入ったら追従 = クリア！！
 
-	//Coriderがなんか付かない
+	//Coriderがなんか付かない = クリア！！
 	}
 
 	//Enemyの動作処理
@@ -261,41 +263,30 @@ void Enemy::FollowingMove()
 //Enemyの動作：徘徊
 void Enemy::WanderingMove()
 {
-	//向いている方向を取得
 	
-	//向いている方向にレイキャストを放つ
-
-	//条件：レイキャストが壁に当たるか否か
-	
-	//分岐：当たった
-	//左右後方３方向にレイキャストを放つ
-	//レイキャストが当たらなかった場所に移動(複数箇所の場合、ランダムに移動)
-
-	//分岐：当たらない
-	//向いている方向に移動
-
 	//敵の巡回先を設定
 	#if 1
 	{
 		//目的地の再設定
-		bool ko = true;
-		if (isCollidingWithWall() || (transform_.position_.x==TargetPosition_.x && transform_.position_.z == TargetPosition_.z)) {
-			while (ko)
+
+		float TargetX = 0.0f, TargetZ = 0.0f;
+
+		bool ok = true;
+		if (Input::IsKeyDown(DIK_T)) {
+			while (ok)
 			{
-				if (pStageMap_->IsWall(wTargetX, wTargetZ)) {
-					wTargetX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
-					wTargetZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+				if (pStageMap_->IsWall(TargetX, TargetZ)) {
+					TargetX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
+					TargetZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 				}
 				else {
-					ko = false;
+					ok = false;
 				}
 			}
+			TargetPosition_ = { TargetX , 0 ,TargetZ };
 		}
-		EnemyDestination.position_ = { wTargetX , 0.0f , wTargetZ };
 	}
 	#endif
-	
-	TargetPosition_ = EnemyDestination.position_;
 
 	//Enemyとplayerの差を計算する
 	XMFLOAT3 deltaPosition = XMFLOAT3(
