@@ -5,7 +5,7 @@
 
 //コンストラクタ
 GameClear::GameClear(GameObject* parent)
-	: GameObject(parent, "GameClear"),pCoin(nullptr)
+	: GameObject(parent, "GameClear"),hPict_(-1),pCoin(nullptr),CoinTransform{}
 {
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Model.h"
+#include "Engine/BoxCollider.h"
 #include "StageMap.h"
 
 //テストシーンを管理するクラス
@@ -7,7 +9,6 @@ class Coin : public GameObject
 {
 private:
 	int hModel_;
-
 	StageMap* pStageMap_;
 public:
 	//コンストラクタ

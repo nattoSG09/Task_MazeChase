@@ -1,14 +1,11 @@
 #include "Player.h"
-#include "Global.h"
-#include "Engine/SceneManager.h"
-#include"Engine/SphereCollider.h"
 
 
 //コンストラクタ
 
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"),hModel_(0),CamType_(0),pStageMap_(nullptr)
-	, prevPosition_(0, 0, 0), CamPosition_(0, 0, 0), CamTarget_(0, 0, 0), vPosition_{0,0,0,0}, vMoveZ_{ 0,0,0,0 }, vMoveX_{ 0,0,0,0 }
+	: GameObject(parent, "Player"), hModel_(-1), pStageMap_(nullptr), vPosition_{}, vMoveX_{}, vMoveZ_{}
+	,CamType_(0),CamPosition_{},CamTarget_{},GetCoin_(0),pText(nullptr)
 {
 }
 
@@ -30,9 +27,11 @@ void Player::Initialize()
 	//stage情報の取得
 	pStageMap_ = (StageMap*)FindObject("StageMap");
 
+	//コライダーの設定
 	BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 1, 0), XMFLOAT3(1, 2, 1));
 	AddCollider(collision);
 
+	//テキストのロード
 	pText = new Text;
 	pText->Initialize();
 

@@ -57,5 +57,5 @@ public:
 	int GetHeight() { return (this->Height); }
 
 	//プレゼンハムのアルゴリズム関数
-	bool HasWallBetween(XMFLOAT3 _positionA, XMFLOAT3 _positionB);
+	bool HasWallBetween(XMFLOAT3 _posA, XMFLOAT3 _posB);
 };

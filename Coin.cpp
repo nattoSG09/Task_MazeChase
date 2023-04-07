@@ -1,16 +1,15 @@
 #include "Coin.h"
-#include "Engine/Model.h"
-#include"Engine/BoxCollider.h"
 
 //コンストラクタ
 Coin::Coin(GameObject* parent)
-	: GameObject(parent, "Coin"),hModel_(-1)
+	: GameObject(parent, "Coin"),hModel_(-1),pStageMap_(nullptr)
 {
 }
 
 //初期化
 void Coin::Initialize()
 {
+	//モデルのロード
 	hModel_ = Model::Load("F_Coin.fbx");
 	assert(hModel_ >= 0);
 
@@ -61,6 +60,7 @@ void Coin::Initialize()
 //更新
 void Coin::Update()
 {
+	//くるくるまわす
 	transform_.rotate_.y++;
 }
 

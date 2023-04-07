@@ -1,11 +1,9 @@
 #include "Enemy.h"
-#include"Engine/BoxCollider.h"
-
-
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
-	: GameObject(parent, "Enemy"),hModel_(-1),flag_Find(0),F_TargetPosition_(0.0f, 0.0f, 0.0f)
+	: GameObject(parent, "Enemy"),hModel_(-1),pStageMap_(nullptr),F_TargetPosition_{},W_TargetPosition_{}
+	,flag_Find(0),CoolTime_(0),FixedTime_(0)
 {
 }
 
@@ -74,6 +72,7 @@ void Enemy::Initialize()
 		Model::SetAnimFrame(hModel_, 0, 60, 1);
 	}
 
+	//Playerを見失うまでの時間を初期化
 	CoolTime_ = 3 * FPS;
 }
 
@@ -92,7 +91,8 @@ void Enemy::Update()
 	//Coriderがなんか付かない = クリア！！
 	}
 
-	FixedTime++;
+	//時間を更新
+	FixedTime_++;
 
 	//Enemyの動作処理
 	{
@@ -412,79 +412,3 @@ void Enemy::boundaryCheck()
 		}
 		//-------------------------------------------
 }
-
-bool Enemy::isCollidingWithWall()
-{
-	int checkX1, checkX2;
-	int checkZ1, checkZ2;
-	bool isColliding = false;
-
-	// 右
-	checkX1 = (int)(transform_.position_.x + 0.2f);
-	checkZ1 = (int)(transform_.position_.z + 0.1f);
-	checkX2 = (int)(transform_.position_.x + 0.2f);
-	checkZ2 = (int)(transform_.position_.z - 0.1f);
-	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
-	{
-		isColliding = true;
-	}
-
-	// 左
-	checkX1 = (int)(transform_.position_.x - 0.2f);
-	checkZ1 = (int)(transform_.position_.z + 0.1f);
-	checkX2 = (int)(transform_.position_.x - 0.2f);
-	checkZ2 = (int)(transform_.position_.z - 0.1f);
-	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
-	{
-		isColliding = true;
-	}
-
-	// 上
-	checkX1 = (int)(transform_.position_.x + 0.1f);
-	checkZ1 = (int)(transform_.position_.z + 0.2f);
-	checkX2 = (int)(transform_.position_.x - 0.1f);
-	checkZ2 = (int)(transform_.position_.z + 0.2f);
-	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
-	{
-		isColliding = true;
-	}
-
-	// 下
-	checkX1 = (int)(transform_.position_.x + 0.1f);
-	checkZ1 = (int)(transform_.position_.z - 0.2f);
-	checkX2 = (int)(transform_.position_.x - 0.1f);
-	checkZ2 = (int)(transform_.position_.z - 0.2f);
-	if (pStageMap_->IsWall(checkX1, checkZ1) || pStageMap_->IsWall(checkX2, checkZ2))
-	{
-		isColliding = true;
-	}
-
-	return isColliding;
-}
-
-//メモ：菅原
-//※StageObjectクラス内のhModel_[]という変数配列から適切なモデル番号を取得できない
-/*
-	レイキャストデータ(wall)
-		RayCastData vrWall;
-		vrWall.start = VsPos;
-		vrWall.dir = EnemyDir;
-		Model::RayCast(hWall, &vrWall);
-
-		Debug::Log("W->");
-		Debug::Log(vrWall.dist,true);
-		Debug::Log("P->");
-		Debug::Log(vrPlayer.dist,true);
-
-		//flag_Findが"false"の間、Enemyの向いている方向にレイキャストを放つ
-	if (flag_Find == false){
-		if (vrPlayer.hit && vrPlayer.dist < vrWall.dist) {
-			//Playerに当たったらflag_Findを"true"にする
-			flag_Find = true;
-			Debug::Log("o", true);
-		}
-		else {
-			Debug::Log("x", true);
-		}
-	}
-*/

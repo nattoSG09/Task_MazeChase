@@ -5,15 +5,15 @@
 
 //コンストラクタ
 GameOver::GameOver(GameObject* parent)
-	: GameObject(parent, "GameOver"),hPict_(-1)
+	: GameObject(parent, "GameOver"),hPict_(-1),transition_(nullptr)
 {
 }
 
 //初期化
 void GameOver::Initialize()
 {
-	/*hPict_ = Image::Load("p_GameOver.png");
-	assert(hPict_ >= 0);*/
+	hPict_ = Image::Load("p_GameOver.png");
+	assert(hPict_ >= 0);
 
 	//Transition setting
 	transition_ = Instantiate<Transition>(this);
@@ -36,8 +36,8 @@ void GameOver::Update()
 //描画
 void GameOver::Draw()
 {
-	/*Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);*/
+	Image::SetTransform(hPict_, transform_);
+	Image::Draw(hPict_);
 }
 
 //開放

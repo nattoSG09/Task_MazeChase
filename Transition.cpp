@@ -12,9 +12,6 @@ void Transition::Initialize()
     // 画像のロード
     hPict_ = Image::Load("P_Transition.png");
     assert(hPict_ >= 0);
-
-    // 不透明度は0から255の数値で管理されている
-    Opacity_ = 255;
 }
 
 // 更新
@@ -22,12 +19,8 @@ void Transition::Update()
 {
     switch (Move_)
     {
-    case FADE_IN:
-        FadeIN();
-        break;
-    case FADE_OUT:
-        FadeOUT();
-        break;
+    case FADE_IN:  FadeIN(); break;
+    case FADE_OUT: FadeOUT();break;
     }
 }
 

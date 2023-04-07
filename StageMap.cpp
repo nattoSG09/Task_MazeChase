@@ -1,19 +1,8 @@
 #include "StageMap.h"
 
-
-
-
-
-
-//＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝：StageMap.cpp説明：＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-//「ステージマップクラス」ここはの詳細を設定するクラス。		
-// 
-// 
-//＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝=＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-
 //コンストラクタ
 StageMap::StageMap(GameObject* parent)
-	: GameObject(parent, "StageMap"),hModel_{-1,-1}
+	: GameObject(parent, "StageMap"),hModel_{},Width(0),Height(0),table_{}
 {
 	//CSVデータのロード
 	{
@@ -29,7 +18,6 @@ StageMap::StageMap(GameObject* parent)
 			for (int z = 0; z < Height; z++)
 				table_[x][z] = CsvMap_.GetValue(x, ((Height - 1) - z));
 	}
-	
 }
 
 //初期化
@@ -75,16 +63,16 @@ bool StageMap::IsWall(int x, int z)
 }
 
 //プレゼンハムのアルゴリズム関数
-bool StageMap::HasWallBetween(XMFLOAT3 _positionA, XMFLOAT3 _positionB)
+bool StageMap::HasWallBetween(XMFLOAT3 _posA, XMFLOAT3 _posB)
 {
 	//プレイヤーの位置と敵の位置の間の距離を求める
-	float distance = sqrt(pow(_positionB.x - _positionA.x, 2) + pow(_positionB.z - _positionA.z, 2));
+	float distance = sqrt(pow(_posB.x - _posA.x, 2) + pow(_posB.z - _posA.z, 2));
 
 	//2点間を等分する点を作る
-	float dx = (_positionB.x - _positionA.x) / distance;
-	float dz = (_positionB.z - _positionA.z) / distance;
-	float x = _positionA.x;
-	float z = _positionA.z;
+	float dx = (_posB.x - _posA.x) / distance;
+	float dz = (_posB.z - _posA.z) / distance;
+	float x = _posA.x;
+	float z = _posA.z;
 
 	//2点間を区切る数だけループ
 	const int numPoints = (int)distance;
@@ -108,52 +96,3 @@ bool StageMap::HasWallBetween(XMFLOAT3 _positionA, XMFLOAT3 _positionB)
 	//壁がない場合はfalseを返す
 	return hasWall;
 }
-
-
-/*
-//コンストラクタ
-	//配列にするとコンストラクタで初期化の仕方が変わる
-	//やってることは int a[2]={1,1} と同じ
-Stage::Stage(GameObject* parent)
-	: GameObject(parent, "Stage"), hModel_{ -1,-1 }, table_(nullptr)
-{
-
-	CsvReader csv;		//Web資料、csv読み込みの項目に書いてる
-	csv.Load(".csv");
-	width_ = csv.GetWidth();
-	height_ = csv.GetHeight();
-
-	table_ = new int* [width_];
-
-	for (int x = 0; x < width_; x++)
-	{
-		table_[x] = new int[height_];
-	}
-
-	for (int x = 0; x < width_; x++)
-	{
-		for (int z = 0; z < width_; z++)
-		{
-			table_[x][height_ - 1 - z] = csv.GetValue(x, z);	//zは上下反転する式になってる
-															//GetValueで(14-z)でも可
-		}
-	}
-
-}
-
-//デストラクタ
-Stage::~Stage() {}
-
-void StageMap::Initialize()
-{
-	const char* fileName[] = { "","","" };	//モデル名を入れる配列
-
-	for (int e = 0; e < TYPE_MAX; e++)
-	{
-		hModel_[e] = Model::Load(fileName[e]);
-		assert(hModel_[e] >= 0);
-	}
-
-}
-*/
-

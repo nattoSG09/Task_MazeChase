@@ -1,11 +1,7 @@
 #include "GameStart.h"
-#include "Engine/Image.h"
-#include "Engine/Input.h"
-#include "Engine/SceneManager.h"
-
 //コンストラクタ
 GameStart::GameStart(GameObject* parent)
-	: GameObject(parent, "GameStart"), hPict_(-1)
+	: GameObject(parent, "GameStart"), hPict_(-1),transition_(nullptr)
 {
 }
 

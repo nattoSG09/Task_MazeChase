@@ -11,10 +11,10 @@ enum {
 class Transition : public GameObject
 {
 private:
-    int hPict_;  // ‰æ‘œ”Ô†‚ğŠi”[
-    int Opacity_;  // •s“§–¾“x‚ğŠi”[
-    int Move_;  // “®ìó‘Ô‚ğŠi”[
-    bool Active_;
+    int hPict_;     // ‰æ‘œ”Ô†‚ğŠi”[
+    int Opacity_;   // •s“§–¾“x‚ğŠi”[
+    int Move_;      // fade-out/in ‚Ç‚¿‚ç‚©‚Ìó‘Ô‚ğŠi”[
+    bool Active_;   // “®ìó‘Ô‚ğŠi”[
 
 public:
     // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
@@ -41,6 +41,7 @@ public:
     // ‰æ–Ê‘JˆÚ‚ğŠJn‚·‚éŠÖ”
     void Start(int move);
 
+    // •s“§–¾“x‚Ì”’l‚ª num ‚Ìtrue‚ğ•Ô‚·ŠÖ”
     bool isOpacity(int _num);
 
 };

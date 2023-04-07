@@ -1,13 +1,15 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "Engine/Image.h"
+#include "Engine/Input.h"
+#include "Engine/SceneManager.h"
+
 #include "Transition.h"
 
-//テストシーンを管理するクラス
 class GameStart : public GameObject
 {
-
+private:
 	int hPict_;
-
 	Transition* transition_;
 public:
 	//コンストラクタ

@@ -11,7 +11,6 @@
 #include "Timer.h"
 #include "Coin.h"
 
-
 class PlayScene : public GameObject
 {
 public:

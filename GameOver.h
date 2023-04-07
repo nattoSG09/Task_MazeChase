@@ -7,7 +7,6 @@ class GameOver : public GameObject
 {
 
 	int hPict_;
-
 	Transition* transition_;
 public:
 	//コンストラクタ

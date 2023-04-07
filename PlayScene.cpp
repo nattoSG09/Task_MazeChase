@@ -4,7 +4,7 @@
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
-	: GameObject(parent, "PlayScene"),Time_(nullptr),state_(0)
+	: GameObject(parent, "PlayScene"),state_(0), Time_(nullptr),MiniMap_(nullptr),transition_(nullptr)
 {
 }
 
@@ -18,7 +18,7 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 
 	//Enemy setting
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 1; i++) {
 		Instantiate<Enemy>(this);
 	}
 	
@@ -77,7 +77,7 @@ void PlayScene::UpdateReady()
 //更新・プレイ中
 void PlayScene::UpdatePlay()
 {
-	//Time_->TimeStart();
+	Time_->TimeStart();
 
 	if (Time_->IsFinished()) {
 		state_ = STATE_FINISH;
