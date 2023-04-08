@@ -12,7 +12,7 @@ GameOver::GameOver(GameObject* parent)
 //‰Šú‰»
 void GameOver::Initialize()
 {
-	hPict_ = Image::Load("p_GameOver.png");
+	hPict_ = Image::Load("p_GameOver2.png");
 	assert(hPict_ >= 0);
 
 	//Transition setting
