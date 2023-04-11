@@ -6,11 +6,15 @@ using std::vector;
 #include "Engine/Image.h"
 #include"StageMap.h"
 #include "Player.h"
+#include "Coin.h"
+#include "Enemy.h"
 
 enum {
 	Mini_FLOOR,
 	Mini_WALL,
 	Mini_PLAYER,
+	Mini_COIN,
+	Mini_ENEMY,
 	Mini_MAX,
 };
 
@@ -22,12 +26,18 @@ class MiniMap : public GameObject
 	int type_;//Map画像の種類
 
 	XMFLOAT3 Ppos;//Playerの位置
+	XMFLOAT3 Cpos;//Coinの位置
+	XMFLOAT3 Epos;//Enemyの位置
+	XMFLOAT3 PicSize;	//MiniMapで表示されるオブジェクトのサイズを決定
+	XMFLOAT3 PicPos;	//MiniMapで表示されるオブジェクトの位置を決定
 
 	float Width_Max, Height_Max;//CSVデータの行列の要素数
 	float Width_, Height_; //forループ用のイテレータ(?)
 
-	Transform MapTrans;//Mapの位置などを操作するTransform型
-	Transform PlaTrans;//Playerの位置などを操作するTransform型
+	Transform MapTrans;		//Mapの位置などを操作するTransform型
+	Transform PlayerTrans;	//Playerの位置などを操作するTransform型
+	Transform CoinTrans;	//Coinの位置を管理するTransform型
+	Transform EnemyTrans;	//Enemyの位置を管理するTransform型
 
 	vector<vector<int>> ptable_;//ステージ情報を格納する二次元配列
 

@@ -11,7 +11,8 @@ const float MapSTDPosY = 0.158f;
 //コンストラクタ
 MiniMap::MiniMap(GameObject* parent)
 	: GameObject(parent, "MiniMap"), hPict_{}, obj_(0),Width_(0),Height_(0),Width_Max(0),Height_Max(0)
-	,type_(0),Ppos(0,0,0),DrawX_(0),DrawY_(0),Opasity_(0),Size_(0)
+	,type_(0),Ppos(0,0,0),Cpos(0, 0, 0),Epos(0, 0, 0),DrawX_(0),DrawY_(0),Opasity_(0),Size_(0)
+	,PicSize(0, 0, 0),PicPos(0,0,0)
 {
 }
 
@@ -44,7 +45,7 @@ void MiniMap::Initialize()
 
 	//画像データのロード
 	{
-		const char* fileName[] = { "P_MapFloor.png","P_MapWall.png","P_MapPlayer.png" };
+		const char* fileName[] = { "P_MapFloor.png","P_MapWall.png","P_MapPlayer.png","P_Coin2.png","P_Coin2.png"};
 		for (int i = 0; i < Mini_MAX; i++)
 		{
 			hPict_[i] = Image::Load(fileName[i]);
@@ -54,9 +55,19 @@ void MiniMap::Initialize()
 	
 	//画像データ設定
 	{
+		PicSize = { 0.0125f,0.0125f,0.0125f };
+		PicPos = { -0.96f,0.18f,0.0f };
+
 		MapTrans.scale_ = { 0.015f,0.015f,0.015f };
-		PlaTrans.scale_ = { 0.0125f,0.0125f,0.0125f };
-		PlaTrans.position_ = { -0.96f,0.18f,0.0f };
+
+		PlayerTrans.scale_ = PicSize;
+		PlayerTrans.position_ = PicPos;
+		
+		CoinTrans.scale_ = PicSize;
+		CoinTrans.position_ = PicPos;
+		
+		EnemyTrans.scale_ = PicSize;
+		EnemyTrans.position_ = PicPos;
 	}
 }
 
@@ -73,6 +84,20 @@ void MiniMap::Draw()
 		Player* p = (Player*)FindObject("Player");
 		Ppos.x = p->GetPosition().x;
 		Ppos.y = p->GetPosition().z;
+	}
+
+	//coin情報の取得
+	{
+		Coin* c = (Coin*)FindObject("Coin");
+		Cpos.x = c->GetPosition().x;
+		Cpos.y = c->GetPosition().z;
+	}
+
+	//enemy情報の取得
+	{
+		Enemy* e = (Enemy*)FindObject("Enemy");
+		Epos.x = e->GetPosition().x;
+		Epos.y = e->GetPosition().z;
 	}
 
 	//ミニマップを表示
@@ -94,15 +119,33 @@ void MiniMap::Draw()
 			}
 		}
 
-	PlaTrans.position_.x = ((Ppos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
-	PlaTrans.position_.y = ((Ppos.y - (3 - 0.2 )) * 0.024f ) + 0.2f;
-	
 	//((Playerの位置-(3-位置))*加速度)±位置
+	PlayerTrans.position_.x = ((Ppos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
+	PlayerTrans.position_.y = ((Ppos.y - (3 - 0.2 )) * 0.024f ) + 0.2f;
+	
+	CoinTrans.position_.x = ((Cpos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
+	CoinTrans.position_.y = ((Cpos.y - (3 - 0.2)) * 0.024f) + 0.2f;
+
+	EnemyTrans.position_.x = ((Epos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
+	EnemyTrans.position_.y = ((Epos.y - (3 - 0.2)) * 0.024f) + 0.2f;
+
 	}
 	
 	//Playerを表示
-	Image::SetTransform(hPict_[2], PlaTrans);
-	Image::Draw(hPict_[2]);
+	Image::SetTransform(hPict_[Mini_PLAYER], PlayerTrans);
+	Image::Draw(hPict_[Mini_PLAYER]);
+
+	//Coinを表示
+	//2枚目以降の表示をしたい、取ったら消したい
+	for (int i = 0; i < 30; i++) {
+		Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
+		Image::Draw(hPict_[Mini_COIN]);
+	}
+
+	//Enemyを表示
+	//Enemy用の画像が欲しい
+	Image::SetTransform(hPict_[Mini_ENEMY], EnemyTrans);
+	Image::Draw(hPict_[4]);
 }
 
 //開放

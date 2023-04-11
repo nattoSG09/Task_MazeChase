@@ -18,7 +18,7 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 
 	//Enemy setting
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 2; i++) {
 		Instantiate<Enemy>(this);
 	}
 	
