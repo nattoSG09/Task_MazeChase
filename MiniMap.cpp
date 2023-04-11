@@ -45,7 +45,7 @@ void MiniMap::Initialize()
 
 	//画像データのロード
 	{
-		const char* fileName[] = { "P_MapFloor.png","P_MapWall.png","P_MapPlayer.png","P_Coin2.png","P_Coin2.png"};
+		const char* fileName[] = { "P_MapFloor.png","P_MapWall.png","P_MapPlayer.png","P_Coin2.png","P_Enemy.png"};
 		for (int i = 0; i < Mini_MAX; i++)
 		{
 			hPict_[i] = Image::Load(fileName[i]);
@@ -89,8 +89,10 @@ void MiniMap::Draw()
 	//coin情報の取得
 	{
 		Coin* c = (Coin*)FindObject("Coin");
-		Cpos.x = c->GetPosition().x;
-		Cpos.y = c->GetPosition().z;
+		if (c != nullptr) {
+			Cpos.x = c->GetPosition().x;
+			Cpos.y = c->GetPosition().z;
+		}
 	}
 
 	//enemy情報の取得
@@ -137,15 +139,14 @@ void MiniMap::Draw()
 
 	//Coinを表示
 	//2枚目以降の表示をしたい
-	for (int i = 0; i < 30; i++) {
-		Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
-		Image::Draw(hPict_[Mini_COIN]);
-	}
+	Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
+	Image::Draw(hPict_[Mini_COIN]);
+	
 
 	//Enemyを表示
 	//Enemy用の画像が欲しい
 	Image::SetTransform(hPict_[Mini_ENEMY], EnemyTrans);
-	Image::Draw(hPict_[4]);
+	Image::Draw(hPict_[Mini_ENEMY]);
 }
 
 //開放
