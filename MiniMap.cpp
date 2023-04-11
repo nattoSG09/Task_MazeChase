@@ -1,5 +1,5 @@
 #include "MiniMap.h"
-
+#include "Engine/Image.h"
 const float MapSTDPosX = -0.98f;
 const float MapSTDPosY = 0.158f;
 
@@ -87,13 +87,11 @@ void MiniMap::Draw()
 	}
 
 	//coin情報の取得
-	{
 		Coin* c = (Coin*)FindObject("Coin");
 		if (c != nullptr) {
 			Cpos.x = c->GetPosition().x;
 			Cpos.y = c->GetPosition().z;
 		}
-	}
 
 	//enemy情報の取得
 	{
@@ -141,7 +139,17 @@ void MiniMap::Draw()
 	//2枚目以降の表示をしたい
 	Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
 	Image::Draw(hPict_[Mini_COIN]);
-	
+	//ラスト1枚を消したい
+	#if 0
+	if (c == nullptr) {
+		hPict_[Mini_COIN]->KillMe();
+	}
+	else {
+		Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
+		Image::Draw(hPict_[Mini_COIN]);
+	}
+	#endif
+
 
 	//Enemyを表示
 	//Enemy用の画像が欲しい
