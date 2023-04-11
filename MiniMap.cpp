@@ -136,7 +136,7 @@ void MiniMap::Draw()
 	Image::Draw(hPict_[Mini_PLAYER]);
 
 	//Coinを表示
-	//2枚目以降の表示をしたい、取ったら消したい
+	//2枚目以降の表示をしたい
 	for (int i = 0; i < 30; i++) {
 		Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
 		Image::Draw(hPict_[Mini_COIN]);
