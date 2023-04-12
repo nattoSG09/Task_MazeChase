@@ -2,7 +2,7 @@
 
 // コンストラクタ
 Transition::Transition(GameObject* parent)
-    : GameObject(parent, "Transition"), hPict_(0), Opacity_(0), Move_(0), Active_(false)
+    : GameObject(parent, "Transition"), hPict_(0), Opacity_(255), Move_(0), Active_(false)
 {
 }
 
@@ -40,12 +40,13 @@ void Transition::Release()
 // フェードインする関数 255->0にする
 void Transition::FadeIN()
 {
-    if (Opacity_ > 0)
-    {
+    if (Opacity_ > 0){
         Opacity_ -= 5;
     }
-    else
-    {
+    //else if (Opacity_ == 0){
+    //    Opacity_ = 255;
+    //}
+    else{
         Opacity_ = 0;
         Move_ = 0;
         Active_ = false;

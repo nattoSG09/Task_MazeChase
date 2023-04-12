@@ -22,6 +22,7 @@ void GameStart::Update()
 {
 	if (Input::IsKeyDown(DIK_SPACE)) {
 		SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
+		transition_->Start(FADE_OUT);
 		pSm->ChangeScene(SCENE_ID_PLAY);
 	}
 }
