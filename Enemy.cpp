@@ -74,6 +74,9 @@ void Enemy::Initialize()
 
 	//Playerを見失うまでの時間を初期化
 	CoolTime_ = 3 * FPS;
+
+	//WayPointの初期化
+	WayPoint = transform_.position_;
 }
 
 //更新
@@ -97,7 +100,7 @@ void Enemy::Update()
 	//Enemyの動作処理
 	{
 		//Player感知処理
-		#if 1
+		#if 0
 		{
 			// 敵キャラクターの向きを表すベクトルを取得する
 
@@ -160,7 +163,7 @@ void Enemy::Update()
 		#endif
 
 		//デバッグ用：flag_Find
-		#if 0
+		#if 1
 		{
 			if (Input::IsKeyDown(DIK_U)) {
 				flag_Find = false;
@@ -214,9 +217,138 @@ void Enemy::Release()
 {
 }
 
+// original function
+
+//２つの座標を比較する関数
+bool Enemy::isCloser(XMFLOAT3 A_, XMFLOAT3 B_, XMFLOAT3 T_)
+{
+	bool closest = false;
+	float disA = (abs(T_.x) + abs(T_.z)) - (abs(A_.x) + abs(A_.z));
+	float disB = (abs(T_.x) + abs(T_.z)) - abs(B_.x) + abs(B_.z);
+
+	if (disA < disB) {
+		closest = true;
+	}
+	return (closest);
+}
+
+//４つの座標を比較して、最も目的地に近い場所を返す関数
+XMFLOAT3 Enemy::FindShortestDistance(XMFLOAT3 a, XMFLOAT3 b, XMFLOAT3 c, XMFLOAT3 d, XMFLOAT3 Target)
+{
+	XMFLOAT3 closePos = a;
+	if (isCloser(b, closePos, Target)) {
+		closePos = b;
+	}
+	if (isCloser(c, closePos, Target)) {
+		closePos = c;
+	}
+	if (isCloser(d, closePos, Target)) {
+		closePos = d;
+	}
+
+	return (closePos);
+}
+
+//進行する目的地を決定する場所を返す関数
+XMFLOAT3 Enemy::DIJKSTRA(XMFLOAT3 NowPos_, XMFLOAT3 TargetPos_)
+{
+	XMFLOAT3 E, W, N, S;
+	//右 
+	E = { NowPos_.x + 2.0f,0,NowPos_.z };
+	//左 
+	W = { NowPos_.x - 2.0f,0,NowPos_.z };
+	//奥 
+	N = { NowPos_.x,0,NowPos_.z + 2.0f };
+	//手前 
+	S = { NowPos_.x,0,NowPos_.z - 2.0f };
+
+	XMFLOAT3 CclosePos = FindShortestDistance(E, W, N, S, TargetPos_);
+	return CclosePos;
+}
+
+//目的地に到着したらTrueを返す関数
+bool Enemy::isArrival(XMFLOAT3 NowPos_, XMFLOAT3 TargetPos_)
+{
+	bool Arr = false;
+	if (NowPos_.x == TargetPos_.x && NowPos_.z == TargetPos_.z) {
+		Arr = true;
+	}
+	return (Arr);
+}
+
 //Enemyの動作：追従
 void Enemy::FollowingMove()
 {
+	
+
+	//ダイクストラ法を用いた追従処理(失敗)
+	#if 1
+	{
+		//メモ
+		{	
+			//isArraival()関数による到着判断ができてないのかなー
+		}
+
+		//目的地を取得(playerの位置)
+		Player* p = (Player*)FindObject("Player");
+		F_TargetPos = p->GetPosition();
+
+		//経由地にたどりつくまで
+		if (!isArrival(transform_.position_, F_TargetPos)) {
+
+			//EnemyとWayPointの差を計算する
+			XMFLOAT3 deltaPosition = XMFLOAT3(
+				WayPoint.x - transform_.position_.x,
+				0,
+				WayPoint.z - transform_.position_.z
+			);
+
+			//Enemyの進行方向を計算する
+			XMVECTOR EnemyDir = XMVector3Normalize(XMLoadFloat3(&deltaPosition));
+
+			//Enemyの移動速度
+			float Speed = 0.05f;
+
+			//EnemyをWayPointに向かって移動させる
+			transform_.position_.x += (XMVectorGetX(EnemyDir) * Speed);
+			transform_.position_.y += (XMVectorGetY(EnemyDir) * Speed);
+			transform_.position_.z += (XMVectorGetZ(EnemyDir) * Speed);
+
+			//ベクトルの長さを求める
+			XMVECTOR vLength = XMVector3Length(EnemyDir);
+			float length = XMVectorGetX(vLength);
+
+			if (length != 0)
+			{
+				XMVECTOR vFront = { 0,0,1,0 };//奥向きのベクトル
+
+				XMVECTOR vDot = XMVector3Dot(vFront, EnemyDir);
+				//↑の二つのベクトルの内積を求める
+				float dot = XMVectorGetX(vDot);
+				float angle = acos(dot);//アークコサインで計算すると"狭い角度"のほうの角度を求める
+
+				XMVECTOR vCross = XMVector3Cross(vFront, EnemyDir);
+				//↑二つのベクトルの外積を求める
+				//外積のYが０より小さかったら
+				if (XMVectorGetY(vCross) < 0) {
+					//angleに -1 をかける
+					angle *= -1;
+				}
+
+				transform_.rotate_.y = XMConvertToDegrees(angle);
+			}
+		}
+		//たどり着いたら
+		else {
+			//TargetPosまでのWayPointを取得
+			XMFLOAT3 WayPoint = DIJKSTRA(transform_.position_, F_TargetPos);
+		}
+	}
+	#endif
+
+	//既存の追従処理(現在使用を中止) 23/04/12～
+	#if 0
+	{
 		//playerの位置を取得する
 		Player* p = (Player*)FindObject("Player");
 		F_TargetPosition_ = p->GetPosition();
@@ -262,6 +394,10 @@ void Enemy::FollowingMove()
 
 			transform_.rotate_.y = XMConvertToDegrees(angle);
 		}
+
+	}
+	#endif
+
 }
 
 //Enemyの動作：徘徊

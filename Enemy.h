@@ -23,6 +23,11 @@ private:
 	int	CoolTime_;		//見失う時間を格納
 	float FixedTime_;	//再ターゲットする時間を格納
 
+
+	//仮データ(ダイクストラ法を用いた処理の為、一時的に追加中)
+	XMFLOAT3 F_TargetPos;
+	XMFLOAT3 WayPoint;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -39,6 +44,20 @@ public:
 
 	//開放
 	void Release() override;
+
+	// original function ー－－－－－－－－－
+
+	//２つの座標を比較する関数
+	bool isCloser(XMFLOAT3 A_, XMFLOAT3 B_, XMFLOAT3 T_);
+
+	//４つの座標を比較して、最も目的地に近い場所を返す関数
+	XMFLOAT3 FindShortestDistance(XMFLOAT3 n, XMFLOAT3 s, XMFLOAT3 e, XMFLOAT3 w, XMFLOAT3 Target);
+
+	//進行する目的地を決定する場所を返す関数
+	XMFLOAT3 DIJKSTRA(XMFLOAT3 NowPos, XMFLOAT3 TargetPos);
+
+	//目的地に到着したらTrueを返す関数
+	bool isArrival(XMFLOAT3 NowPos_, XMFLOAT3 TargetPos_);
 
 	//Enemyの動作：追従
 	void FollowingMove();
