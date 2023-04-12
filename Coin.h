@@ -15,6 +15,8 @@ public:
 	//引数：parent  親オブジェクト（SceneManager）
 	Coin(GameObject* parent);
 
+	Coin();
+
 	//初期化
 	void Initialize() override;
 

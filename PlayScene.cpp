@@ -24,7 +24,7 @@ void PlayScene::Initialize()
 	
 	//Coin setting
 	for (int i = 0; i < 30; i++){
-		Instantiate<Coin>(this);
+		Global::CoinData[i] = Instantiate<Coin>(this);
 	}
 
 	//Cursor setting

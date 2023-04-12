@@ -1,4 +1,6 @@
+#include "Global.h"
 namespace Global
 {
-	int Coin;
+	int Score;
+	Coin CoinData[30];
 }

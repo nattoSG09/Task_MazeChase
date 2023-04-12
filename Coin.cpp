@@ -6,6 +6,8 @@ Coin::Coin(GameObject* parent)
 {
 }
 
+Coin::Coin(){}
+
 //‰Šú‰»
 void Coin::Initialize()
 {

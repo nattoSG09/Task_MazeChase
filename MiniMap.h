@@ -8,6 +8,7 @@ using std::vector;
 #include "Player.h"
 #include "Coin.h"
 #include "Enemy.h"
+#include "Global.h"
 
 enum {
 	Mini_FLOOR,

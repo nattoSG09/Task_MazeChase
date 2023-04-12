@@ -37,7 +37,7 @@ void GameClear::Draw()
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 	pCoin->Draw(270, 390, "SCORE : ");
-	pCoin->Draw(396, 390, Global::Coin);
+	pCoin->Draw(396, 390, Global::Score);
 
 }
 

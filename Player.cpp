@@ -261,6 +261,6 @@ void Player::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Coin") {
 		pTarget->KillMe();
 		GetCoin_++;
-		Global::Coin = GetCoin_;
+		Global::Score = GetCoin_;
 	}
 }

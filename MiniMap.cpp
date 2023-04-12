@@ -87,12 +87,21 @@ void MiniMap::Draw()
 	}
 
 	//coin情報の取得
+	#if 1
 		Coin* c = (Coin*)FindObject("Coin");
 		if (c != nullptr) {
-			Cpos.x = c->GetPosition().x;
-			Cpos.y = c->GetPosition().z;
-		}
+			for (int i = 0; i < 30; i++) {
+				Cpos.x = Global::CoinData[i].GetPosition().x;
+				Cpos.y = Global::CoinData[i].GetPosition().z;
 
+				CoinTrans.position_.x = ((Cpos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
+				CoinTrans.position_.y = ((Cpos.y - (3 - 0.2)) * 0.024f) + 0.2f;
+
+				Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
+				Image::Draw(hPict_[Mini_COIN]);
+			}
+		}
+	#endif
 	//enemy情報の取得
 	{
 		Enemy* e = (Enemy*)FindObject("Enemy");
@@ -123,8 +132,7 @@ void MiniMap::Draw()
 	PlayerTrans.position_.x = ((Ppos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
 	PlayerTrans.position_.y = ((Ppos.y - (3 - 0.2 )) * 0.024f ) + 0.2f;
 	
-	CoinTrans.position_.x = ((Cpos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
-	CoinTrans.position_.y = ((Cpos.y - (3 - 0.2)) * 0.024f) + 0.2f;
+	
 
 	EnemyTrans.position_.x = ((Epos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
 	EnemyTrans.position_.y = ((Epos.y - (3 - 0.2)) * 0.024f) + 0.2f;
@@ -137,8 +145,7 @@ void MiniMap::Draw()
 
 	//Coinを表示
 	//2枚目以降の表示をしたい
-	Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
-	Image::Draw(hPict_[Mini_COIN]);
+		
 	//ラスト1枚を消したい
 	#if 0
 	if (c == nullptr) {
