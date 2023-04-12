@@ -4,7 +4,7 @@
 #include "Engine/BoxCollider.h"
 #include "StageMap.h"
 
-//テストシーンを管理するクラス
+//コインを管理するクラス
 class Coin : public GameObject
 {
 private:
