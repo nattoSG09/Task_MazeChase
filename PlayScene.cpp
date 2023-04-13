@@ -4,7 +4,7 @@
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
-	: GameObject(parent, "PlayScene"),state_(0), Time_(nullptr),MiniMap_(nullptr),transition_(nullptr)
+	: GameObject(parent, "PlayScene"),state_(0), Time_(nullptr),MiniMap_(nullptr),transition_(nullptr),i(0)
 {
 }
 
@@ -65,6 +65,8 @@ void PlayScene::Update()
 	case STATE_PLAY:	UpdatePlay(); break;
 	case STATE_FINISH:	UpdateFinish(); break;
 	}
+
+	FixedTime_++;
 }
 
 //更新・準備
@@ -72,7 +74,26 @@ void PlayScene::UpdateReady()
 {
 	// フェードインを実行
 	transition_->Start(FADE_IN);
+	if (transition_->isOpacity(0)) {
+		if (nMinitues(1)) {
+			if (i == 0)
+			{
+				//1を表示
+			}
+			else if (i == 1)
+			{
+				//2を表示
+			}
+			else if (i == 3)
+			{
+				//3を表示
+			}
+		i++;
+		}
+		
+	}
 
+	if(nMinitues(3))
 	state_ = STATE_PLAY;
 
 }

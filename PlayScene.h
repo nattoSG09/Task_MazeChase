@@ -24,6 +24,8 @@ private:
 	Timer* Time_;
 	MiniMap* MiniMap_;
 	Transition* transition_;
+	int FixedTime_;
+	int i;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -49,4 +51,7 @@ public:
 
 	//開放
 	void Release() override;
+
+	bool nMinitues(int n) { return(((int)FixedTime_ / FPS) % n == 0); }
+
 };
