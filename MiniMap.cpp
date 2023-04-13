@@ -142,20 +142,6 @@ void MiniMap::Draw()
 	Image::SetTransform(hPict_[Mini_PLAYER], PlayerTrans);
 	Image::Draw(hPict_[Mini_PLAYER]);
 
-	
-		
-	//ラスト1枚を消したい
-	#if 0
-	if (c == nullptr) {
-		hPict_[Mini_COIN]->KillMe();
-	}
-	else {
-		Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
-		Image::Draw(hPict_[Mini_COIN]);
-	}
-	#endif
-
-
 	//Enemyを表示
 	//Enemy用の画像が欲しい
 	Image::SetTransform(hPict_[Mini_ENEMY], EnemyTrans);

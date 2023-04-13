@@ -27,6 +27,8 @@ void GameStart::Update()
 	}
 
 	if (Input::IsKeyDown(DIK_F)) {
+		//まだplayerの情報がないからnullになって読み取り違反が発生
+		//視点変更を別クラスで管理する必要あり？
 		Player* p = (Player*)FindObject("Player");
 		p->SetCamChange(1);
 	}
