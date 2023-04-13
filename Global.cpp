@@ -2,5 +2,5 @@
 namespace Global
 {
 	int Score;
-	Coin CoinData[30];
+	XMFLOAT3 CoinPos[30];
 }

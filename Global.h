@@ -5,6 +5,6 @@
 namespace Global
 {
 	extern int Score;
-	extern Coin CoinData[30];
+	extern XMFLOAT3 CoinPos[30];
 };
 

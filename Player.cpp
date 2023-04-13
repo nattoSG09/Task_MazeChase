@@ -169,6 +169,13 @@ void Player::CamSet_FIXED()
 	CamPosition_ = { 15,50,14};
 }
 
+//初期視点を決めるセッター
+void Player::SetCamChange(int SetCam_)
+{
+	CamType_ = SetCam_;
+}
+
+
 //壁とのあたり判定処理
 void Player::boundaryCheck()
 {

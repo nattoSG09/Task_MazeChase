@@ -73,4 +73,8 @@ public:
 
 	//視点を設定する関数：固定位置からの追従
 	void CamSet_FIXED();
+
+	//最初の視点を決めるセッター
+	//引数：SetCam_( TPS -> 0, FPS -> 1 )
+	void SetCamChange(int SetCam_);
 };

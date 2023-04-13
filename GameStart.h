@@ -3,13 +3,14 @@
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
-
+#include "Player.h"
 #include "Transition.h"
 
 class GameStart : public GameObject
 {
 private:
 	int hPict_;
+	int camChange_;
 	Transition* transition_;
 public:
 	//コンストラクタ

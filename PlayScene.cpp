@@ -23,8 +23,11 @@ void PlayScene::Initialize()
 	}
 	
 	//Coin setting
+	
 	for (int i = 0; i < 30; i++){
-		Global::CoinData[i] = Instantiate<Coin>(this);
+		Instantiate<Coin>(this);
+		Coin* c = (Coin*)FindObject("Coin");
+		Global::CoinPos[i] = c->GetPosition();
 	}
 
 	//Cursor setting

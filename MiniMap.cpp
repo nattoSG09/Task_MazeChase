@@ -91,12 +91,14 @@ void MiniMap::Draw()
 		Coin* c = (Coin*)FindObject("Coin");
 		if (c != nullptr) {
 			for (int i = 0; i < 30; i++) {
-				Cpos.x = Global::CoinData[i].GetPosition().x;
-				Cpos.y = Global::CoinData[i].GetPosition().z;
+				Cpos = Global::CoinPos[i];
+				//Cpos.y = Global::CoinPos.z[i];
 
 				CoinTrans.position_.x = ((Cpos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
 				CoinTrans.position_.y = ((Cpos.y - (3 - 0.2)) * 0.024f) + 0.2f;
 
+				//Coinを表示
+				//2枚目以降の表示をしたい
 				Image::SetTransform(hPict_[Mini_COIN], CoinTrans);
 				Image::Draw(hPict_[Mini_COIN]);
 			}
@@ -143,8 +145,7 @@ void MiniMap::Draw()
 	Image::SetTransform(hPict_[Mini_PLAYER], PlayerTrans);
 	Image::Draw(hPict_[Mini_PLAYER]);
 
-	//Coinを表示
-	//2枚目以降の表示をしたい
+	
 		
 	//ラスト1枚を消したい
 	#if 0

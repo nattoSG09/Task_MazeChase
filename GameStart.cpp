@@ -1,7 +1,7 @@
 #include "GameStart.h"
 //コンストラクタ
 GameStart::GameStart(GameObject* parent)
-	: GameObject(parent, "GameStart"), hPict_(-1),transition_(nullptr)
+	: GameObject(parent, "GameStart"), hPict_(-1),transition_(nullptr),camChange_(0)
 {
 }
 
@@ -25,6 +25,12 @@ void GameStart::Update()
 		transition_->Start(FADE_OUT);
 		pSm->ChangeScene(SCENE_ID_PLAY);
 	}
+
+	if (Input::IsKeyDown(DIK_F)) {
+		Player* p = (Player*)FindObject("Player");
+		p->SetCamChange(1);
+	}
+
 }
 
 //描画
