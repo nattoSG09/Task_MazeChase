@@ -70,7 +70,7 @@ public:
 //現在使用していませんーーーーーー
 
 	//画面上での表示場所を決める関数
-	void DrawPosition(int _posX,int _posY);
+	void DrawPosition(float _posX,float _posY);
 
 	//画面上での表示サイズを決める関数
 	void DrawSize(float _size);

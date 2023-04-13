@@ -37,7 +37,7 @@ void PlayScene::Initialize()
 	#if 1
 	{
 		MiniMap_ = Instantiate<MiniMap>(this);
-		MiniMap_->DrawPosition(0, 0);
+		MiniMap_->DrawPosition(0.8f, 0.0f);
 		MiniMap_->DrawSize(0.0125f);
 		MiniMap_->ChengeOpacity(255);
 	}

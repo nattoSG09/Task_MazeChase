@@ -117,9 +117,8 @@ void MiniMap::Draw()
 		{
 			for (Height_ = 0; Height_ < Height_Max; Height_++)//縦
 			{
-
-				MapTrans.position_.x = (Width_ * 0.025f) + MapSTDPosX;
-				MapTrans.position_.y = (Height_ * 0.048f) + MapSTDPosY;
+				MapTrans.position_.x = (Width_ * 0.025f) + (MapSTDPosX + (DrawX_ / 10)); 
+				MapTrans.position_.y = (Height_ * 0.048f) + (MapSTDPosY + (DrawY_ / 10));
 
 				//いま何行目か*どれくらい間隔開けるか - 初期値
 
@@ -131,13 +130,11 @@ void MiniMap::Draw()
 		}
 
 	//((Playerの位置-(3-位置))*加速度)±位置
-	PlayerTrans.position_.x = ((Ppos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
-	PlayerTrans.position_.y = ((Ppos.y - (3 - 0.2 )) * 0.024f ) + 0.2f;
-	
-	
+		PlayerTrans.position_.x = ((Ppos.x - (3 - 0.97)) * 0.0125f) - 0.97f + (DrawX_ / 10);
+		PlayerTrans.position_.y = ((Ppos.y - (3 - 0.2)) * 0.024f) + 0.2f + (DrawY_ / 10);
 
-	EnemyTrans.position_.x = ((Epos.x - (3 - 0.97)) * 0.0125f) - 0.97f;
-	EnemyTrans.position_.y = ((Epos.y - (3 - 0.2)) * 0.024f) + 0.2f;
+		EnemyTrans.position_.x = ((Epos.x - (3 - 0.97)) * 0.0125f) - 0.97f + (DrawX_ / 10);
+		EnemyTrans.position_.y = ((Epos.y - (3 - 0.2)) * 0.024f) + 0.2f + (DrawY_ / 10);
 
 	}
 	
@@ -171,9 +168,9 @@ void MiniMap::Release()
 }
 
 //画面上での表示場所を決める関数
-void MiniMap::DrawPosition(int _posX, int _posY)
+void MiniMap::DrawPosition(float _posX, float _posY)
 {
-	this->DrawX_ = _posX;
+	this->DrawX_ = _posX; 
 	this->DrawY_ = _posY;
 }
 
