@@ -183,7 +183,7 @@ void Enemy::Update()
 		}
 		else {
 			//Enemyの徘徊処理
-			WanderingMove();
+			//WanderingMove();
 			
 		}
 	}
@@ -270,7 +270,13 @@ XMFLOAT3 Enemy::DIJKSTRA(XMFLOAT3 NowPos_, XMFLOAT3 TargetPos_)
 bool Enemy::isArrival(XMFLOAT3 NowPos_, XMFLOAT3 TargetPos_)
 {
 	bool Arr = false;
-	if (NowPos_.x == TargetPos_.x && NowPos_.z == TargetPos_.z) {
+
+	int NowX = static_cast<int>(NowPos_.x);
+	int NowZ = static_cast<int>(NowPos_.z);
+	int TargetX = static_cast<int>(TargetPos_.x);
+	int TargetZ = static_cast<int>(TargetPos_.z);
+
+	if (NowX == TargetX && NowZ == TargetZ) {
 		Arr = true;
 	}
 	return (Arr);
@@ -279,8 +285,6 @@ bool Enemy::isArrival(XMFLOAT3 NowPos_, XMFLOAT3 TargetPos_)
 //Enemyの動作：追従
 void Enemy::FollowingMove()
 {
-	
-
 	//ダイクストラ法を用いた追従処理(失敗)
 	#if 1
 	{
@@ -294,7 +298,7 @@ void Enemy::FollowingMove()
 		F_TargetPos = p->GetPosition();
 
 		//経由地にたどりつくまで
-		if (!isArrival(transform_.position_, F_TargetPos)) {
+		if (!isArrival(transform_.position_, WayPoint)) {
 
 			//EnemyとWayPointの差を計算する
 			XMFLOAT3 deltaPosition = XMFLOAT3(
@@ -341,7 +345,7 @@ void Enemy::FollowingMove()
 		//たどり着いたら
 		else {
 			//TargetPosまでのWayPointを取得
-			XMFLOAT3 WayPoint = DIJKSTRA(transform_.position_, F_TargetPos);
+			WayPoint = DIJKSTRA(transform_.position_, F_TargetPos);
 		}
 	}
 	#endif

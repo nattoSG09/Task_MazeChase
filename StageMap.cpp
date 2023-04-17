@@ -6,7 +6,7 @@ StageMap::StageMap(GameObject* parent)
 {
 	//CSVデータのロード
 	{
-		CsvMap_.Load("M_Map1.csv");
+		CsvMap_.Load("M_Map2.csv");
 
 		Width = CsvMap_.GetWidth();
 		Height = CsvMap_.GetHeight();
