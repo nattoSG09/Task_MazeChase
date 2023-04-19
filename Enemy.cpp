@@ -286,7 +286,7 @@ bool Enemy::isArrival(XMFLOAT3 NowPos_, XMFLOAT3 TargetPos_)
 void Enemy::FollowingMove()
 {
 	//ダイクストラ法を用いた追従処理(失敗)
-	#if 1
+	#if 0
 	{
 		//メモ
 		{	
@@ -351,7 +351,7 @@ void Enemy::FollowingMove()
 	#endif
 
 	//既存の追従処理(現在使用を中止) 23/04/12～
-	#if 0
+	#if 1
 	{
 		//playerの位置を取得する
 		Player* p = (Player*)FindObject("Player");
