@@ -100,7 +100,7 @@ void Enemy::Update()
 	//Enemyの動作処理
 	{
 		//Player感知処理
-		#if 0
+		#if 1
 		{
 			// 敵キャラクターの向きを表すベクトルを取得する
 
@@ -183,7 +183,7 @@ void Enemy::Update()
 		}
 		else {
 			//Enemyの徘徊処理
-			//WanderingMove();
+			WanderingMove();
 			
 		}
 	}
