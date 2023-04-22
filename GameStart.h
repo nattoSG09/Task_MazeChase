@@ -9,9 +9,11 @@
 class GameStart : public GameObject
 {
 private:
+	bool isFadeNow;
 	int hPict_;
 	int camChange_;
 	Transition* transition_;
+	
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

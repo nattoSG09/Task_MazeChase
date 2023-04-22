@@ -6,8 +6,6 @@ Coin::Coin(GameObject* parent)
 {
 }
 
-Coin::Coin(){}
-
 //初期化
 void Coin::Initialize()
 {
@@ -19,14 +17,18 @@ void Coin::Initialize()
 	BoxCollider* collision = new BoxCollider(XMFLOAT3(0, 0, 0), XMFLOAT3(1, 1, 1));
 	AddCollider(collision);
 
+
 	//Scale_size
 	transform_.scale_ = { 0.5f,0.5f ,0.5f };
+
 
 	//rotate
 	transform_.rotate_.x = 90;
 
+
 	//stage情報の取得
 	pStageMap_ = (StageMap*)FindObject("StageMap");
+
 
 	//スポーン位置の設定
 	{
@@ -38,7 +40,6 @@ void Coin::Initialize()
 		{
 			float spawnX = 0.0f, spawnZ = 0.0f;
 			bool ok = true;
-
 
 			//spawnX = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;
 			//spawnZ = (float)(rand() % 16 + 0) * 2 - 1;//rand() %範囲+最小値;

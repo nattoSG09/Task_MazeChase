@@ -1,7 +1,7 @@
 #include "GameStart.h"
 //コンストラクタ
 GameStart::GameStart(GameObject* parent)
-	: GameObject(parent, "GameStart"), hPict_(-1),transition_(nullptr),camChange_(0)
+	: GameObject(parent, "GameStart"), hPict_(-1), transition_(nullptr), camChange_(0), isFadeNow(false)
 {
 }
 
@@ -20,19 +20,24 @@ void GameStart::Initialize()
 //更新
 void GameStart::Update()
 {
-	if (Input::IsKeyDown(DIK_SPACE)) {
-		SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
+	//フェードアウトしているかを判断
+	if (isFadeNow) {
 		transition_->Start(FADE_OUT);
-		pSm->ChangeScene(SCENE_ID_PLAY);
+
+		if (transition_->isOpacity(255)) {
+			SceneManager* pSm = (SceneManager*)FindObject("SceneManager");
+			pSm->ChangeScene(SCENE_ID_PLAY);
+		}
+	}
+	else {
+		if (Input::IsKeyDown(DIK_SPACE)) {
+			isFadeNow = true;
+		}
 	}
 
-	if (Input::IsKeyDown(DIK_F)) {
-		//まだplayerの情報がないからnullになって読み取り違反が発生
-		//視点変更を別クラスで管理する必要あり？
-		Player* p = (Player*)FindObject("Player");
-		p->SetCamChange(1);
-	}
-
+	
+		
+	
 }
 
 //描画
